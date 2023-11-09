@@ -13,6 +13,6 @@ import com.residuostoxicos.persistencia.dto.*;
 public interface IUsuario {
     
     List<DTOProductor> getAll();
-    void insert(PersonaDTO usuario);
+    //void insert(PersonaDTO usuario);
     
 }
