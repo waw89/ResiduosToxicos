@@ -10,7 +10,7 @@ import java.util.List;
 /**
  *
  */
-public class Transportista {
+public class Transportista extends Usuario {
 
     /**
      * Default constructor
@@ -23,10 +23,7 @@ public class Transportista {
      */
     private long id;
 
-    /**
-     *
-     */
-    private String nombre;
+
 
     /**
      *
@@ -45,8 +42,9 @@ public class Transportista {
     private List<Viaje> viajes = new ArrayList<>();
 
     public Transportista(long id, String nombre) {
+        super("Trasnsportista", nombre); 
         this.id = id;
-        this.nombre = nombre;
+        
     }
 
     public long getId() {
@@ -57,13 +55,7 @@ public class Transportista {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public SolicitudTraslado getSolicitud() {
         return solicitud;
@@ -100,7 +92,7 @@ public class Transportista {
 
     @Override
     public String toString() {
-        return "Transportista{" + "id=" + id + ", nombre=" + nombre + ", solicitud=" + solicitud + ", vehiculos=" + vehiculos + ", viajes=" + viajes.toString() + '}';
+        return "Transportista{" + "id=" + id +  ", solicitud=" + solicitud + ", vehiculos=" + vehiculos + ", viajes=" + viajes.toString() + '}';
     }
     
     

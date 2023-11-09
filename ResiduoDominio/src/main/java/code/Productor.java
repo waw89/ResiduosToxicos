@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 
  */
-public class Productor {
+public class Productor extends Usuario {
 
     /**
      * Default constructor
@@ -26,7 +26,7 @@ public class Productor {
     /**
      * 
      */
-    private String nombre;
+  
 
     /**
      * 
@@ -34,8 +34,9 @@ public class Productor {
     private List<SolicitudTraslado> solicitudes = new ArrayList<>();
 
     public Productor(long id, String nombre) {
+        super("Productor", nombre);
         this.id = id;
-        this.nombre = nombre;
+       
     }
 
     public long getId() {
@@ -46,21 +47,14 @@ public class Productor {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-    
+   
     public void agregaSolicitud(SolicitudTraslado solicitud){
         solicitudes.add(solicitud); 
     }
 
     @Override
     public String toString() {
-        return "Productor{" + "id=" + id + ", nombre=" + nombre + ", solicitudes=" + solicitudes + '}';
+        return "Productor{" + "id=" + id +", solicitudes=" + solicitudes + '}';
     }
     
 }
