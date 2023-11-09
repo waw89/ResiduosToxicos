@@ -4,6 +4,7 @@
  */
 package Main;
 
+import GUI.IniciarSesionFrm;
 import GUI.PantallaInicial;
 import GUI.RegistraResiduosFrm;
 import java.lang.Math; 
@@ -43,7 +44,7 @@ public class Main {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               new RegistraResiduosFrm().setVisible(true);
+               new IniciarSesionFrm().setVisible(true);
                
             }
         });
