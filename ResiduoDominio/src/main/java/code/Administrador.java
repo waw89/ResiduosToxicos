@@ -10,12 +10,12 @@ package code;
  */
 public class Administrador extends Usuario {
     private String nombre;
-
+    private long id; 
     public Administrador() {
     }
     
-     public Administrador(String nombre) {
-         super("Administrador", nombre); 
+     public Administrador(long id, String nombre,String usuario_correo, String passowrd_usuario) {
+        super("Trasnsportista", nombre, usuario_correo, passowrd_usuario ); 
     }
      
      

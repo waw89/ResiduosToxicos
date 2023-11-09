@@ -87,7 +87,7 @@ public class RegistrarTraslado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        new PantallaInicial().setVisible(true);
+        new PantallaInicialProductor().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 

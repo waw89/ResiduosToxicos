@@ -41,8 +41,8 @@ public class Transportista extends Usuario {
     
     private List<Viaje> viajes = new ArrayList<>();
 
-    public Transportista(long id, String nombre) {
-        super("Trasnsportista", nombre); 
+    public Transportista(long id, String nombre, String usuario_correo, String passowrd_usuario) {
+        super("Trasnsportista", nombre, usuario_correo, passowrd_usuario ); 
         this.id = id;
         
     }

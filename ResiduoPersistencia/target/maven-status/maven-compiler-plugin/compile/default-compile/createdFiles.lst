@@ -1,6 +1,0 @@
-com\residuostoxicos\persistencia\dao\IResiduoDAO.class
-com\residuostoxicos\persistencia\dao\ResiduoDAOImp.class
-com\residuostoxicos\persistencia\conexiondb\ConexionSQL.class
-com\itson\residuostoxicos\residuospersistencia\ResiduosPersistencia.class
-com\residuostoxicos\persistencia\dto\DTOResiduo.class
-com\itson\residuostoxicos\residuospersistencia\ConexionMongoDB.class

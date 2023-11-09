@@ -13,6 +13,9 @@ public class Usuario {
     /**
      * 
      */
+    private long id;
+
+ 
     private String tipo;
 
     /**
@@ -32,12 +35,15 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String tipo, String nombre) {
+    public Usuario( String tipo, String nombre, String usuario, String password) {
         this.tipo = tipo;
         this.nombre = nombre;
+        this.usuario = usuario;
+        this.password = password;
     }
 
-    public Usuario(String tipo, String nombre, String usuario, String password) {
+
+    public Usuario(long id, String tipo, String nombre, String usuario, String password) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.usuario = usuario;
@@ -75,7 +81,14 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+   public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
     @Override
     public String toString() {
         return "Usuario{" + "tipo=" + tipo + ", nombre=" + nombre + ", usuario=" + usuario + ", password=" + password + '}';

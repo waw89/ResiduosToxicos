@@ -2,11 +2,9 @@ code\Quimico.class
 code\Traslado.class
 code\TipoTraslado.class
 code\SolicitudTraslado.class
-code\Transportista.class
 code\Productor.class
-code\Ciudad.class
 code\Residuo.class
 code\Vehiculo.class
 code\Viaje.class
+code\Transportista.class
 code\EspecificacionQuimicos.class
-code\RegistroResiduo.class

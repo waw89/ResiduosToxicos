@@ -87,7 +87,7 @@ public class Solicitudes extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
        
-        PantallaInicial pi = new PantallaInicial();
+        PantallaInicialProductor pi = new PantallaInicialProductor();
         pi.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed

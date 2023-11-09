@@ -1,6 +1,10 @@
-C:\Users\PRIDE ANACONDA\Documents\NetBeansProjects\ResiduoPersistencia\src\main\java\com\residuostoxicos\persistencia\dao\ResiduoDAOImp.java
-C:\Users\PRIDE ANACONDA\Documents\NetBeansProjects\ResiduoPersistencia\src\main\java\com\residuostoxicos\persistencia\conexiondb\ConexionSQL.java
-C:\Users\PRIDE ANACONDA\Documents\NetBeansProjects\ResiduoPersistencia\src\main\java\com\itson\residuostoxicos\residuospersistencia\ConexionMongoDB.java
-C:\Users\PRIDE ANACONDA\Documents\NetBeansProjects\ResiduoPersistencia\src\main\java\com\itson\residuostoxicos\residuospersistencia\ResiduosPersistencia.java
-C:\Users\PRIDE ANACONDA\Documents\NetBeansProjects\ResiduoPersistencia\src\main\java\com\residuostoxicos\persistencia\dao\IResiduoDAO.java
-C:\Users\PRIDE ANACONDA\Documents\NetBeansProjects\ResiduoPersistencia\src\main\java\com\residuostoxicos\persistencia\dto\DTOResiduo.java
+C:\Users\PRIDE ANACONDA\Documents\NetBeansProjects\ResiduosToxicos\ResiduoPersistencia\src\main\java\com\dto\DTOProductor.java
+C:\Users\PRIDE ANACONDA\Documents\NetBeansProjects\ResiduosToxicos\ResiduoPersistencia\src\main\java\com\dao\IUsuarioDAO.java
+C:\Users\PRIDE ANACONDA\Documents\NetBeansProjects\ResiduosToxicos\ResiduoPersistencia\src\main\java\com\mongo\ResiduosPersistencia.java
+C:\Users\PRIDE ANACONDA\Documents\NetBeansProjects\ResiduosToxicos\ResiduoPersistencia\src\main\java\com\mysql\ConexionSQL.java
+C:\Users\PRIDE ANACONDA\Documents\NetBeansProjects\ResiduosToxicos\ResiduoPersistencia\src\main\java\com\dto\DTOResiduo.java
+C:\Users\PRIDE ANACONDA\Documents\NetBeansProjects\ResiduosToxicos\ResiduoPersistencia\src\main\java\com\mongo\ConexionMongoDB.java
+C:\Users\PRIDE ANACONDA\Documents\NetBeansProjects\ResiduosToxicos\ResiduoPersistencia\src\main\java\com\dao\IResiduoDAO.java
+C:\Users\PRIDE ANACONDA\Documents\NetBeansProjects\ResiduosToxicos\ResiduoPersistencia\src\main\java\com\dao\ResiduoDAOImp.java
+C:\Users\PRIDE ANACONDA\Documents\NetBeansProjects\ResiduosToxicos\ResiduoPersistencia\src\main\java\com\dto\DTOUsuario.java
+C:\Users\PRIDE ANACONDA\Documents\NetBeansProjects\ResiduosToxicos\ResiduoPersistencia\src\main\java\com\dao\UsuarioDAOImp.java

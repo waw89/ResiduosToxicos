@@ -4,12 +4,17 @@
  */
 package GUI;
 
+import code.Usuario;
+import com.validaciones.UsuarioNegocio;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author xfs85
  */
 public class IniciarSesionFrm extends javax.swing.JFrame {
-
+    UsuarioNegocio usuarioNeg = new UsuarioNegocio();
+    
     /**
      * Creates new form IniciarSesionFrm
      */
@@ -55,11 +60,11 @@ public class IniciarSesionFrm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, Short.MAX_VALUE)
         );
 
         pack();
@@ -68,6 +73,23 @@ public class IniciarSesionFrm extends javax.swing.JFrame {
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
+          
+            if(usuarioNeg.confirmaCredenciales(this.txtUsuario.getText(), this.txtContrasena.getText())!=null){
+                JOptionPane.showMessageDialog(null, "Validacion correcta");
+                 Usuario usuario = usuarioNeg.confirmaCredenciales(this.txtUsuario.getText(), this.txtContrasena.getText()); 
+                 if(usuario.getTipo().equalsIgnoreCase("Productor")){
+                          this.dispose();
+                     new PantallaInicialProductor().setVisible(true);
+                 }else if(usuario.getTipo().equalsIgnoreCase("Administrador")){
+                        this.dispose();
+                     new PantallaInicialAdmin().setVisible(true);
+                 }else if (usuario.getTipo().equalsIgnoreCase("Transportista")){
+                     this.dispose();
+                     new PantallaInicialTransportista().setVisible(true);
+                 }
+            }else{
+                JOptionPane.showMessageDialog(null, "Error en validación");
+            }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**

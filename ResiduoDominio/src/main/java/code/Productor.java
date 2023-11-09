@@ -12,16 +12,11 @@ import java.util.List;
  */
 public class Productor extends Usuario {
 
-    /**
-     * Default constructor
-     */
-    public Productor() {
-    }
 
     /**
      * 
      */
-    private long id;
+    private long idProductor;
 
     /**
      * 
@@ -32,19 +27,25 @@ public class Productor extends Usuario {
      * 
      */
     private List<SolicitudTraslado> solicitudes = new ArrayList<>();
+    
+    /**
+     * Default constructor
+     */
+    public Productor() {
+    }
 
-    public Productor(long id, String nombre) {
-        super("Productor", nombre);
-        this.id = id;
+    public Productor(long idProductor, String tipo, String nombre, String usuario, String password) {
+        super(tipo, nombre, usuario, password);
+        this.idProductor = idProductor;
        
     }
 
-    public long getId() {
-        return id;
+    public long getIdProductor() {
+        return idProductor;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.idProductor = id;
     }
 
    
@@ -54,7 +55,7 @@ public class Productor extends Usuario {
 
     @Override
     public String toString() {
-        return "Productor{" + "id=" + id +", solicitudes=" + solicitudes + '}';
+        return "Productor{" + "id=" + idProductor +", solicitudes=" + solicitudes + '}';
     }
     
 }
