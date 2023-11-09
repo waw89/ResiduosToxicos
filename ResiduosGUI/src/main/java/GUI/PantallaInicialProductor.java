@@ -27,122 +27,37 @@ public class PantallaInicialProductor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnRegistrarResiduo = new javax.swing.JButton();
-        btnRegistrarTraslado = new javax.swing.JButton();
-        btnSolTrasladoResiduos = new javax.swing.JButton();
-        btnAsigTrasladosEmpresas = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
-        jLabel1.setText("Sistema de Residuos Toxicos");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 32, -1, -1));
-
-        btnRegistrarResiduo.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        btnRegistrarResiduo.setText("Registrar Residuo");
-        btnRegistrarResiduo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnRegistrarResiduo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarResiduoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnRegistrarResiduo, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 98, 230, 47));
-
-        btnRegistrarTraslado.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        btnRegistrarTraslado.setText("Registrar Traslado");
-        btnRegistrarTraslado.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnRegistrarTraslado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarTrasladoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnRegistrarTraslado, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 224, 47));
-
-        btnSolTrasladoResiduos.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        btnSolTrasladoResiduos.setText("Solicitar Traslado de Residuo");
-        btnSolTrasladoResiduos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnSolTrasladoResiduos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSolTrasladoResiduosActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnSolTrasladoResiduos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 220, 40));
-
-        btnAsigTrasladosEmpresas.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        btnAsigTrasladosEmpresas.setText("Asignar Traslado de Empresas");
-        btnAsigTrasladosEmpresas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnAsigTrasladosEmpresas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAsigTrasladosEmpresasActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnAsigTrasladosEmpresas, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 224, 50));
-
-        btnSalir.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 415, 82, -1));
-
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 440));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Productor - Residuos Tóxicos.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 720, 480));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegistrarResiduoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarResiduoActionPerformed
-        new RegistraResiduos().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnRegistrarResiduoActionPerformed
-
-    private void btnRegistrarTrasladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTrasladoActionPerformed
-        new RegistrarTraslado().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnRegistrarTrasladoActionPerformed
-
-    private void btnSolTrasladoResiduosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolTrasladoResiduosActionPerformed
-        new SolicitarTraslados().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnSolTrasladoResiduosActionPerformed
-
-    private void btnAsigTrasladosEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsigTrasladosEmpresasActionPerformed
-        new Solicitudes().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnAsigTrasladosEmpresasActionPerformed
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_btnSalirActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAsigTrasladosEmpresas;
-    private javax.swing.JButton btnRegistrarResiduo;
-    private javax.swing.JButton btnRegistrarTraslado;
-    private javax.swing.JButton btnSalir;
-    private javax.swing.JButton btnSolTrasladoResiduos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
