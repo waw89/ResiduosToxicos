@@ -6,7 +6,7 @@ package Main;
 
 import GUI.PantallaInicial;
 import GUI.RegistraResiduosFrm;
-
+import java.lang.Math; 
 /**
  *
  * @author PC
