@@ -15,6 +15,7 @@ import com.utilerias.Util;
  * @author PRIDE ANACONDA
  */
 public class UsuarioNegocio {
+    
     IUsuarioDAO interfaceUsuario = new UsuarioDAOImp(); 
     Util utilUsario = new Util();
 
@@ -26,7 +27,7 @@ public class UsuarioNegocio {
     }
     public Usuario confirmaCredenciales(String usuario, String password){
         
-            
+           
             if (interfaceUsuario.consultaCredenciales(usuario, password)!=null){
                  return utilUsario.ConvertirDTOUsuarioAUsuario(interfaceUsuario.consultaCredenciales(usuario, password)); 
             }else{

@@ -13,11 +13,6 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongodb-driver-sync</artifactId>
-            <version>4.5.0</version> <!-- Asegúrate de usar la versión más reciente -->
-        </dependency>
-        <dependency>
             <groupId>com.mycompany.residuonegocio</groupId>
             <artifactId>ResiduoDominio</artifactId>
             <version>1.0-SNAPSHOT</version>
