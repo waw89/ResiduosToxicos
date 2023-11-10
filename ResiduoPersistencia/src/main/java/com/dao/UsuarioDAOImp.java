@@ -16,6 +16,7 @@ import java.sql.Statement;
  *
  * @author PRIDE ANACONDA
  */
+
 public class UsuarioDAOImp implements IUsuarioDAO {
 
     ConexionSQL conexionSQL = new ConexionSQL();
