@@ -78,13 +78,13 @@ public class IniciarSesionFrm extends javax.swing.JFrame {
                  Usuario usuario = usuarioNeg.confirmaCredenciales(this.txtUsuario.getText(), this.txtContrasena.getText()); 
                  if(usuario.getTipo().equalsIgnoreCase("Productor")){
                           this.dispose();
-                     new PantallaInicialProductor().setVisible(true);
+                     new PantallaInicial(usuario).setVisible(true);
                  }else if(usuario.getTipo().equalsIgnoreCase("Administrador")){
                         this.dispose();
-                     new PantallaInicialAdmin().setVisible(true);
+                     new PantallaInicial(usuario).setVisible(true);
                  }else if (usuario.getTipo().equalsIgnoreCase("Transportista")){
                      this.dispose();
-                     new PantallaInicialTransportista().setVisible(true);
+                     new PantallaInicial(usuario).setVisible(true);
                  }
             }else{
                 JOptionPane.showMessageDialog(null, "Error en validación");
