@@ -4,7 +4,10 @@ com\dao\UsuarioDAOImp.class
 com\mysql\ConexionSQL.class
 com\dao\IUsuarioDAO.class
 com\dto\DTOProductor.class
+<<<<<<< HEAD
 com\mongo\ConexionMongoDB.class
 com\mongo\ResiduosPersistencia.class
+=======
+>>>>>>> 5274ded7da41242b11d9bd56196b7153c12d1f87
 com\dao\ResiduoDAOImp.class
 com\dto\DTOResiduo.class
