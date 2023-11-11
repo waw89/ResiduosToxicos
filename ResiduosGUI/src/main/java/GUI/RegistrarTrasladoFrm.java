@@ -8,12 +8,12 @@ package GUI;
  *
  * @author xfs85
  */
-public class RegistraResiduosFrm extends javax.swing.JFrame {
+public class RegistrarTrasladoFrm extends javax.swing.JFrame {
 
     /**
-     * Creates new form RegistraResiduosFrm
+     * Creates new form RegistrarTraslado
      */
-    public RegistraResiduosFrm() {
+    public RegistrarTrasladoFrm() {
         initComponents();
     }
 
@@ -27,32 +27,16 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtCodigo = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
-        btnRegistrar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        agregarQuimico = new javax.swing.JButton();
-        eliminarQuimico = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 330, 40));
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 330, 40));
 
-        btnRegistrar.setContentAreaFilled(false);
-        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 150, 30));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Registrar Residuo - Residuos Tóxicos.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 720, 480));
-
-        agregarQuimico.setContentAreaFilled(false);
-        jPanel1.add(agregarQuimico, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 153, 80, 30));
-
-        eliminarQuimico.setText("jButton1");
-        eliminarQuimico.setContentAreaFilled(false);
-        jPanel1.add(eliminarQuimico, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 330, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Registrar Traslado - Residuos Tóxicos.png"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 480));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,12 +56,7 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton agregarQuimico;
-    private javax.swing.JButton btnRegistrar;
-    private javax.swing.JButton eliminarQuimico;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

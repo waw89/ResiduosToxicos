@@ -1,0 +1,10 @@
+com\dto\DTOUsuario.class
+com\dao\IResiduoDAO.class
+com\dao\UsuarioDAOImp.class
+com\mysql\ConexionSQL.class
+com\dao\IUsuarioDAO.class
+com\dto\DTOProductor.class
+com\mongo\ConexionMongoDB.class
+com\mongo\ResiduosPersistencia.class
+com\dao\ResiduoDAOImp.class
+com\dto\DTOResiduo.class

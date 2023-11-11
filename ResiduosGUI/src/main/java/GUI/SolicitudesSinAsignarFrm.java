@@ -4,16 +4,18 @@
  */
 package GUI;
 
+import javax.swing.JOptionPane;
+
 /**
  *
- * @author PRIDE ANACONDA
+ * @author xfs85
  */
-public class PantallaInicialTransportista extends javax.swing.JFrame {
+public class SolicitudesSinAsignarFrm extends javax.swing.JFrame {
 
     /**
-     * Creates new form PantallaInicialTransportista
+     * Creates new form AsignarEmpresa
      */
-    public PantallaInicialTransportista() {
+    public SolicitudesSinAsignarFrm() {
         initComponents();
     }
 
@@ -27,24 +29,15 @@ public class PantallaInicialTransportista extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        btnRegistrarTras = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnRegistrarTras.setContentAreaFilled(false);
-        btnRegistrarTras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarTrasActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnRegistrarTras, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 200, 40));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Empresas- Residuos Tóxicos.png"))); // NOI18N
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Ver solicitudes no asignadas - Residuos Tóxicos.png"))); // NOI18N
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 720, 490));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -61,16 +54,10 @@ public class PantallaInicialTransportista extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegistrarTrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTrasActionPerformed
-       new SolicitudesAsignadasFrm().setVisible(true);
-       this.dispose();
-    }//GEN-LAST:event_btnRegistrarTrasActionPerformed
-
-   
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegistrarTras;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

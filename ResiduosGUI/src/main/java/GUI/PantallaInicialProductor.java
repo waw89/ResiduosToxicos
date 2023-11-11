@@ -29,6 +29,8 @@ public class PantallaInicialProductor extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        selectRegistrarRes = new javax.swing.JButton();
+        btnSolicitaTras = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -37,6 +39,22 @@ public class PantallaInicialProductor extends javax.swing.JFrame {
         setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        selectRegistrarRes.setContentAreaFilled(false);
+        selectRegistrarRes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectRegistrarResActionPerformed(evt);
+            }
+        });
+        jPanel1.add(selectRegistrarRes, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 183, 200, 50));
+
+        btnSolicitaTras.setContentAreaFilled(false);
+        btnSolicitaTras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSolicitaTrasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSolicitaTras, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 270, 200, 50));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Productor - Residuos Tóxicos.png"))); // NOI18N
@@ -57,9 +75,21 @@ public class PantallaInicialProductor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void selectRegistrarResActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectRegistrarResActionPerformed
+       new RegistraResiduosFrm().setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_selectRegistrarResActionPerformed
+
+    private void btnSolicitaTrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitaTrasActionPerformed
+       new SolicitarTrasladosFrm().setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_btnSolicitaTrasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSolicitaTras;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton selectRegistrarRes;
     // End of variables declaration//GEN-END:variables
 }
