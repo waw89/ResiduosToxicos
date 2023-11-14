@@ -24,6 +24,7 @@ public class PantallaInicial extends javax.swing.JFrame {
     private javax.swing.JPanel panel;
     
 
+   
     public PantallaInicial(Usuario usuario) {
         initComponents();
         panel = new javax.swing.JPanel();
@@ -101,7 +102,8 @@ public class PantallaInicial extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     private void btnRegistraResActionPerformed(java.awt.event.ActionEvent evt) {
-        new RegistraResiduosFrm().setVisible(true);
+        Usuario usuario = new Usuario();
+        new RegistraResiduosFrm(usuario).setVisible(true);
         this.dispose();
     }
 

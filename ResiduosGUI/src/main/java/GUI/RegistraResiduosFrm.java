@@ -4,36 +4,46 @@
  */
 package GUI;
 
+import code.Usuario;
+import com.validaciones.UsuarioNegocio;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
  * @author xfs85
  */
 public class RegistraResiduosFrm extends javax.swing.JFrame {
-
+        
     /**
      * Creates new form RegistraResiduosFrm
      */
     DefaultListModel<String> modelDisponibles = new DefaultListModel<>();
     DefaultListModel<String> modelSeleccionados = new DefaultListModel<>();
 
-    public RegistraResiduosFrm() {
+    public RegistraResiduosFrm(Usuario usuario) {
         initComponents();
         quimicosDisponiblesList.setModel(modelDisponibles);
         quimicosReservadosList.setModel(modelSeleccionados);
         inicializaLista();
+        this.setTitle("Registrar Residuos");
     }
-
+    
+    
     public void inicializaLista() {
 
         modelDisponibles.addElement("Cloro");
         modelDisponibles.addElement("Cianuro");
         modelDisponibles.addElement("Plomo");
         modelDisponibles.addElement("Amoniaco");
+        
+        
     }
+    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,7 +55,8 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        btnVolver = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
         quimicosReservadosList = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         quimicosDisponiblesList = new javax.swing.JList<>();
@@ -55,23 +66,30 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         eliminarBtn = new javax.swing.JButton();
         agregarBtn = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        quimicosDisponiblesList1 = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        quimicosReservadosList.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnVolver.setContentAreaFilled(false);
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 13, 40, 30));
+
+        jScrollPane5.setBorder(null);
+
         quimicosReservadosList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(quimicosReservadosList);
+        jScrollPane5.setViewportView(quimicosReservadosList);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 180, 130));
+        jPanel1.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 170, 130));
 
         jScrollPane2.setBorder(null);
 
@@ -83,10 +101,17 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         jScrollPane2.setViewportView(quimicosDisponiblesList);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 170, 130));
-        jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 330, 40));
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 330, 40));
+
+        txtCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 340, 50));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 340, 50));
 
         btnRegistrar.setContentAreaFilled(false);
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 150, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Registrar Residuo - Residuos Tóxicos.png"))); // NOI18N
@@ -107,17 +132,6 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(agregarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 152, 90, 30));
-
-        jScrollPane3.setBorder(null);
-
-        quimicosDisponiblesList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(quimicosDisponiblesList1);
-
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 170, 130));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -157,6 +171,21 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
             mostrarMensaje("No seleccionó ningun quimico", "Error", "Error al Eliminar");
         }
     }//GEN-LAST:event_eliminarBtnActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        JOptionPane.showMessageDialog(null, "Registro Exitoso");
+        Usuario usuario = new Usuario();
+        usuario.setTipo("Productor");
+        new PantallaInicial(usuario).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+     Usuario usuario = new Usuario();
+        usuario.setTipo("Productor");
+        new PantallaInicial(usuario).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
     public void eliminaDeListaDisponibles() {
         modelDisponibles.removeElementAt(quimicosDisponiblesList.getSelectedIndex());
     }
@@ -187,51 +216,18 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarBtn;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JButton eliminarBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JList<String> quimicosDisponiblesList;
-    private javax.swing.JList<String> quimicosDisponiblesList1;
     private javax.swing.JList<String> quimicosReservadosList;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PantallaInicialProductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PantallaInicialProductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PantallaInicialProductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PantallaInicialProductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegistraResiduosFrm().setVisible(true);
-
-            }
-        });
-    }
 
 }
