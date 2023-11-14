@@ -1,13 +1,8 @@
 com\entitycontrollers\exceptions\PreexistingEntityException.class
 com\dao\IResiduoDAO.class
-com\dao\UsuarioDAOImp.class
-com\dto\DTOProductor.class
-com\dto\DTOResiduo.class
 com\entitycontrollers\exceptions\IllegalOrphanException.class
-com\dto\DTOUsuario.class
 com\entitycontrollers\ControladorPersistencia.class
 com\entitycontrollers\ResiduoJpaController.class
 com\entitycontrollers\exceptions\NonexistentEntityException.class
-com\mysql\ConexionSQL.class
 com\dao\IUsuarioDAO.class
 com\dao\ResiduoDAOImp.class

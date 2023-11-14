@@ -6,8 +6,10 @@ code\Productor.class
 code\Residuo.class
 code\Vehiculo.class
 code\Residuo_.class
-code\Viaje.class
 code\Usuario.class
+code\Traslado_.class
+code\Quimico_.class
 code\Transportista.class
+code\Transportista_.class
 code\Administrador.class
 code\EspecificacionQuimicos.class
