@@ -4,52 +4,72 @@
  */
 package code;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * 
  */
-public class Vehiculo {
+@Entity
+@Table (name = "Vehiculo")
+public class Vehiculo implements Serializable {
+
+    /**
+     * 
+     */
+    @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    @Column (name = "Id_Vehiculo")
+    private long id;
+    
+    /**
+     * 
+     */
+    @Basic
+    @Column (name = "Tipo")
+    private String tipo;
+    
+    @Basic
+    @Column (name = "Marca")
+    private String marca;
+    
+    @Basic
+    @Column (name = "Modelo")
+    private int modelo;
+    
+    @Basic
+    @Column (name = "Linea")
+    private String linea;
+    /**
+     * 
+     */
+    @ManyToOne
+    @JoinColumn (name = "IdTransportista")
+    private Transportista trans;
 
     /**
      * Default constructor
      */
     public Vehiculo() {
     }
-
-    /**
-     * 
-     */
-    private long id;
     
-    /**
-     * 
-     */
-    private String tipo;
-    
-    private String marca;
-    
-    private int modelo;
-    
-    private String linea;
-    /**
-     * 
-     */
-    private Transportista empresa;
-
-    /**
-     * 
-     */
-    private Traslado traslado;
-
-    public Vehiculo(long id, String tipo, String marca, int modelo, String linea, Transportista empresa) {
+    public Vehiculo(long id, String tipo, String marca, int modelo, String linea, Transportista trans) {
         this.id = id;
         this.tipo = tipo;
         this.marca = marca;
         this.modelo = modelo;
         this.linea = linea;
-        this.empresa = empresa;
+        this.trans = trans;
     }
 
     public long getId() {
@@ -92,28 +112,12 @@ public class Vehiculo {
         this.linea = linea;
     }
 
-    public Transportista getEmpresa() {
-        return empresa;
+    public Transportista getTrans() {
+        return trans;
     }
 
-    public void setEmpresa(Transportista empresa) {
-        this.empresa = empresa;
+    public void setTrans(Transportista trans) {
+        this.trans = trans;
     }
 
-    public Traslado getTraslado() {
-        return traslado;
-    }
-
-    public void setTraslado(Traslado traslado) {
-        this.traslado = traslado;
-    }
-    
-    
-
-    @Override
-    public String toString() {
-        return "Vehiculo{" + "id=" + id + ", tipo=" + tipo + ", marca=" + marca + ", modelo=" + modelo + ", linea=" + linea + '}';
-    }
-    
-    
 }

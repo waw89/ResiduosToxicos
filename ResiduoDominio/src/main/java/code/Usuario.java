@@ -1,40 +1,63 @@
 package code;
+import java.io.Serializable;
 import java.util.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
 /**
  * 
  */
-public class Usuario {
 
-    /**
-     * Default constructor
-     */
+@Entity
+@Inheritance (strategy = InheritanceType.JOINED)
+@DiscriminatorColumn (name = "Tipo")
+@Table (name = "Usuario")
+public class Usuario implements Serializable {
 
     /**
      * 
      */
+    @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    @Column (name = "id_Usuario")
     private long id;
 
- 
+    @Basic
+    @Column (name = "Tipo")
     private String tipo;
 
     /**
      * 
      */
+    @Basic
+    @Column (name = "Nombre")
     private String nombre;
 
     /**
      * 
      */
+    @Basic
+    @Column (name = "nomUsuario")
     private String usuario;
 
     /**
      * 
      */
+    @Basic
+    @Column (name = "Contraseña")
     private String password;
+    
     public Usuario() {
     }
-
+    
     public Usuario( String tipo, String nombre, String usuario, String password) {
         this.tipo = tipo;
         this.nombre = nombre;

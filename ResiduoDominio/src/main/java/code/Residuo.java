@@ -17,21 +17,15 @@ import javax.persistence.Table;
 /**
  * 
  */
-@Entity(name="residuo")
-@Table(name="RESIDUO")
+@Entity
+@Table(name="Residuo")
 public class Residuo implements Serializable {
-
-    /**
-     * Default constructor
-     */
-    public Residuo() {
-    }
-
     /**
      * 
      */
     @Id 
     @GeneratedValue(strategy =GenerationType.AUTO)
+    @Column (name = "Id_Residuo")
     private long id;
 
     /**
@@ -49,18 +43,17 @@ public class Residuo implements Serializable {
     private String nombre;
 
     /**
-     * 
+     * Default constructor
      */
-//    
-//    private List<Quimico> quimicos;
-
-    public Residuo(String codigo, String nombre) {
+    public Residuo() {
+    }
+    
+    public Residuo(long id, String codigo, String nombre) {
         this.id = id;
         this.codigo = codigo;
         this.nombre = nombre;
-//        this.quimicos = quimicos;
     }
-
+    
     public long getId() {
         return id;
     }

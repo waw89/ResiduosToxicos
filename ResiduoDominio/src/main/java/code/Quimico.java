@@ -20,13 +20,11 @@ import javax.persistence.Table;
 @Table (name="quimico")
 public class Quimico implements Serializable {
 
-
-
     /**
      * 
      */
-     @Id
-     @GeneratedValue (strategy =GenerationType.AUTO)
+    @Id
+    @GeneratedValue (strategy =GenerationType.AUTO)
     private long id;
 
     /**
@@ -38,6 +36,7 @@ public class Quimico implements Serializable {
     /**
      * Default constructor
      */
+    
     public Quimico() {
         
     }
@@ -60,11 +59,5 @@ public class Quimico implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    @Override
-    public String toString() {
-        return "Quimico{" + "id=" + id + ", nombre=" + nombre + '}';
-    }
-        
+    }        
 }

@@ -4,14 +4,30 @@
  */
 package code;
 
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
 /**
  *
  * @author PRIDE ANACONDA
  */
-public class Administrador extends Usuario {
-    private String nombre;
-    private long id; 
+@Entity
+@PrimaryKeyJoinColumn (name = "IdAdministrador")
+@DiscriminatorValue (value = "Administrador")
+@Table (name = "Administrador")
+public class Administrador extends Usuario implements Serializable {
+
     public Administrador() {
+    
+    }
+    
+    public Administrador(String tipo, String nombre, String usuario, String password){
+        super(tipo, nombre, usuario, password);
     }
     
      public Administrador(long id, String nombre,String usuario_correo, String passowrd_usuario) {

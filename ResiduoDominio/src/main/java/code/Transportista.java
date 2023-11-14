@@ -4,85 +4,74 @@
  */
 package code;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
  *
  */
 @Entity
+@PrimaryKeyJoinColumn (name = "IdTransportista")
+@DiscriminatorValue (value = "Transportista")
 @Table(name = "Transportista")
-public class Transportista extends Usuario {
+public class Transportista extends Usuario implements Serializable{
+
+    /**
+     *
+     */
+    @OneToMany (mappedBy = "trans", cascade = CascadeType.ALL)
+    private List<SolicitudTraslado> listaSolicitudes;
+
+    /**
+     *
+     */
+    
+    @OneToMany (mappedBy = "trans", cascade = CascadeType.ALL)
+    private List<Vehiculo> listaVehiculos;
 
     /**
      * Default constructor
      */
     public Transportista() {
     }
-
+    
     /**
      *
+     * 
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    /**
-     *
-     */
-  
-    private SolicitudTraslado solicitud;
-
-    /**
-     *
-     */
-    private List<Vehiculo> vehiculos = new ArrayList<>();
-
-    /**
-     *
-     */
-    public Transportista(long id, String nombre, String usuario_correo, String passowrd_usuario) {
-        super("Trasnsportista", nombre, usuario_correo, passowrd_usuario);
-        this.id = id;
+    public Transportista(String tipo, String nombre, String usuario, String password) {
+        super(tipo, nombre, usuario, password);
 
     }
 
-    public long getId() {
-        return id;
+    public List<SolicitudTraslado> getListaSolicitudes() {
+        return listaSolicitudes;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setListaSolicitudes(List<SolicitudTraslado> listaSolicitudes) {
+        this.listaSolicitudes = listaSolicitudes;
     }
 
-    public SolicitudTraslado getSolicitud() {
-        return solicitud;
+    public List<Vehiculo> getListaVehiculos() {
+        return listaVehiculos;
     }
 
-    public void setSolicitud(SolicitudTraslado solicitud) {
-        this.solicitud = solicitud;
-    }
-
-    public List<Vehiculo> getVehiculos() {
-        return vehiculos;
-    }
-
-    public void setVehiculos(List<Vehiculo> vehiculos) {
-        this.vehiculos = vehiculos;
+    public void setListaVehiculos(List<Vehiculo> listaVehiculos) {
+        this.listaVehiculos = listaVehiculos;
     }
 
     public void agregaVehiculo(Vehiculo vehiculo) {
-        vehiculos.add(vehiculo);
-    }
-
-    @Override
-    public String toString() {
-        return "Transportista{" + "id=" + id + ", solicitud=" + solicitud + ", vehiculos=" + vehiculos + '}';
+        listaVehiculos.add(vehiculo);
     }
 
 }

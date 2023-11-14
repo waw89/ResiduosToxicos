@@ -4,29 +4,28 @@
  */
 package code;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 /**
  * 
  */
-public class Productor extends Usuario {
-
-
+@Entity
+@PrimaryKeyJoinColumn (name = "IdProductor")
+@DiscriminatorValue (value = "Productor")
+@Table (name = "Productor")
+public class Productor extends Usuario implements Serializable{
     /**
      * 
      */
-    private long idProductor;
-
-    /**
-     * 
-     */
-  
-
-    /**
-     * 
-     */
-    private List<SolicitudTraslado> solicitudes = new ArrayList<>();
+    @OneToMany (mappedBy = "prod", cascade = CascadeType.ALL)
+    private List<SolicitudTraslado> solicitudes;
     
     /**
      * Default constructor
@@ -34,28 +33,20 @@ public class Productor extends Usuario {
     public Productor() {
     }
 
-    public Productor(long idProductor, String tipo, String nombre, String usuario, String password) {
+    public Productor(String tipo, String nombre, String usuario, String password) {
         super(tipo, nombre, usuario, password);
-        this.idProductor = idProductor;
        
     }
 
-    public long getIdProductor() {
-        return idProductor;
+    public Productor(List<SolicitudTraslado> solicitudes, String tipo, String nombre, String usuario, String password) {
+        super(tipo, nombre, usuario, password);
+        this.solicitudes = solicitudes;
     }
-
-    public void setId(long id) {
-        this.idProductor = id;
-    }
-
+    
+    
    
     public void agregaSolicitud(SolicitudTraslado solicitud){
         solicitudes.add(solicitud); 
     }
 
-    @Override
-    public String toString() {
-        return "Productor{" + "id=" + idProductor +", solicitudes=" + solicitudes + '}';
-    }
-    
 }
