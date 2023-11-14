@@ -4,6 +4,8 @@
  */
 package com.dao;
 
+import code.Residuo;
+
 
 /**
  *
@@ -11,5 +13,5 @@ package com.dao;
  */
 public interface IResiduoDAO {
     
-
+    public void guarda(Residuo res); 
 }

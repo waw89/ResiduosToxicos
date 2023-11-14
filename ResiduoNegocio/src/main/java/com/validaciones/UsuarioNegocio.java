@@ -7,7 +7,7 @@ package com.validaciones;
 import code.Productor;
 import code.Usuario;
 import com.dao.IUsuarioDAO;
-import com.dao.UsuarioDAOImp;
+//import com.dao.UsuarioDAOImp;
 import com.utilerias.Util;
 
 /**
@@ -16,7 +16,7 @@ import com.utilerias.Util;
  */
 public class UsuarioNegocio {
     
-    IUsuarioDAO interfaceUsuario = new UsuarioDAOImp(); 
+   // IUsuarioDAO interfaceUsuario = new UsuarioDAOImp(); 
     Util utilUsario = new Util();
 
     public void cargaUsuariosProductores(){
@@ -25,16 +25,18 @@ public class UsuarioNegocio {
         productor.setId(1);
        
     }
-    public Usuario confirmaCredenciales(String usuario, String password){
-        
-           
-            if (interfaceUsuario.consultaCredenciales(usuario, password)!=null){
-                 return utilUsario.ConvertirDTOUsuarioAUsuario(interfaceUsuario.consultaCredenciales(usuario, password)); 
-            }else{
-                return null;
-            }
-        
-           
-       
-    }
+    
+//    public Usuario confirmaCredenciales(String usuario, String password){
+//
+//
+//            if (interfaceUsuario.consultaCredenciales(usuario, password)!=null){
+//                 return utilUsasrio.ConvertirDTOUsuarioAUsuario(interfaceUsuario.consultaCredenciales(usuario, password)); 
+//            }else{
+//                return null;
+//            }
+//
+//
+//
+//    }
+//}
 }

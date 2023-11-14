@@ -18,7 +18,7 @@ import javax.persistence.Table;
  * 
  */
 @Entity(name="residuo")
-@Table(name="RESIDUOS")
+@Table(name="RESIDUO")
 public class Residuo implements Serializable {
 
     /**
@@ -51,14 +51,14 @@ public class Residuo implements Serializable {
     /**
      * 
      */
-    
-    private List<Quimico> quimicos;
+//    
+//    private List<Quimico> quimicos;
 
-    public Residuo(long id, String codigo, String nombre, List<Quimico> quimicos) {
+    public Residuo(String codigo, String nombre) {
         this.id = id;
         this.codigo = codigo;
         this.nombre = nombre;
-        this.quimicos = quimicos;
+//        this.quimicos = quimicos;
     }
 
     public long getId() {
@@ -85,13 +85,13 @@ public class Residuo implements Serializable {
         this.nombre = nombre;
     }
     
-    public void agregaQuimico(Quimico quimico){
-        quimicos.add(quimico); 
-    }
+//    public void agregaQuimico(Quimico quimico){
+//        quimicos.add(quimico); 
+//    }
 
-    @Override
-    public String toString() {
-        return "Residuo{" + "id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + ", quimicos=" + quimicos + '}';
-    }
-    
+//    @Override
+//    public String toString() {
+//        return "Residuo{" + "id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + ", quimicos=" + quimicos + '}';
+//    }
+//    
 }

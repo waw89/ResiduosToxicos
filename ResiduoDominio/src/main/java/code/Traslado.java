@@ -7,10 +7,18 @@ package code;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * 
  */
+@Entity
+@Table(name= "Traslado")
 public class Traslado {
 
     /**
@@ -22,26 +30,32 @@ public class Traslado {
     /**
      * 
      */
+    @Id
+    @GeneratedValue (strategy= GenerationType.AUTO)
     private long id;
 
     /**
      * 
      */
+    @Column (name= "km_totales")
     private double kmTotales;
 
     /**
      * 
      */
+    @Column (name= "destino")
     private String destino;
 
     /**
      * 
      */
+    @Column (name= "tratamiento")
     private String tratamiento;
 
     /**
      * 
      */
+    @Column(name= "costo_total")
     private double costoTotal;
 
     /**

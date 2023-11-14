@@ -6,10 +6,17 @@ package code;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  */
+@Entity
+@Table(name = "Transportista")
 public class Transportista extends Usuario {
 
     /**
@@ -21,13 +28,14 @@ public class Transportista extends Usuario {
     /**
      *
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-
 
     /**
      *
      */
+  
     private SolicitudTraslado solicitud;
 
     /**
@@ -38,13 +46,10 @@ public class Transportista extends Usuario {
     /**
      *
      */
-    
-  
-
     public Transportista(long id, String nombre, String usuario_correo, String passowrd_usuario) {
-        super("Trasnsportista", nombre, usuario_correo, passowrd_usuario ); 
+        super("Trasnsportista", nombre, usuario_correo, passowrd_usuario);
         this.id = id;
-        
+
     }
 
     public long getId() {
@@ -55,8 +60,6 @@ public class Transportista extends Usuario {
         this.id = id;
     }
 
-
-
     public SolicitudTraslado getSolicitud() {
         return solicitud;
     }
@@ -64,7 +67,6 @@ public class Transportista extends Usuario {
     public void setSolicitud(SolicitudTraslado solicitud) {
         this.solicitud = solicitud;
     }
-
 
     public List<Vehiculo> getVehiculos() {
         return vehiculos;
@@ -74,16 +76,13 @@ public class Transportista extends Usuario {
         this.vehiculos = vehiculos;
     }
 
-
-
     public void agregaVehiculo(Vehiculo vehiculo) {
         vehiculos.add(vehiculo);
     }
 
     @Override
     public String toString() {
-        return "Transportista{" + "id=" + id +  ", solicitud=" + solicitud + ", vehiculos=" + vehiculos + '}';
+        return "Transportista{" + "id=" + id + ", solicitud=" + solicitud + ", vehiculos=" + vehiculos + '}';
     }
-    
-    
+
 }

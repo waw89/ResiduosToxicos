@@ -4,7 +4,8 @@
  */
 package com.dao;
 
-import com.dto.DTOUsuario;
+import code.Usuario;
+
 /**
  *
  * @author PRIDE ANACONDA
@@ -13,5 +14,5 @@ public interface IUsuarioDAO {
     
     //List<DTOProductor> getAll();
     //void insert(PersonaDTO usuario);
-    public DTOUsuario consultaCredenciales(String usuario, String password); 
+    public Usuario consultaCredenciales(String usuario, String password); 
 }
