@@ -41,7 +41,7 @@ public class Vehiculo {
     /**
      * 
      */
-    private List<Viaje> viajesRealizados= new ArrayList<>();
+    private Traslado traslado;
 
     public Vehiculo(long id, String tipo, String marca, int modelo, String linea, Transportista empresa) {
         this.id = id;
@@ -99,10 +99,16 @@ public class Vehiculo {
     public void setEmpresa(Transportista empresa) {
         this.empresa = empresa;
     }
-    
-    public void agregaViaje(Viaje viaje){
-        viajesRealizados.add(viaje);
+
+    public Traslado getTraslado() {
+        return traslado;
     }
+
+    public void setTraslado(Traslado traslado) {
+        this.traslado = traslado;
+    }
+    
+    
 
     @Override
     public String toString() {

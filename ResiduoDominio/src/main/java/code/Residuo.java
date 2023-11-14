@@ -7,15 +7,18 @@ package code;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * 
  */
-@Entity
+@Entity(name="residuo")
+@Table(name="RESIDUOS")
 public class Residuo implements Serializable {
 
     /**
@@ -35,12 +38,14 @@ public class Residuo implements Serializable {
      * 
      */
     @Basic
+    @Column(name="codigo")
     private String codigo;
 
     /**
      * 
      */
     @Basic
+    @Column(name="nombre")
     private String nombre;
 
     /**

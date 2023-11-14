@@ -4,6 +4,10 @@
  */
 package GUI;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author xfs85
@@ -13,8 +17,22 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     /**
      * Creates new form RegistraResiduosFrm
      */
+    DefaultListModel<String> modelDisponibles = new DefaultListModel<>();
+    DefaultListModel<String> modelSeleccionados = new DefaultListModel<>();
+
     public RegistraResiduosFrm() {
         initComponents();
+        quimicosDisponiblesList.setModel(modelDisponibles);
+        quimicosReservadosList.setModel(modelSeleccionados);
+        inicializaLista();
+    }
+
+    public void inicializaLista() {
+
+        modelDisponibles.addElement("Cloro");
+        modelDisponibles.addElement("Cianuro");
+        modelDisponibles.addElement("Plomo");
+        modelDisponibles.addElement("Amoniaco");
     }
 
     /**
@@ -27,17 +45,44 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        quimicosReservadosList = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        quimicosDisponiblesList = new javax.swing.JList<>();
         txtCodigo = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        agregarQuimico = new javax.swing.JButton();
-        eliminarQuimico = new javax.swing.JButton();
+        eliminarBtn = new javax.swing.JButton();
+        agregarBtn = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        quimicosDisponiblesList1 = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        quimicosReservadosList.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        quimicosReservadosList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(quimicosReservadosList);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 180, 130));
+
+        jScrollPane2.setBorder(null);
+
+        quimicosDisponiblesList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(quimicosDisponiblesList);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 170, 130));
         jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 330, 40));
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 330, 40));
 
@@ -47,12 +92,32 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Registrar Residuo - Residuos Tóxicos.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 720, 480));
 
-        agregarQuimico.setContentAreaFilled(false);
-        jPanel1.add(agregarQuimico, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 153, 80, 30));
+        eliminarBtn.setText("Eliminar");
+        eliminarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(eliminarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(593, 332, 90, 30));
 
-        eliminarQuimico.setText("jButton1");
-        eliminarQuimico.setContentAreaFilled(false);
-        jPanel1.add(eliminarQuimico, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 330, -1, -1));
+        agregarBtn.setText("Agregar");
+        agregarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(agregarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 152, 90, 30));
+
+        jScrollPane3.setBorder(null);
+
+        quimicosDisponiblesList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(quimicosDisponiblesList1);
+
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 170, 130));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -69,15 +134,104 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-   
+    private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBtnActionPerformed
+        // TODO add your handling code here:
+        if (quimicosDisponiblesList.getSelectedIndex() != -1) {
+            agregaAListaSeleccionados();
+            eliminaDeListaDisponibles();
+        } else if (quimicosReservadosList.getSelectedIndex() != -1) {
+            mostrarMensaje("No puedes agregar ningun quimico aquí", "Error", "Error al Agregar");
+        } else {
+            mostrarMensaje("No seleccionó ningun quimico", "Error", "Error al Agregar");
+        }
+    }//GEN-LAST:event_agregarBtnActionPerformed
 
+    private void eliminarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarBtnActionPerformed
+        // TODO add your handling code here:
+        if (quimicosReservadosList.getSelectedIndex() != -1) {
+            agregaAListaDisponibles();
+            eliminaDeListaSeleccionados();
+        } else if (quimicosDisponiblesList.getSelectedIndex() != -1) {
+            mostrarMensaje("No puedes eliminar un quimico de aquí", "Error", "Error al Eliminar");
+        } else {
+            mostrarMensaje("No seleccionó ningun quimico", "Error", "Error al Eliminar");
+        }
+    }//GEN-LAST:event_eliminarBtnActionPerformed
+    public void eliminaDeListaDisponibles() {
+        modelDisponibles.removeElementAt(quimicosDisponiblesList.getSelectedIndex());
+    }
+
+    public void agregaAListaDisponibles() {
+        modelDisponibles.addElement(quimicosReservadosList.getSelectedValue());
+    }
+
+    public void eliminaDeListaSeleccionados() {
+        modelSeleccionados.removeElementAt(quimicosReservadosList.getSelectedIndex());
+    }
+
+    public void agregaAListaSeleccionados() {
+        modelSeleccionados.addElement(quimicosDisponiblesList.getSelectedValue());
+    }
+    public void mostrarMensaje (String mensaje, String tipo, String titulo){
+        JOptionPane optionPane = new JOptionPane(mensaje);
+        if(tipo.equals("Info")){
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(tipo.equals("Error")){
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+        JDialog dialog = optionPane.createDialog(titulo);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);      
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton agregarQuimico;
+    private javax.swing.JButton agregarBtn;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JButton eliminarQuimico;
+    private javax.swing.JButton eliminarBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JList<String> quimicosDisponiblesList;
+    private javax.swing.JList<String> quimicosDisponiblesList1;
+    private javax.swing.JList<String> quimicosReservadosList;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(PantallaInicialProductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(PantallaInicialProductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(PantallaInicialProductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(PantallaInicialProductor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new RegistraResiduosFrm().setVisible(true);
+
+            }
+        });
+    }
+
 }

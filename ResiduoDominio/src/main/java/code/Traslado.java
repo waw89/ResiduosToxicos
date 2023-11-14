@@ -4,6 +4,7 @@
  */
 package code;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,9 +62,11 @@ public class Traslado {
     /**
      * 
      */
-    private List<Viaje> viajes = new ArrayList<>();
+    private List<Vehiculo> vehiculos = new ArrayList<>();
+    
+    private LocalDate fechaLlegada;
 
-    public Traslado(long id, double kmTotales, String destino, String tratamiento, double costoTotal, TipoTraslado tipoTraslado, SolicitudTraslado solicitudTraslado) {
+    public Traslado(long id, double kmTotales, String destino, String tratamiento, double costoTotal, TipoTraslado tipoTraslado, SolicitudTraslado solicitudTraslado, LocalDate fechaLlegada) {
         this.id = id;
         this.kmTotales = kmTotales;
         this.destino = destino;
@@ -71,6 +74,7 @@ public class Traslado {
         this.costoTotal = costoTotal;
         this.tipoTraslado = tipoTraslado;
         this.solicitudTraslado = solicitudTraslado;
+        this.fechaLlegada =fechaLlegada;
     }
 
     public long getId() {
@@ -129,22 +133,22 @@ public class Traslado {
         this.solicitudTraslado = solicitudTraslado;
     }
     
-    public void agregaViaje(Viaje viaje){
-        viajes.add(viaje);
+    public void agregaVehiculo(Vehiculo vehiculo){
+        vehiculos.add(vehiculo);
     }
 
-    public List<Viaje> getViajes() {
-        return viajes;
+    public List<Vehiculo> getVehiculos() {
+        return vehiculos;
     }
 
-    public void setViajes(List<Viaje> viajes) {
-        this.viajes = viajes;
+    public void setViajes(List<Vehiculo> vehiculos) {
+        this.vehiculos = vehiculos;
     }
     
 
     @Override
     public String toString() {
-        return "Traslado{" + "id=" + id + ", kmTotales=" + kmTotales + ", destino=" + destino + ", tratamiento=" + tratamiento + ", costoTotal=" + costoTotal + ", tipoTraslado=" + tipoTraslado +    ", solicitudTraslado=" + solicitudTraslado + ", viajes=" + viajes + '}';
+        return "Traslado{" + "id=" + id + ", kmTotales=" + kmTotales + ", destino=" + destino + ", tratamiento=" + tratamiento + ", costoTotal=" + costoTotal + ", tipoTraslado=" + tipoTraslado +    ", solicitudTraslado=" + solicitudTraslado + ", vehiculos=" + vehiculos + '}';
     }
     
 }

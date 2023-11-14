@@ -1,10 +1,8 @@
 GUI\RegistraResiduos$1.class
-GUI\RegistraResiduosFrm.class
+GUI\PantallaInicialTransportista.class
+GUI\RegistraResiduos$2.class
+GUI\PantallaInicialTransportista$1.class
+GUI\RegistraResiduos$5.class
 GUI\RegistraResiduos.class
 GUI\RegistraResiduos$4.class
-GUI\IniciarSesionFrm$1.class
-GUI\RegistraResiduos$2.class
-Main\Main$1.class
-GUI\IniciarSesionFrm.class
 GUI\RegistraResiduos$3.class
-Main\Main.class

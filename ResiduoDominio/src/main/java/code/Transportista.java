@@ -39,7 +39,7 @@ public class Transportista extends Usuario {
      *
      */
     
-    private List<Viaje> viajes = new ArrayList<>();
+  
 
     public Transportista(long id, String nombre, String usuario_correo, String passowrd_usuario) {
         super("Trasnsportista", nombre, usuario_correo, passowrd_usuario ); 
@@ -74,17 +74,7 @@ public class Transportista extends Usuario {
         this.vehiculos = vehiculos;
     }
 
-    public List<Viaje> getViajes() {
-        return viajes;
-    }
 
-    public void setTraslados(List<Viaje> viajes) {
-        this.viajes = viajes;
-    }
-
-    public void agregaTraslado(Viaje viaje) {
-        viajes.add(viaje);
-    }
 
     public void agregaVehiculo(Vehiculo vehiculo) {
         vehiculos.add(vehiculo);
@@ -92,7 +82,7 @@ public class Transportista extends Usuario {
 
     @Override
     public String toString() {
-        return "Transportista{" + "id=" + id +  ", solicitud=" + solicitud + ", vehiculos=" + vehiculos + ", viajes=" + viajes.toString() + '}';
+        return "Transportista{" + "id=" + id +  ", solicitud=" + solicitud + ", vehiculos=" + vehiculos + '}';
     }
     
     
