@@ -3,6 +3,14 @@
   <persistence-unit name="mysqlPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>code.Residuo</class>
+    <class>code.Administrador</class>
+    <class>code.Productor</class>
+    <class>code.Quimico</class>
+    <class>code.SolicitudTraslado</class>
+    <class>code.Transportista</class>
+    <class>code.Traslado</class>
+    <class>code.Usuario</class>
+    <class>code.Vehiculo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/residuostoxicos?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

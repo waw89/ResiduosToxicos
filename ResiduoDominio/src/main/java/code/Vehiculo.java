@@ -57,20 +57,26 @@ public class Vehiculo implements Serializable {
     @JoinColumn (name = "IdTransportista")
     private Transportista trans;
 
+    @ManyToOne
+    @JoinColumn (name = "IdTraslado")
+    private Vehiculo veh;
+    
     /**
      * Default constructor
      */
     public Vehiculo() {
     }
-    
-    public Vehiculo(long id, String tipo, String marca, int modelo, String linea, Transportista trans) {
+
+    public Vehiculo(long id, String tipo, String marca, int modelo, String linea, Transportista trans, Vehiculo veh) {
         this.id = id;
         this.tipo = tipo;
         this.marca = marca;
         this.modelo = modelo;
         this.linea = linea;
         this.trans = trans;
+        this.veh = veh;
     }
+    
 
     public long getId() {
         return id;
@@ -120,4 +126,13 @@ public class Vehiculo implements Serializable {
         this.trans = trans;
     }
 
+    public Vehiculo getVeh() {
+        return veh;
+    }
+
+    public void setVeh(Vehiculo veh) {
+        this.veh = veh;
+    }
+
+    
 }

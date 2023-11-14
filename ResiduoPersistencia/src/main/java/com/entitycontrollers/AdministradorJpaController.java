@@ -4,7 +4,7 @@
  */
 package com.entitycontrollers;
 
-import code.Residuo;
+import code.Administrador;
 import com.entitycontrollers.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
@@ -19,9 +19,9 @@ import javax.persistence.criteria.Root;
  *
  * @author xxbry
  */
-public class ResiduoJpaController implements Serializable {
+public class AdministradorJpaController implements Serializable {
 
-    public ResiduoJpaController(EntityManagerFactory emf) {
+    public AdministradorJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -30,12 +30,12 @@ public class ResiduoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Residuo residuo) {
+    public void create(Administrador administrador) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(residuo);
+            em.persist(administrador);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -44,19 +44,19 @@ public class ResiduoJpaController implements Serializable {
         }
     }
 
-    public void edit(Residuo residuo) throws NonexistentEntityException, Exception {
+    public void edit(Administrador administrador) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            residuo = em.merge(residuo);
+            administrador = em.merge(administrador);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                long id = residuo.getId();
-                if (findResiduo(id) == null) {
-                    throw new NonexistentEntityException("The residuo with id " + id + " no longer exists.");
+                long id = administrador.getId();
+                if (findAdministrador(id) == null) {
+                    throw new NonexistentEntityException("The administrador with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -72,14 +72,14 @@ public class ResiduoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Residuo residuo;
+            Administrador administrador;
             try {
-                residuo = em.getReference(Residuo.class, id);
-                residuo.getId();
+                administrador = em.getReference(Administrador.class, id);
+                administrador.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The residuo with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The administrador with id " + id + " no longer exists.", enfe);
             }
-            em.remove(residuo);
+            em.remove(administrador);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -88,19 +88,19 @@ public class ResiduoJpaController implements Serializable {
         }
     }
 
-    public List<Residuo> findResiduoEntities() {
-        return findResiduoEntities(true, -1, -1);
+    public List<Administrador> findAdministradorEntities() {
+        return findAdministradorEntities(true, -1, -1);
     }
 
-    public List<Residuo> findResiduoEntities(int maxResults, int firstResult) {
-        return findResiduoEntities(false, maxResults, firstResult);
+    public List<Administrador> findAdministradorEntities(int maxResults, int firstResult) {
+        return findAdministradorEntities(false, maxResults, firstResult);
     }
 
-    private List<Residuo> findResiduoEntities(boolean all, int maxResults, int firstResult) {
+    private List<Administrador> findAdministradorEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Residuo.class));
+            cq.select(cq.from(Administrador.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -112,20 +112,20 @@ public class ResiduoJpaController implements Serializable {
         }
     }
 
-    public Residuo findResiduo(long id) {
+    public Administrador findAdministrador(long id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Residuo.class, id);
+            return em.find(Administrador.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getResiduoCount() {
+    public int getAdministradorCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Residuo> rt = cq.from(Residuo.class);
+            Root<Administrador> rt = cq.from(Administrador.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

@@ -4,22 +4,29 @@
  */
 package code;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 
  */
 @Entity
 @Table(name= "Traslado")
-public class Traslado {
+public class Traslado implements Serializable {
 
     /**
      * Default constructor
@@ -32,35 +39,41 @@ public class Traslado {
      */
     @Id
     @GeneratedValue (strategy= GenerationType.AUTO)
+    @Column (name = "Id_Traslado")
     private long id;
 
     /**
      * 
      */
+    @Basic
     @Column (name= "km_totales")
     private double kmTotales;
 
     /**
      * 
      */
+    @Basic
     @Column (name= "destino")
     private String destino;
 
     /**
      * 
      */
+    @Basic
     @Column (name= "tratamiento")
     private String tratamiento;
 
     /**
      * 
      */
+    @Basic
     @Column(name= "costo_total")
     private double costoTotal;
 
     /**
      * 
      */
+    @OneToOne
     private TipoTraslado tipoTraslado;
 
     /**
@@ -71,16 +84,26 @@ public class Traslado {
     /**
      * 
      */
+    @OneToOne
     private SolicitudTraslado solicitudTraslado;
 
     /**
      * 
      */
-    private List<Vehiculo> vehiculos = new ArrayList<>();
+    @OneToMany (mappedBy = "veh", cascade = CascadeType.ALL)
+    private List<Vehiculo> listaVehiculos;
     
+    
+    /**
+     * 
+     */
+    @Temporal (TemporalType.DATE)
+    @Column (name = "FechaLlegada")
     private LocalDate fechaLlegada;
 
-    public Traslado(long id, double kmTotales, String destino, String tratamiento, double costoTotal, TipoTraslado tipoTraslado, SolicitudTraslado solicitudTraslado, LocalDate fechaLlegada) {
+    
+    
+    public Traslado(long id, double kmTotales, String destino, String tratamiento, double costoTotal, TipoTraslado tipoTraslado, SolicitudTraslado solicitudTraslado, List<Vehiculo> listaVehiculos, LocalDate fechaLlegada) {
         this.id = id;
         this.kmTotales = kmTotales;
         this.destino = destino;
@@ -88,8 +111,13 @@ public class Traslado {
         this.costoTotal = costoTotal;
         this.tipoTraslado = tipoTraslado;
         this.solicitudTraslado = solicitudTraslado;
-        this.fechaLlegada =fechaLlegada;
+        this.listaVehiculos = listaVehiculos;
+        this.fechaLlegada = fechaLlegada;
     }
+
+    
+
+    
 
     public long getId() {
         return id;
@@ -148,21 +176,24 @@ public class Traslado {
     }
     
     public void agregaVehiculo(Vehiculo vehiculo){
-        vehiculos.add(vehiculo);
+        listaVehiculos.add(vehiculo);
     }
 
-    public List<Vehiculo> getVehiculos() {
-        return vehiculos;
+    public List<Vehiculo> getListaVehiculos() {
+        return listaVehiculos;
     }
 
-    public void setViajes(List<Vehiculo> vehiculos) {
-        this.vehiculos = vehiculos;
+    public void setListaVehiculos(List<Vehiculo> listaVehiculos) {
+        this.listaVehiculos = listaVehiculos;
     }
-    
 
-    @Override
-    public String toString() {
-        return "Traslado{" + "id=" + id + ", kmTotales=" + kmTotales + ", destino=" + destino + ", tratamiento=" + tratamiento + ", costoTotal=" + costoTotal + ", tipoTraslado=" + tipoTraslado +    ", solicitudTraslado=" + solicitudTraslado + ", vehiculos=" + vehiculos + '}';
+    public LocalDate getFechaLlegada() {
+        return fechaLlegada;
     }
-    
+
+    public void setFechaLlegada(LocalDate fechaLlegada) {
+        this.fechaLlegada = fechaLlegada;
+    }
+
+  
 }

@@ -53,12 +53,15 @@ public class Residuo implements Serializable {
      */
     public Residuo() {
     }
-    
-    public Residuo(long id, String codigo, String nombre) {
+
+    public Residuo(long id, String codigo, String nombre, SolicitudTraslado sol) {
         this.id = id;
         this.codigo = codigo;
         this.nombre = nombre;
+        this.sol = sol;
     }
+    
+    
     
     public long getId() {
         return id;
