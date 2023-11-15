@@ -92,6 +92,7 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
+        calendarPanel1 = new com.github.lgooddatepicker.components.CalendarPanel();
         btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnSolicitar = new javax.swing.JButton();
@@ -107,6 +108,7 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         setResizable(false);
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel3.add(calendarPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
 
         btnAgregar.setBorder(null);
         btnAgregar.setContentAreaFilled(false);
@@ -259,6 +261,7 @@ public void eliminaDeListaDisponibles() {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnSolicitar;
     private javax.swing.JButton btnVolver;
+    private com.github.lgooddatepicker.components.CalendarPanel calendarPanel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
