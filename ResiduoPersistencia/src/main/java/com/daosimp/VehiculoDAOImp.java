@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.entitycontrollers;
+package com.daosimp;
 
 import java.io.Serializable;
 import javax.persistence.Query;
@@ -20,9 +20,9 @@ import javax.persistence.EntityManagerFactory;
  *
  * @author xxbry
  */
-public class VehiculoJpaController implements Serializable {
+public class VehiculoDAOImp implements Serializable {
 
-    public VehiculoJpaController(EntityManagerFactory emf) {
+    public VehiculoDAOImp(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;

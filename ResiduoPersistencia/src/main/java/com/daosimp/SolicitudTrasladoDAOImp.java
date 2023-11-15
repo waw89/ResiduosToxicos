@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.entitycontrollers;
+package com.daosimp;
 
 import code.SolicitudTraslado;
 import java.io.Serializable;
@@ -21,9 +21,9 @@ import javax.persistence.EntityManagerFactory;
  *
  * @author xxbry
  */
-public class SolicitudTrasladoJpaController implements Serializable {
+public class SolicitudTrasladoDAOImp implements Serializable {
 
-    public SolicitudTrasladoJpaController(EntityManagerFactory emf) {
+    public SolicitudTrasladoDAOImp(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;

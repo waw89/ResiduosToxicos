@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.entitycontrollers;
+package com.daosimp;
 
 import code.Quimico;
 import com.entitycontrollers.exceptions.NonexistentEntityException;
@@ -19,9 +19,9 @@ import javax.persistence.criteria.Root;
  *
  * @author xxbry
  */
-public class QuimicoJpaController implements Serializable {
+public class QuimicoDAOImp implements Serializable {
 
-    public QuimicoJpaController(EntityManagerFactory emf) {
+    public QuimicoDAOImp(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
