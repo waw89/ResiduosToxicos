@@ -28,36 +28,36 @@ import javax.persistence.TemporalType;
  *
  */
 @Entity
-@Table (name = "SolicitudTraslado")
+@Table(name = "SolicitudTraslado")
 public class SolicitudTraslado implements Serializable {
 
     /**
      *
      */
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
-    @Column (name = "idSolicitud")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "idSolicitud")
     private long id;
 
     /**
      *
      */
-    @Temporal (TemporalType.DATE)
-    @Column (name = "FechaTraslado")
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FechaTraslado")
     private Date fecha;
 
     /**
      *
      */
     @Basic
-    @Column (name = "CantidadRes")
+    @Column(name = "CantidadRes")
     private float cantidadRes;
 
     /**
      *
      */
     @Basic
-    @Column (name = "Asignado")
+    @Column(name = "Asignado")
     private boolean asignado;
 
     /**
@@ -69,22 +69,24 @@ public class SolicitudTraslado implements Serializable {
      *
      */
     @ManyToOne
-    @JoinColumn (name = "IdTransportistas")
+    @JoinColumn(name = "IdTransportistas")
     private List<Transportista> trans;
 
     /**
      *
      */
     @ManyToOne
-    @JoinColumn (name = "IdProductor")
+    @JoinColumn(name = "IdProductor")
     private Productor prod;
 
     /**
-     * 
+     *
      */
-    @OneToMany (mappedBy = "sol", cascade = CascadeType.ALL)
+    @OneToMany
+    private List<Residuo> residuos = new ArrayList<>();
+
     private List<Residuo> ListaResiudos;
-    
+
     /**
      * Default constructor
      */
@@ -110,8 +112,6 @@ public class SolicitudTraslado implements Serializable {
         this.prod = prod;
     }
 
-    
-    
     public long getId() {
         return id;
     }
@@ -167,9 +167,9 @@ public class SolicitudTraslado implements Serializable {
     public void setProd(Productor prod) {
         this.prod = prod;
     }
-    
-    public void agregaTransportista(Transportista transportista){
-        trans.add(transportista); 
+
+    public void agregaTransportista(Transportista transportista) {
+        trans.add(transportista);
     }
-    
+
 }

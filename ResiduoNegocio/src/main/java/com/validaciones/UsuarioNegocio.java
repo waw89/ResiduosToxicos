@@ -6,7 +6,7 @@ package com.validaciones;
 
 import code.Productor;
 import code.Usuario;
-import com.dao.IUsuarioDAO;
+import com.daosimp.IUsuarioDAO;
 //import com.dao.UsuarioDAOImp;
 import com.utilerias.Util;
 

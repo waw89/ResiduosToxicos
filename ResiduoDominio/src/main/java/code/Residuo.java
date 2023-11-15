@@ -44,9 +44,7 @@ public class Residuo implements Serializable {
     @Column(name="nombre")
     private String nombre;
 
-    @ManyToOne
-    @JoinColumn (name = "IdSolicitudTraslados")
-    private SolicitudTraslado sol;
+
     
     /**
      * Default constructor
@@ -54,11 +52,11 @@ public class Residuo implements Serializable {
     public Residuo() {
     }
 
-    public Residuo(long id, String codigo, String nombre, SolicitudTraslado sol) {
-        this.id = id;
+    public Residuo(String codigo, String nombre) {
+
         this.codigo = codigo;
         this.nombre = nombre;
-        this.sol = sol;
+    
     }
     
     
@@ -87,13 +85,11 @@ public class Residuo implements Serializable {
         this.nombre = nombre;
     }
     
-//    public void agregaQuimico(Quimico quimico){
-//        quimicos.add(quimico); 
-//    }
 
-//    @Override
-//    public String toString() {
-//        return "Residuo{" + "id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + ", quimicos=" + quimicos + '}';
-//    }
-//    
+
+    @Override
+    public String toString() {
+        return "Residuo{" + "id=" + id + ", codigo=" + codigo + ", nombre=" + nombre +'}';
+    }
+    
 }
