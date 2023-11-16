@@ -5,7 +5,7 @@
 package com.validaciones;
 
 import code.Residuo;
-import com.daosimp.IResiduoDAO;
+import com.daos.IResiduoDAO;
 
 
 /**

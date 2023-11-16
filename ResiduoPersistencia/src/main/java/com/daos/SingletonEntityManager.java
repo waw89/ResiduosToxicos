@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.daosimp;
+package com.daos;
 
 import static java.util.Collections.singleton;
 import javax.persistence.EntityManager;
@@ -13,14 +13,14 @@ import javax.persistence.Persistence;
  *
  * @author PRIDE ANACONDA
  */
-public class SingletonConexion {
+public class SingletonEntityManager {
 
     private static EntityManager entityManager;
 
-    private SingletonConexion() {
+    private void SingletonEntityManager() {
     }
 
-    public static EntityManager getSingleton() {
+    public static EntityManager getEntityManager() {
         if (entityManager == null) {
           
             EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("mysqlPU");

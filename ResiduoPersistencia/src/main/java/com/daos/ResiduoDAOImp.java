@@ -1,8 +1,8 @@
-    /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.daosimp;
+package com.daos;
 
 import code.Residuo;
 import com.entitycontrollers.exceptions.NonexistentEntityException;
@@ -21,16 +21,15 @@ import javax.persistence.criteria.Root;
  */
 public class ResiduoDAOImp implements IResiduoDAO {
 
-    public ResiduoDAOImp(EntityManagerFactory emf) {
-        this.emf = emf;
+    public ResiduoDAOImp() {
+
     }
-    private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
-        return emf.createEntityManager();
+        return SingletonEntityManager.getEntityManager();
     }
 
-    public void create(Residuo residuo) {
+    public void guarda(Residuo residuo) {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -44,12 +43,10 @@ public class ResiduoDAOImp implements IResiduoDAO {
         }
     }
 
-  
-
+    @Override
     public List<Residuo> obtenerResiduos() {
         return findResiduoEntities(true, -1, -1);
     }
-
 
     private List<Residuo> findResiduoEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
@@ -67,6 +64,7 @@ public class ResiduoDAOImp implements IResiduoDAO {
         }
     }
 
+    @Override
     public Residuo buscarResiduoPorId(long id) {
         EntityManager em = getEntityManager();
         try {
@@ -76,5 +74,4 @@ public class ResiduoDAOImp implements IResiduoDAO {
         }
     }
 
-    
 }

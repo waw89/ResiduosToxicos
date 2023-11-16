@@ -29,8 +29,8 @@ public class Residuo implements Serializable {
      * 
      */
     @Id 
-    @GeneratedValue(strategy =GenerationType.AUTO)
-    @Column (name = "Id_Residuo")
+    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @Column (name = "id_residuo")
     private long id;
 
     /**
@@ -75,13 +75,11 @@ public class Residuo implements Serializable {
     
     }
 
-    public Residuo(long id, String codigo, String nombre, Productor prod, List<Quimico> listaQuimicos, List<SolicitudTraslado> listaSolTraslados) {
-        this.id = id;
+    public Residuo(String codigo, String nombre, Productor prod) {
+
         this.codigo = codigo;
         this.nombre = nombre;
         this.prod = prod;
-        this.listaQuimicos = listaQuimicos;
-        this.listaSolTraslados = listaSolTraslados;
     }
 
     
@@ -117,20 +115,5 @@ public class Residuo implements Serializable {
         this.prod = prod;
     }
 
-    public List<Quimico> getListaQuimicos() {
-        return listaQuimicos;
-    }
-
-    public void setListaQuimicos(List<Quimico> listaQuimicos) {
-        this.listaQuimicos = listaQuimicos;
-    }
-
-    public List<SolicitudTraslado> getListaSolTraslados() {
-        return listaSolTraslados;
-    }
-
-    public void setListaSolTraslados(List<SolicitudTraslado> listaSolTraslados) {
-        this.listaSolTraslados = listaSolTraslados;
-    }
     
 }

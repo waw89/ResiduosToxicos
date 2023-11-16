@@ -27,7 +27,7 @@ public class Quimico implements Serializable {
      * 
      */
     @Id
-    @GeneratedValue (strategy =GenerationType.AUTO)
+    @GeneratedValue (strategy =GenerationType.IDENTITY)
     private long id;
 
     /**
@@ -48,16 +48,12 @@ public class Quimico implements Serializable {
     public Quimico() {
         
     }
-    public Quimico(long id, String nombre) {
-        this.id = id;
+    public Quimico(String nombre) {
+
         this.nombre = nombre;
     }
 
-    public Quimico(long id, String nombre, List<Residuo> listaResiduos) {
-        this.id = id;
-        this.nombre = nombre;
-        this.listaResiduos = listaResiduos;
-    }
+ 
 
     public long getId() {
         return id;

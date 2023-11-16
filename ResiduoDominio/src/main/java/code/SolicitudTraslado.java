@@ -37,7 +37,7 @@ public class SolicitudTraslado implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "idSolicitud")
+    @Column(name = "id_solicitud")
     private long id;
 
     /**
@@ -66,9 +66,9 @@ public class SolicitudTraslado implements Serializable {
      */
     @ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
-            name = "SolTraslados_Residuo",
-            joinColumns = @JoinColumn(name = "id_SolTraslado"),
-            inverseJoinColumns = @JoinColumn (name = "id_Residuo")
+            name = "Especificacion Residuos",
+            joinColumns = @JoinColumn(name = "id_solicitud", referencedColumnName = "idSolicitud"),
+            inverseJoinColumns = @JoinColumn (name = "id_residuo", referencedColumnName = "id_residuo")
     )
     private List<Residuo> listaResiduos;
 
