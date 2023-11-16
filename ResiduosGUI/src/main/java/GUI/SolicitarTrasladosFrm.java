@@ -5,6 +5,7 @@
 package GUI;
 
 import code.Usuario;
+import java.time.LocalDate;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -81,6 +82,17 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
       return true;
      
  }
+ 
+
+ public boolean verificarFecha(){
+    LocalDate fechaSeleccionada = calendario.getSelectedDate();
+    LocalDate fechaActual = LocalDate.now();
+
+     if(fechaSeleccionada.isBefore(fechaActual) || fechaSeleccionada.equals(fechaActual)){
+         return false;
+     }
+     return true;
+ }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -92,7 +104,7 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
-        calendar = new com.github.lgooddatepicker.components.CalendarPanel();
+        calendario = new com.github.lgooddatepicker.components.CalendarPanel();
         btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnSolicitar = new javax.swing.JButton();
@@ -108,7 +120,7 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         setResizable(false);
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel3.add(calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 250, -1));
+        jPanel3.add(calendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 250, -1));
 
         btnAgregar.setBorder(null);
         btnAgregar.setContentAreaFilled(false);
@@ -216,11 +228,15 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
+        if(verificarFecha() == false){
+            mostrarMensaje("Seleccione una fecha valida","Error","Error al Solicitar");
+        }else{
         JOptionPane.showMessageDialog(null, "Solicitud Exitosa");
         Usuario usuario = new Usuario();
         usuario.setTipo("Productor");
         new PantallaInicial(usuario).setVisible(true);
         this.dispose();
+         }
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -263,7 +279,7 @@ public void eliminaDeListaDisponibles() {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnSolicitar;
     private javax.swing.JButton btnVolver;
-    private com.github.lgooddatepicker.components.CalendarPanel calendar;
+    private com.github.lgooddatepicker.components.CalendarPanel calendario;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
