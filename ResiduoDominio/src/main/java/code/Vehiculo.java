@@ -59,8 +59,7 @@ public class Vehiculo implements Serializable {
     @JoinColumn (name = "IdTransportista")
     private Transportista trans;
 
-    @OneToMany (mappedBy = "veh", cascade = CascadeType.ALL)
-    private List<Viaje> listaViajesRealizados;
+
     
     /**
      * Default constructor
@@ -68,14 +67,14 @@ public class Vehiculo implements Serializable {
     public Vehiculo() {
     }
 
-    public Vehiculo(long id, String tipo, String marca, int modelo, String linea, Transportista trans, List<Viaje> listaViajesRealizados) {
+    public Vehiculo(long id, String tipo, String marca, int modelo, String linea, Transportista trans) {
         this.id = id;
         this.tipo = tipo;
         this.marca = marca;
         this.modelo = modelo;
         this.linea = linea;
         this.trans = trans;
-        this.listaViajesRealizados = listaViajesRealizados;
+    
     }
 
     public long getId() {
@@ -126,12 +125,6 @@ public class Vehiculo implements Serializable {
         this.trans = trans;
     }
 
-    public List<Viaje> getListaViajesRealizados() {
-        return listaViajesRealizados;
-    }
 
-    public void setListaViajesRealizados(List<Viaje> listaViajesRealizados) {
-        this.listaViajesRealizados = listaViajesRealizados;
-    }
 
 }

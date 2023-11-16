@@ -37,13 +37,13 @@ public class Util {
         return null;
     }
 
-    public List<Quimico> creaQuimicos() {
+    public ArrayList<Quimico> creaQuimicos() {
         Quimico quim1 = new Quimico("Plomo");
         Quimico quim2 = new Quimico("Cianuro");
         Quimico quim3 = new Quimico("Cobre");
         Quimico quim4 = new Quimico("Arsénico");
 
-        List nuevosQuimicos = new ArrayList();
+        ArrayList nuevosQuimicos = new ArrayList();
 
         nuevosQuimicos.add(quim1);
         nuevosQuimicos.add(quim2);

@@ -24,7 +24,8 @@ public class ResiduoDAOImp implements IResiduoDAO {
     public ResiduoDAOImp() {
 
     }
-
+    
+    
     public EntityManager getEntityManager() {
         return SingletonEntityManager.getEntityManager();
     }

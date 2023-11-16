@@ -1,8 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package code;
+
 
 import java.io.Serializable;
 import java.util.List;
@@ -21,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table (name="Quimico")
-public class Quimico implements Serializable {
+public class Quimico implements Serializable  {
 
     /**
      * 
@@ -37,9 +35,9 @@ public class Quimico implements Serializable {
     @Column(name="nombre")
     private String nombre;
     
-    
-    @ManyToMany (mappedBy = "listaQuimicos")
-    private List<Residuo> listaResiduos;
+//    
+//    @ManyToMany (mappedBy = "listaQuimicos")
+//    private List<Residuo> listaResiduos;
     
     /**
      * Default constructor
@@ -70,13 +68,13 @@ public class Quimico implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }    
-
-    public List<Residuo> getListaResiduos() {
-        return listaResiduos;
-    }
-
-    public void setListaResiduos(List<Residuo> listaResiduos) {
-        this.listaResiduos = listaResiduos;
-    }
+//
+//    public List<Residuo> getListaResiduos() {
+//        return listaResiduos;
+//    }
+//
+//    public void setListaResiduos(List<Residuo> listaResiduos) {
+//        this.listaResiduos = listaResiduos;
+//    }
 
 }

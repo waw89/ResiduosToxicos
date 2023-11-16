@@ -15,18 +15,19 @@ import javax.persistence.Persistence;
  */
 public class SingletonEntityManager {
 
-    private static EntityManager entityManager;
+private static EntityManagerFactory entityManagerFactory;
 
-    private void SingletonEntityManager() {
+    private SingletonEntityManager() {
     }
 
-    public static EntityManager getEntityManager() {
-        if (entityManager == null) {
-          
-            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("mysqlPU");
-            entityManager = entityManagerFactory.createEntityManager();
-
+    public static EntityManagerFactory getEntityManagerFactory() {
+        if (entityManagerFactory == null) {
+            entityManagerFactory = Persistence.createEntityManagerFactory("mysqlPU");
         }
-        return entityManager;
+        return entityManagerFactory;
+    }
+
+    public static EntityManager createEntityManager() {
+        return getEntityManagerFactory().createEntityManager();
     }
 }

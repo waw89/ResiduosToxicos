@@ -9,6 +9,7 @@ import GUI.PantallaInicial;
 
 import GUI.RegistraResiduosFrm;
 import code.Productor;
+import com.validaciones.QuimicoNegocio;
 import java.lang.Math; 
 /**
  *
@@ -21,17 +22,21 @@ public class Main {
      */
     public static void main(String args[]) {
   
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-               
-               Productor p = new Productor();
-               p.setTipo("Productor");
-               
-               new PantallaInicial(p).setVisible(true);
-               
-            }
-        });
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//               
+//               Productor p = new Productor();
+//               p.setTipo("Productor");
+//               
+//               new PantallaInicial(p).setVisible(true);
+//               
+//            }
+//        });
+
+        QuimicoNegocio quimNeg = new QuimicoNegocio(); 
+        
+        quimNeg.cargaQuimicos();
     }
     
 }

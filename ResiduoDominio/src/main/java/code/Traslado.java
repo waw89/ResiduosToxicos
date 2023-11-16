@@ -75,12 +75,7 @@ public class Traslado implements Serializable {
     @OneToOne
     private SolicitudTraslado solicitudTraslado;
 
-    /**
-     * 
-     * 
-     */
-    @OneToMany (mappedBy = "tras", cascade = CascadeType.ALL)
-    private List<Viaje> listaViajes;
+
 
     /**
      * Default constructor
@@ -88,7 +83,7 @@ public class Traslado implements Serializable {
     public Traslado() {
     }
     
-    public Traslado(long id, double kmTotales, String destino, String tratamiento, double costoTotal, TipoTraslado tipoTraslado, SolicitudTraslado solicitudTraslado, List<Viaje> listaViajes) {
+    public Traslado(long id, double kmTotales, String destino, String tratamiento, double costoTotal, TipoTraslado tipoTraslado, SolicitudTraslado solicitudTraslado) {
         this.id = id;
         this.kmTotales = kmTotales;
         this.destino = destino;
@@ -96,7 +91,7 @@ public class Traslado implements Serializable {
         this.costoTotal = costoTotal;
         this.tipoTraslado = tipoTraslado;
         this.solicitudTraslado = solicitudTraslado;
-        this.listaViajes = listaViajes;
+
     }
 
     public long getId() {
@@ -155,12 +150,5 @@ public class Traslado implements Serializable {
         this.solicitudTraslado = solicitudTraslado;
     }
 
-    public List<Viaje> getListaViajes() {
-        return listaViajes;
-    }
-
-    public void setListaViajes(List<Viaje> listaViajes) {
-        this.listaViajes = listaViajes;
-    }
 
 }
