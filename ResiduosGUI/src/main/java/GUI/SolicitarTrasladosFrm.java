@@ -44,6 +44,8 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
  
  
  private void inicializaListeners() {
+     
+     
         residuosDisponiblesList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -53,11 +55,22 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
 
                     // Habilita o deshabilita el campo de texto según si hay elementos seleccionados
                     txtCantidad.setEnabled(hayElementosSeleccionados);
+                    comboCantidad.setEnabled(hayElementosSeleccionados);
                 }
             }
         });
     }
  
+ public boolean verificaComboCantidad(){
+   
+     if(comboCantidad.getSelectedItem() == null){
+       JOptionPane.showMessageDialog(null, "Por favor, seleccione una unidad de medida", "Error", JOptionPane.ERROR_MESSAGE);
+       return false;
+   }  
+     return true;
+ }
+     
+     
  public boolean verificaFormatoCantidadDeResiduo(){
      String cantidad = txtCantidad.getText();
      
@@ -105,6 +118,7 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
 
         jPanel3 = new javax.swing.JPanel();
         calendario = new com.github.lgooddatepicker.components.CalendarPanel();
+        comboCantidad = new javax.swing.JComboBox<>();
         btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnSolicitar = new javax.swing.JButton();
@@ -120,7 +134,12 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         setResizable(false);
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel3.add(calendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 250, -1));
+        jPanel3.add(calendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 230, -1));
+
+        comboCantidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kilos", "Litros" }));
+        comboCantidad.setSelectedIndex(-1);
+        comboCantidad.setEnabled(false);
+        jPanel3.add(comboCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 170, 60, -1));
 
         btnAgregar.setBorder(null);
         btnAgregar.setContentAreaFilled(false);
@@ -129,7 +148,7 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-        jPanel3.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 200, 90, 20));
+        jPanel3.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 220, 90, 20));
 
         btnEliminar.setContentAreaFilled(false);
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -180,7 +199,7 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
 
         jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 170, 130));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Solicitar Traslados - Residuos Tóxicos.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantallas - Solicitar Traslado 2.png"))); // NOI18N
         jLabel2.setText("jLabel2");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 480));
 
@@ -201,6 +220,8 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
           if(verificaFormatoCantidadDeResiduo() == true){
+           if(verificaComboCantidad() == true){
+               
               
           
         if (residuosDisponiblesList.getSelectedIndex() != -1) {
@@ -213,7 +234,7 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         }
         }
               
-          
+    }     
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -280,6 +301,7 @@ public void eliminaDeListaDisponibles() {
     private javax.swing.JButton btnSolicitar;
     private javax.swing.JButton btnVolver;
     private com.github.lgooddatepicker.components.CalendarPanel calendario;
+    private javax.swing.JComboBox<String> comboCantidad;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
