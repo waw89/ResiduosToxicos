@@ -1,5 +1,4 @@
 com\entitycontrollers\exceptions\PreexistingEntityException.class
-com\daos\IResiduoDAO.class
 com\daos\SolicitudTrasladoDAOImp.class
 com\daos\exceptions\IllegalOrphanException.class
 com\daos\IQuimicoDAO.class
@@ -7,8 +6,6 @@ com\daos\AdministradorDAOImp.class
 com\entitycontrollers\exceptions\IllegalOrphanException.class
 com\dao\exceptions\exceptions\NonexistentEntityException.class
 com\daos\QuimicoDAOImp.class
-com\daos\ResiduoDAOImp.class
-com\daos\QuimicoJpaController.class
 com\dao\exceptions\exceptions\PreexistingEntityException.class
 com\daos\ProductorDAOImp.class
 com\entitycontrollers\exceptions\NonexistentEntityException.class

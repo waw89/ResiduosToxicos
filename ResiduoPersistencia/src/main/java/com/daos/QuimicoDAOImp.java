@@ -22,6 +22,7 @@ public class QuimicoDAOImp implements IQuimicoDAO {
     }
     
     EntityManager entityManager = SingletonEntityManager.getEntityManagerFactory().createEntityManager(); 
+   
     public EntityManager getEntityManager() {
         return entityManager; 
     }

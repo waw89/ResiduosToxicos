@@ -27,7 +27,5 @@ private static EntityManagerFactory entityManagerFactory;
         return entityManagerFactory;
     }
 
-    public static EntityManager createEntityManager() {
-        return getEntityManagerFactory().createEntityManager();
-    }
+  
 }
