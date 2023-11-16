@@ -40,7 +40,7 @@
         <Property name="useNullLayout" type="boolean" value="false"/>
       </Layout>
       <SubComponents>
-        <Component class="com.github.lgooddatepicker.components.CalendarPanel" name="calendarPanel1">
+        <Component class="com.github.lgooddatepicker.components.CalendarPanel" name="calendar">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="60" y="120" width="250" height="-1"/>
