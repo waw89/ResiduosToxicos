@@ -35,9 +35,9 @@ public class Quimico implements Serializable  {
     @Column(name="nombre")
     private String nombre;
     
-//    
-//    @ManyToMany (mappedBy = "listaQuimicos")
-//    private List<Residuo> listaResiduos;
+    
+    @ManyToMany (mappedBy = "listaQuimicos")
+    private List<Residuo> listaResiduos;
     
     /**
      * Default constructor

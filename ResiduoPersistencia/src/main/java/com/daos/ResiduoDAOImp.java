@@ -27,7 +27,7 @@ public class ResiduoDAOImp implements IResiduoDAO {
     
     
     public EntityManager getEntityManager() {
-        return SingletonEntityManager.getEntityManager();
+        return SingletonEntityManager.getEntityManagerFactory().createEntityManager();
     }
 
     public void guarda(Residuo residuo) {

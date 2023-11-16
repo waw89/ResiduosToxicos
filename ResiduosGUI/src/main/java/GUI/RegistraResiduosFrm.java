@@ -4,13 +4,11 @@
  */
 package GUI;
 
+import code.Productor;
 import code.Usuario;
-import com.validaciones.UsuarioNegocio;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -228,6 +226,18 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
-
+    public static void main (String [] args){
+               /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+               
+               Productor p = new Productor();
+               p.setTipo("Productor");
+               
+               new PantallaInicial(p).setVisible(true);
+               
+            }
+        });
+    }
 
 }
