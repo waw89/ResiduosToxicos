@@ -108,7 +108,7 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         setResizable(false);
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel3.add(calendarPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
+        jPanel3.add(calendarPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 250, -1));
 
         btnAgregar.setBorder(null);
         btnAgregar.setContentAreaFilled(false);
