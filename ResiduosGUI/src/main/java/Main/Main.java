@@ -5,8 +5,10 @@
 package Main;
 
 import GUI.IniciarSesionFrm;
+import GUI.PantallaInicial;
 
 import GUI.RegistraResiduosFrm;
+import code.Productor;
 import java.lang.Math; 
 /**
  *
@@ -22,7 +24,11 @@ public class Main {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               new IniciarSesionFrm().setVisible(true);
+               
+               Productor p = new Productor();
+               p.setTipo("Productor");
+               
+               new PantallaInicial(p).setVisible(true);
                
             }
         });
