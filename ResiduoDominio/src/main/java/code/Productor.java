@@ -25,12 +25,15 @@ public class Productor extends Usuario implements Serializable{
      * 
      */
     @OneToMany (mappedBy = "prod", cascade = CascadeType.ALL)
-    private List<SolicitudTraslado> solicitudes;
+    private List<SolicitudTraslado> listaSolicitudes;
     
+    @OneToMany (mappedBy = "prod", cascade = CascadeType.ALL)
+    private List<Residuo> listaResiduos;
     /**
      * Default constructor
      */
     public Productor() {
+    
     }
 
     public Productor(String tipo, String nombre, String usuario, String password) {
@@ -40,13 +43,35 @@ public class Productor extends Usuario implements Serializable{
 
     public Productor(List<SolicitudTraslado> solicitudes, String tipo, String nombre, String usuario, String password) {
         super(tipo, nombre, usuario, password);
-        this.solicitudes = solicitudes;
+        this.listaSolicitudes = solicitudes;
     }
-    
-    
+
+    public Productor(List<SolicitudTraslado> listaSolicitudes, List<Residuo> listaResiduos,String tipo, String nombre, String usuario, String password) {
+        super(tipo, nombre, usuario, password);
+        this.listaSolicitudes = listaSolicitudes;
+        this.listaResiduos = listaResiduos;
+    }
    
     public void agregaSolicitud(SolicitudTraslado solicitud){
-        solicitudes.add(solicitud); 
+        listaSolicitudes.add(solicitud); 
     }
+
+    public List<SolicitudTraslado> getListaSolicitudes() {
+        return listaSolicitudes;
+    }
+
+    public void setListaSolicitudes(List<SolicitudTraslado> listaSolicitudes) {
+        this.listaSolicitudes = listaSolicitudes;
+    }
+
+    public List<Residuo> getListaResiduos() {
+        return listaResiduos;
+    }
+
+    public void setListaResiduos(List<Residuo> listaResiduos) {
+        this.listaResiduos = listaResiduos;
+    }
+    
+    
 
 }

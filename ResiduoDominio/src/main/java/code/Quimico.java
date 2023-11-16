@@ -5,11 +5,14 @@
 package code;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 
@@ -17,7 +20,7 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table (name="quimico")
+@Table (name="Quimico")
 public class Quimico implements Serializable {
 
     /**
@@ -30,8 +33,13 @@ public class Quimico implements Serializable {
     /**
      * 
      */
+    @Basic
     @Column(name="nombre")
     private String nombre;
+    
+    
+    @ManyToMany (mappedBy = "listaQuimicos")
+    private List<Residuo> listaResiduos;
     
     /**
      * Default constructor
@@ -43,6 +51,12 @@ public class Quimico implements Serializable {
     public Quimico(long id, String nombre) {
         this.id = id;
         this.nombre = nombre;
+    }
+
+    public Quimico(long id, String nombre, List<Residuo> listaResiduos) {
+        this.id = id;
+        this.nombre = nombre;
+        this.listaResiduos = listaResiduos;
     }
 
     public long getId() {
@@ -59,5 +73,14 @@ public class Quimico implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }        
+    }    
+
+    public List<Residuo> getListaResiduos() {
+        return listaResiduos;
+    }
+
+    public void setListaResiduos(List<Residuo> listaResiduos) {
+        this.listaResiduos = listaResiduos;
+    }
+
 }

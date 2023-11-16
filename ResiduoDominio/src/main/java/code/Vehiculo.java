@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -57,9 +59,8 @@ public class Vehiculo implements Serializable {
     @JoinColumn (name = "IdTransportista")
     private Transportista trans;
 
-    @ManyToOne
-    @JoinColumn (name = "IdTraslado")
-    private Vehiculo veh;
+    @OneToMany (mappedBy = "veh", cascade = CascadeType.ALL)
+    private List<Viaje> listaViajesRealizados;
     
     /**
      * Default constructor
@@ -67,16 +68,15 @@ public class Vehiculo implements Serializable {
     public Vehiculo() {
     }
 
-    public Vehiculo(long id, String tipo, String marca, int modelo, String linea, Transportista trans, Vehiculo veh) {
+    public Vehiculo(long id, String tipo, String marca, int modelo, String linea, Transportista trans, List<Viaje> listaViajesRealizados) {
         this.id = id;
         this.tipo = tipo;
         this.marca = marca;
         this.modelo = modelo;
         this.linea = linea;
         this.trans = trans;
-        this.veh = veh;
+        this.listaViajesRealizados = listaViajesRealizados;
     }
-    
 
     public long getId() {
         return id;
@@ -126,13 +126,12 @@ public class Vehiculo implements Serializable {
         this.trans = trans;
     }
 
-    public Vehiculo getVeh() {
-        return veh;
+    public List<Viaje> getListaViajesRealizados() {
+        return listaViajesRealizados;
     }
 
-    public void setVeh(Vehiculo veh) {
-        this.veh = veh;
+    public void setListaViajesRealizados(List<Viaje> listaViajesRealizados) {
+        this.listaViajesRealizados = listaViajesRealizados;
     }
 
-    
 }

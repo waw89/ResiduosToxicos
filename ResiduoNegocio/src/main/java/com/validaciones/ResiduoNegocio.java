@@ -6,16 +6,16 @@ package com.validaciones;
 
 import code.Residuo;
 import com.daosimp.IResiduoDAO;
-import com.dao.ResiduoDAOImp;
+
 
 /**
  *
  * @author PRIDE ANACONDA
  */
 public class ResiduoNegocio {
-    IResiduoDAO iRes = new ResiduoDAOImp();
-    public void guarda(Residuo res){
-        iRes.guarda(res); 
-    }
+//    IResiduoDAO iRes = new ResiduoDAOImp();
+//    public void guarda(Residuo res){
+//        iRes.guarda(res); 
+//    }
     
 }

@@ -20,7 +20,7 @@ public class UsuarioNegocio {
     Util utilUsario = new Util();
 
     public void cargaUsuariosProductores(){
-        Usuario user = new Productor(1, "Productor", "luis", "6442327211", "Kikirimiau7**"); 
+        Usuario user = new Productor("Productor", "luis", "6442327211", "Kikirimiau7**"); 
         Productor productor = (Productor) user;
         productor.setId(1);
        

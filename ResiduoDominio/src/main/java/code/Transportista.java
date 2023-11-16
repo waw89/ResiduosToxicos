@@ -49,9 +49,10 @@ public class Transportista extends Usuario implements Serializable{
      *
      * 
      */
-    public Transportista(String tipo, String nombre, String usuario, String password) {
+    public Transportista(List<SolicitudTraslado> listaSolicitudes, List<Vehiculo> listaVehiculos,String tipo, String nombre, String usuario, String password) {
         super(tipo, nombre, usuario, password);
-
+        this.listaSolicitudes = listaSolicitudes;
+        this.listaVehiculos = listaVehiculos;
     }
 
     public List<SolicitudTraslado> getListaSolicitudes() {

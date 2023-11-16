@@ -7,12 +7,15 @@ package code;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -44,7 +47,20 @@ public class Residuo implements Serializable {
     @Column(name="nombre")
     private String nombre;
 
+    @ManyToOne
+    @JoinColumn (name = "IdProductor")
+    private Productor prod;
 
+    @ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "Residuo_Quimico",
+            joinColumns = @JoinColumn(name = "id_Residuo"),
+            inverseJoinColumns = @JoinColumn(name = "id_Quimico")
+    )
+    private List<Quimico> listaQuimicos;
+    
+    @ManyToMany (mappedBy = "listaResiduos")
+    private List<SolicitudTraslado> listaSolTraslados;
     
     /**
      * Default constructor
@@ -58,8 +74,16 @@ public class Residuo implements Serializable {
         this.nombre = nombre;
     
     }
-    
-    
+
+    public Residuo(long id, String codigo, String nombre, Productor prod, List<Quimico> listaQuimicos, List<SolicitudTraslado> listaSolTraslados) {
+        this.id = id;
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.prod = prod;
+        this.listaQuimicos = listaQuimicos;
+        this.listaSolTraslados = listaSolTraslados;
+    }
+
     
     public long getId() {
         return id;
@@ -84,12 +108,29 @@ public class Residuo implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
 
+    public Productor getProd() {
+        return prod;
+    }
 
-    @Override
-    public String toString() {
-        return "Residuo{" + "id=" + id + ", codigo=" + codigo + ", nombre=" + nombre +'}';
+    public void setProd(Productor prod) {
+        this.prod = prod;
+    }
+
+    public List<Quimico> getListaQuimicos() {
+        return listaQuimicos;
+    }
+
+    public void setListaQuimicos(List<Quimico> listaQuimicos) {
+        this.listaQuimicos = listaQuimicos;
+    }
+
+    public List<SolicitudTraslado> getListaSolTraslados() {
+        return listaSolTraslados;
+    }
+
+    public void setListaSolTraslados(List<SolicitudTraslado> listaSolTraslados) {
+        this.listaSolTraslados = listaSolTraslados;
     }
     
 }

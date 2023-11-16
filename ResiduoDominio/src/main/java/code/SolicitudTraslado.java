@@ -17,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -63,7 +64,13 @@ public class SolicitudTraslado implements Serializable {
     /**
      *
      */
-    private Residuo residuo;
+    @ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "SolTraslados_Residuo",
+            joinColumns = @JoinColumn(name = "id_SolTraslado"),
+            inverseJoinColumns = @JoinColumn (name = "id_Residuo")
+    )
+    private List<Residuo> listaResiduos;
 
     /**
      *
@@ -79,13 +86,6 @@ public class SolicitudTraslado implements Serializable {
     @JoinColumn(name = "IdProductor")
     private Productor prod;
 
-    /**
-     *
-     */
-    @OneToMany
-    private List<Residuo> residuos = new ArrayList<>();
-
-    private List<Residuo> ListaResiudos;
 
     /**
      * Default constructor
@@ -93,21 +93,12 @@ public class SolicitudTraslado implements Serializable {
     public SolicitudTraslado() {
     }
 
-    public SolicitudTraslado(long id, Date fecha, float cantidadRes, boolean asignado, Residuo residuo, Productor productor) {
+    public SolicitudTraslado(long id, Date fecha, float cantidadRes, boolean asignado, List<Residuo> listaResiduos, List<Transportista> trans, Productor prod) {
         this.id = id;
         this.fecha = fecha;
         this.cantidadRes = cantidadRes;
         this.asignado = asignado;
-        this.residuo = residuo;
-        this.prod = productor;
-    }
-
-    public SolicitudTraslado(long id, Date fecha, float cantidadRes, boolean asignado, Residuo residuo, List<Transportista> trans, Productor prod) {
-        this.id = id;
-        this.fecha = fecha;
-        this.cantidadRes = cantidadRes;
-        this.asignado = asignado;
-        this.residuo = residuo;
+        this.listaResiduos = listaResiduos;
         this.trans = trans;
         this.prod = prod;
     }
@@ -144,12 +135,12 @@ public class SolicitudTraslado implements Serializable {
         this.asignado = asignado;
     }
 
-    public Residuo getResiduo() {
-        return residuo;
+    public List<Residuo> getListaResiduos() {
+        return listaResiduos;
     }
 
-    public void setResiduo(Residuo residuo) {
-        this.residuo = residuo;
+    public void setListaResiduos(List<Residuo> listaResiduos) {
+        this.listaResiduos = listaResiduos;
     }
 
     public List<Transportista> getTrans() {

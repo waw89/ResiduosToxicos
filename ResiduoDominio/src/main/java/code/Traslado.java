@@ -27,13 +27,6 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name= "Traslado")
 public class Traslado implements Serializable {
-
-    /**
-     * Default constructor
-     */
-    public Traslado() {
-    }
-
     /**
      * 
      */
@@ -69,7 +62,7 @@ public class Traslado implements Serializable {
     @Basic
     @Column(name= "costo_total")
     private double costoTotal;
-
+    
     /**
      * 
      */
@@ -79,31 +72,23 @@ public class Traslado implements Serializable {
     /**
      * 
      */
-   
-
-    /**
-     * 
-     */
     @OneToOne
     private SolicitudTraslado solicitudTraslado;
 
     /**
      * 
-     */
-    @OneToMany (mappedBy = "veh", cascade = CascadeType.ALL)
-    private List<Vehiculo> listaVehiculos;
-    
-    
-    /**
      * 
      */
-    @Temporal (TemporalType.DATE)
-    @Column (name = "FechaLlegada")
-    private LocalDate fechaLlegada;
+    @OneToMany (mappedBy = "tras", cascade = CascadeType.ALL)
+    private List<Viaje> listaViajes;
 
+    /**
+     * Default constructor
+     */
+    public Traslado() {
+    }
     
-    
-    public Traslado(long id, double kmTotales, String destino, String tratamiento, double costoTotal, TipoTraslado tipoTraslado, SolicitudTraslado solicitudTraslado, List<Vehiculo> listaVehiculos, LocalDate fechaLlegada) {
+    public Traslado(long id, double kmTotales, String destino, String tratamiento, double costoTotal, TipoTraslado tipoTraslado, SolicitudTraslado solicitudTraslado, List<Viaje> listaViajes) {
         this.id = id;
         this.kmTotales = kmTotales;
         this.destino = destino;
@@ -111,13 +96,8 @@ public class Traslado implements Serializable {
         this.costoTotal = costoTotal;
         this.tipoTraslado = tipoTraslado;
         this.solicitudTraslado = solicitudTraslado;
-        this.listaVehiculos = listaVehiculos;
-        this.fechaLlegada = fechaLlegada;
+        this.listaViajes = listaViajes;
     }
-
-    
-
-    
 
     public long getId() {
         return id;
@@ -174,26 +154,13 @@ public class Traslado implements Serializable {
     public void setSolicitudTraslado(SolicitudTraslado solicitudTraslado) {
         this.solicitudTraslado = solicitudTraslado;
     }
-    
-    public void agregaVehiculo(Vehiculo vehiculo){
-        listaVehiculos.add(vehiculo);
+
+    public List<Viaje> getListaViajes() {
+        return listaViajes;
     }
 
-    public List<Vehiculo> getListaVehiculos() {
-        return listaVehiculos;
+    public void setListaViajes(List<Viaje> listaViajes) {
+        this.listaViajes = listaViajes;
     }
 
-    public void setListaVehiculos(List<Vehiculo> listaVehiculos) {
-        this.listaVehiculos = listaVehiculos;
-    }
-
-    public LocalDate getFechaLlegada() {
-        return fechaLlegada;
-    }
-
-    public void setFechaLlegada(LocalDate fechaLlegada) {
-        this.fechaLlegada = fechaLlegada;
-    }
-
-  
 }
