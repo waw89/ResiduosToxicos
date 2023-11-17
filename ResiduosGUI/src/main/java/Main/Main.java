@@ -9,8 +9,10 @@ import GUI.PantallaInicial;
 
 import GUI.RegistraResiduosFrm;
 import code.Productor;
+import com.validaciones.QuimicoNegocio;
 
 import java.lang.Math; 
+import javax.persistence.EntityManager;
 /**
  *
  * @author PC
@@ -31,6 +33,13 @@ public class Main {
                
                new PantallaInicial(p).setVisible(true);
                
+               
+//               QuimicoNegocio qn = new QuimicoNegocio();
+//               qn.cargaQuimicos();
+//               
+//                System.out.println(qn.cargaQuimicos());
+//               
+//               
             }
         });
 

@@ -101,11 +101,29 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     LocalDate fechaSeleccionada = calendario.getSelectedDate();
     LocalDate fechaActual = LocalDate.now();
 
-     if(fechaSeleccionada.isBefore(fechaActual) || fechaSeleccionada.equals(fechaActual)){
+    if (fechaSeleccionada == null) {
+        
+        return false;
+    }
+    if(fechaSeleccionada.isBefore(fechaActual) || fechaSeleccionada.equals(fechaActual)){
          return false;
      }
+     
+     
      return true;
  }
+ 
+ public boolean verificarSeleccion(){
+       int cantidadSeleccionada = modelSeleccionados.size(); 
+
+    if (cantidadSeleccionada < 1) {
+        mostrarError("Debe seleccionar al menos un residuo", "Error", "Error al registrar");
+        return false;
+    }
+
+    return true;
+ }
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -228,9 +246,9 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
             agregaAListaSeleccionados();
             eliminaDeListaDisponibles();
         } else if (residuosSeleccionadosList.getSelectedIndex() != -1) {
-            mostrarMensaje("No puedes agregar ningun quimico aquí", "Error", "Error al Agregar");
+            mostrarError("No puedes agregar ningun quimico aquí", "Error", "Error al Agregar");
         } else {
-            mostrarMensaje("No seleccionó ningun quimico", "Error", "Error al Agregar");
+            mostrarError("No seleccionó ningun quimico", "Error", "Error al Agregar");
         }
         }
               
@@ -242,15 +260,16 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
             agregaAListaDisponibles();
             eliminaDeListaSeleccionados();
         } else if (residuosDisponiblesList.getSelectedIndex() != -1) {
-            mostrarMensaje("No puedes eliminar un quimico de aquí", "Error", "Error al Eliminar");
+            mostrarError("No puedes eliminar un quimico de aquí", "Error", "Error al Eliminar");
         } else {
-            mostrarMensaje("No seleccionó ningun quimico", "Error", "Error al Eliminar");
+            mostrarError("No seleccionó ningun quimico", "Error", "Error al Eliminar");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
+        if(verificarSeleccion() == true){
         if(verificarFecha() == false){
-            mostrarMensaje("Seleccione una fecha valida","Error","Error al Solicitar");
+            mostrarError("Seleccione una fecha valida","Error","Error al Solicitar");
         }else{
         JOptionPane.showMessageDialog(null, "Solicitud Exitosa");
         Usuario usuario = new Usuario();
@@ -258,6 +277,7 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         new PantallaInicial(usuario).setVisible(true);
         this.dispose();
          }
+        }
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -281,7 +301,7 @@ public void eliminaDeListaDisponibles() {
     public void agregaAListaSeleccionados() {
         modelSeleccionados.addElement(residuosDisponiblesList.getSelectedValue());
     }
-    public void mostrarMensaje (String mensaje, String tipo, String titulo){
+    public void mostrarError (String mensaje, String tipo, String titulo){
         JOptionPane optionPane = new JOptionPane(mensaje);
         if(tipo.equals("Info")){
             optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);

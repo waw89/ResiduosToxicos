@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author xfs85
  */
 public class RegistraResiduosFrm extends javax.swing.JFrame {
-        
+
     /**
      * Creates new form RegistraResiduosFrm
      */
@@ -29,19 +29,46 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         inicializaLista();
         this.setTitle("Registrar Residuos");
     }
-    
-    
+
     public void inicializaLista() {
 
         modelDisponibles.addElement("Cloro");
         modelDisponibles.addElement("Cianuro");
         modelDisponibles.addElement("Plomo");
         modelDisponibles.addElement("Amoniaco");
-        
-        
+
     }
-    
-   
+
+    public boolean verificaFormatoCodigo() {
+        String codigo = txtCodigo.getText();
+
+        if (codigo.matches("\\d{6}")) {
+            return true;
+        }
+
+        mostrarError("Ingrese un código válido", "Error", "Error al Registrar");
+        return false;
+    }
+
+    public boolean verificaFormatosVacios() {
+        if (txtNombre.getText().isBlank()) {
+            mostrarError("Nombre vacío, ingrese uno", "Error", "Error al registrar");
+            return false;
+        }
+        return true;
+    }
+
+   public boolean verificaSeleccionados() {
+    int cantidadSeleccionada = modelSeleccionados.size(); 
+
+    if (cantidadSeleccionada < 2) {
+        mostrarError("Debe seleccionar al menos 2 químicos", "Error", "Error al registrar");
+        return false;
+    }
+
+    return true;
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,6 +81,8 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnVolver = new javax.swing.JButton();
+        agregarBtn = new javax.swing.JButton();
+        eliminarBtn = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         quimicosReservadosList = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -62,8 +91,6 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        eliminarBtn = new javax.swing.JButton();
-        agregarBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -77,6 +104,22 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 13, 40, 30));
+
+        agregarBtn.setContentAreaFilled(false);
+        agregarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(agregarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 152, 90, 30));
+
+        eliminarBtn.setContentAreaFilled(false);
+        eliminarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(eliminarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(593, 332, 90, 30));
 
         jScrollPane5.setBorder(null);
 
@@ -115,22 +158,6 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Registrar Residuo - Residuos Tóxicos.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 720, 480));
 
-        eliminarBtn.setText("Eliminar");
-        eliminarBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(eliminarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(593, 332, 90, 30));
-
-        agregarBtn.setText("Agregar");
-        agregarBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(agregarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 152, 90, 30));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,9 +179,9 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
             agregaAListaSeleccionados();
             eliminaDeListaDisponibles();
         } else if (quimicosReservadosList.getSelectedIndex() != -1) {
-            mostrarMensaje("No puedes agregar ningun quimico aquí", "Error", "Error al Agregar");
+            mostrarError("No puedes agregar ningun quimico aquí", "Error", "Error al Agregar");
         } else {
-            mostrarMensaje("No seleccionó ningun quimico", "Error", "Error al Agregar");
+            mostrarError("No seleccionó ningun quimico", "Error", "Error al Agregar");
         }
     }//GEN-LAST:event_agregarBtnActionPerformed
 
@@ -164,22 +191,31 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
             agregaAListaDisponibles();
             eliminaDeListaSeleccionados();
         } else if (quimicosDisponiblesList.getSelectedIndex() != -1) {
-            mostrarMensaje("No puedes eliminar un quimico de aquí", "Error", "Error al Eliminar");
+            mostrarError("No puedes eliminar un quimico de aquí", "Error", "Error al Eliminar");
         } else {
-            mostrarMensaje("No seleccionó ningun quimico", "Error", "Error al Eliminar");
+            mostrarError("No seleccionó ningun quimico", "Error", "Error al Eliminar");
         }
     }//GEN-LAST:event_eliminarBtnActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        JOptionPane.showMessageDialog(null, "Registro Exitoso");
-        Usuario usuario = new Usuario();
-        usuario.setTipo("Productor");
-        new PantallaInicial(usuario).setVisible(true);
-        this.dispose();
+        if (verificaFormatoCodigo() == true) {
+
+            if (verificaFormatosVacios() == true) {
+
+                if (verificaSeleccionados() == true) {
+
+                    JOptionPane.showMessageDialog(null, "Registro Exitoso");
+                    Usuario usuario = new Usuario();
+                    usuario.setTipo("Productor");
+                    new PantallaInicial(usuario).setVisible(true);
+                    this.dispose();
+                }
+            }
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-     Usuario usuario = new Usuario();
+        Usuario usuario = new Usuario();
         usuario.setTipo("Productor");
         new PantallaInicial(usuario).setVisible(true);
         this.dispose();
@@ -199,17 +235,17 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     public void agregaAListaSeleccionados() {
         modelSeleccionados.addElement(quimicosDisponiblesList.getSelectedValue());
     }
-    public void mostrarMensaje (String mensaje, String tipo, String titulo){
+
+    public void mostrarError(String mensaje, String tipo, String titulo) {
         JOptionPane optionPane = new JOptionPane(mensaje);
-        if(tipo.equals("Info")){
+        if (tipo.equals("Info")) {
             optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        }
-        else if(tipo.equals("Error")){
+        } else if (tipo.equals("Error")) {
             optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
         JDialog dialog = optionPane.createDialog(titulo);
         dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);      
+        dialog.setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarBtn;
@@ -226,16 +262,16 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
-    public static void main (String [] args){
-               /* Create and display the form */
+    public static void main(String[] args) {
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               
-               Productor p = new Productor();
-               p.setTipo("Productor");
-               
-               new PantallaInicial(p).setVisible(true);
-               
+
+                Productor p = new Productor();
+                p.setTipo("Productor");
+
+                new PantallaInicial(p).setVisible(true);
+
             }
         });
     }
