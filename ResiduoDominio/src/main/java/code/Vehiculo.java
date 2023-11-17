@@ -24,7 +24,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table (name = "Vehiculo")
-public class Vehiculo implements Serializable {
+public class Vehiculo  {
 
     /**
      * 

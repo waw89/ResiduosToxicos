@@ -5,6 +5,7 @@
 package com.daos;
 
 import code.Quimico;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,5 +13,5 @@ import java.util.List;
  * @author PRIDE ANACONDA
  */
 public interface IQuimicoDAO {
-    public List<Quimico> cargaQuimicos(List<Quimico> quimicos);
+    public ArrayList<Quimico> cargaQuimicos(ArrayList<Quimico> quimicos);
 }

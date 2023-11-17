@@ -5,7 +5,7 @@
 package GUI;
 
 import code.Usuario;
-import com.validaciones.UsuarioNegocio;
+//import com.validaciones.UsuarioNegocio;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author xfs85
  */
 public class IniciarSesionFrm extends javax.swing.JFrame {
-    UsuarioNegocio usuarioNeg = new UsuarioNegocio();
+    //UsuarioNegocio usuarioNeg = new UsuarioNegocio();
     
     /**
      * Creates new form IniciarSesionFrm

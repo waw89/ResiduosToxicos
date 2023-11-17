@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn (name = "IdAdministrador")
 @DiscriminatorValue (value = "Administrador")
 @Table (name = "Administrador")
-public class Administrador extends Usuario implements Serializable {
+public class Administrador extends Usuario  {
 
     public Administrador() {
     

@@ -24,7 +24,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="Residuo")
-public class Residuo implements Serializable {
+public class Residuo implements Serializable  {
     /**
      * 
      */

@@ -5,8 +5,10 @@
 package com.daos;
 
 import code.Quimico;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -21,10 +23,10 @@ public class QuimicoDAOImp implements IQuimicoDAO {
         
     }
     
-    EntityManager entityManager = SingletonEntityManager.getEntityManagerFactory().createEntityManager(); 
+    EntityManagerFactory entityManagerFactory = SingletonEntityManager.getEntityManagerFactory(); 
    
     public EntityManager getEntityManager() {
-        return entityManager; 
+        return entityManagerFactory.createEntityManager(); 
     }
     // para usar el singleton, 
     public void create(Quimico quimico) {
@@ -41,7 +43,8 @@ public class QuimicoDAOImp implements IQuimicoDAO {
         }
     }
 
-    public List<Quimico> cargaQuimicos(List<Quimico> quimicos) {
+    @Override
+    public ArrayList<Quimico> cargaQuimicos(ArrayList<Quimico> quimicos) {
          EntityManager em = null;
         try {
             em = getEntityManager();

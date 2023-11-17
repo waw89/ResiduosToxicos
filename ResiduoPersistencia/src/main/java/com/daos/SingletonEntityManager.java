@@ -15,16 +15,23 @@ import javax.persistence.Persistence;
  */
 public class SingletonEntityManager {
 
-private static EntityManagerFactory entityManagerFactory;
+private static EntityManagerFactory entityManagerFactory = null;
 
     private SingletonEntityManager() {
     }
 
     public static EntityManagerFactory getEntityManagerFactory() {
         if (entityManagerFactory == null) {
-            entityManagerFactory = Persistence.createEntityManagerFactory("mysqlPU");
+            
+            entityManagerFactory = Persistence.createEntityManagerFactory("mysqlPU"); 
+            System.out.println("HOLAAAAAA");
+            return entityManagerFactory;
+            
+        }else{
+           return entityManagerFactory;  
         }
-        return entityManagerFactory;
+        
+        
     }
 
   

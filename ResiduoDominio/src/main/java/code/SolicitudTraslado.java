@@ -30,7 +30,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "SolicitudTraslado")
-public class SolicitudTraslado implements Serializable {
+public class SolicitudTraslado  {
 
     /**
      *

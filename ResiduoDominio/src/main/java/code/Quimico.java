@@ -19,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table (name="Quimico")
-public class Quimico implements Serializable  {
+public class Quimico implements Serializable   {
 
     /**
      * 
@@ -68,13 +68,13 @@ public class Quimico implements Serializable  {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }    
-//
-//    public List<Residuo> getListaResiduos() {
-//        return listaResiduos;
-//    }
-//
-//    public void setListaResiduos(List<Residuo> listaResiduos) {
-//        this.listaResiduos = listaResiduos;
-//    }
+
+    public List<Residuo> getListaResiduos() {
+        return listaResiduos;
+    }
+
+    public void setListaResiduos(List<Residuo> listaResiduos) {
+        this.listaResiduos = listaResiduos;
+    }
 
 }
