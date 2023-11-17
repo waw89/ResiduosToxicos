@@ -45,8 +45,8 @@ public class QuimicoDAOImp implements IQuimicoDAO {
     }
 
     public boolean verificaQuimicos() {
-
-        if (findQuimicoEntities() == null) {
+  
+        if (findQuimicoEntities().isEmpty()) {
             return true;
         } else {
             return false;
