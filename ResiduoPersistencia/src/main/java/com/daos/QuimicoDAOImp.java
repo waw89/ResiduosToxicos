@@ -4,11 +4,13 @@
  */
 package com.daos;
 
-import code.Quimico;
-import java.util.ArrayList;
+
+
+import entitys.QuimicoModel;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -20,16 +22,17 @@ import javax.persistence.criteria.Root;
 public class QuimicoDAOImp implements IQuimicoDAO {
 
     public QuimicoDAOImp() {
-        
+
     }
-    
-    EntityManagerFactory entityManagerFactory = SingletonEntityManager.getEntityManagerFactory(); 
-   
+
+    EntityManagerFactory entityManagerFactory = SingletonEntityManager.getEntityManagerFactory();
+
     public EntityManager getEntityManager() {
-        return entityManagerFactory.createEntityManager(); 
+        return entityManagerFactory.createEntityManager();
     }
+
     // para usar el singleton, 
-    public void create(Quimico quimico) {
+    public void create(QuimicoModel quimico) {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -44,36 +47,46 @@ public class QuimicoDAOImp implements IQuimicoDAO {
     }
 
     @Override
-    public ArrayList<Quimico> cargaQuimicos(ArrayList<Quimico> quimicos) {
-         EntityManager em = null;
+    public List<QuimicoModel> cargaQuimicos(List<QuimicoModel> quimicos) {
+        EntityManager em = getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
         try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            for(Quimico quim: quimicos){
-                em.persist(quim);
+            transaction.begin();
+
+            for (QuimicoModel quimico : quimicos) {
+                em.persist(quimico);
             }
-            
-            em.getTransaction().commit();
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            // Puedes manejar la excepción o relanzarla según tus necesidades
+            e.printStackTrace();
         } finally {
             if (em != null) {
                 em.close();
             }
         }
+
         return quimicos;
     }
-    public List<Quimico> findQuimicoEntities() {
+
+    public List<QuimicoModel> findQuimicoEntities() {
         return findQuimicoEntities(true, -1, -1);
     }
 
-    public List<Quimico> findQuimicoEntities(int maxResults, int firstResult) {
+    public List<QuimicoModel> findQuimicoEntities(int maxResults, int firstResult) {
         return findQuimicoEntities(false, maxResults, firstResult);
     }
 
-    private List<Quimico> findQuimicoEntities(boolean all, int maxResults, int firstResult) {
+    private List<QuimicoModel> findQuimicoEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Quimico.class));
+            cq.select(cq.from(QuimicoModel.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -85,10 +98,10 @@ public class QuimicoDAOImp implements IQuimicoDAO {
         }
     }
 
-    public Quimico findQuimico(long id) {
+    public QuimicoModel findQuimico(long id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Quimico.class, id);
+            return em.find(QuimicoModel.class, id);
         } finally {
             em.close();
         }
@@ -98,7 +111,7 @@ public class QuimicoDAOImp implements IQuimicoDAO {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Quimico> rt = cq.from(Quimico.class);
+            Root<QuimicoModel> rt = cq.from(QuimicoModel.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
@@ -106,5 +119,5 @@ public class QuimicoDAOImp implements IQuimicoDAO {
             em.close();
         }
     }
-    
+
 }

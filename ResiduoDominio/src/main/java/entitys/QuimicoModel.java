@@ -1,6 +1,8 @@
-
-package code;
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package entitys;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,20 +15,26 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-
 /**
- * 
+ *
+ * @author PRIDE ANACONDA
  */
 @Entity
-@Table (name="Quimico")
-public class Quimico implements Serializable   {
+@Table (name = "Quimico")
+public class QuimicoModel implements Serializable {
 
-    /**
-     * 
-     */
+    
     @Id
-    @GeneratedValue (strategy =GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     /**
      * 
@@ -37,34 +45,27 @@ public class Quimico implements Serializable   {
     
     
     @ManyToMany (mappedBy = "listaQuimicos")
-    private List<Residuo> listaResiduos;
+    private List<ResiduoModel> listaResiduos;
     
     /**
      * Default constructor
      */
     
-    public Quimico() {
+    public QuimicoModel() {
         
     }
-    public Quimico(String nombre) {
+    public QuimicoModel(String nombre) {
 
         this.nombre = nombre;
     }
 
-    public Quimico(String nombre, List<Residuo> listaResiduos) {
+    public QuimicoModel(String nombre, List<ResiduoModel> listaResiduos) {
         this.nombre = nombre;
         this.listaResiduos = listaResiduos;
     }
 
  
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getNombre() {
         return nombre;
@@ -74,12 +75,14 @@ public class Quimico implements Serializable   {
         this.nombre = nombre;
     }    
 
-    public List<Residuo> getListaResiduos() {
+    public List<ResiduoModel> getListaResiduos() {
         return listaResiduos;
     }
 
-    public void setListaResiduos(List<Residuo> listaResiduos) {
+    public void setListaResiduos(List<ResiduoModel> listaResiduos) {
         this.listaResiduos = listaResiduos;
     }
 
+
+    
 }

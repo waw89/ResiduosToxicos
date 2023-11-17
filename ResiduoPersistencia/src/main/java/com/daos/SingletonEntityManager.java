@@ -24,7 +24,6 @@ private static EntityManagerFactory entityManagerFactory = null;
         if (entityManagerFactory == null) {
             
             entityManagerFactory = Persistence.createEntityManagerFactory("mysqlPU"); 
-            System.out.println("HOLAAAAAA");
             return entityManagerFactory;
             
         }else{

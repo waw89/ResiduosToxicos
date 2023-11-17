@@ -4,11 +4,11 @@
  */
 package com.validaciones;
 
-import code.Quimico;
 import com.daos.IQuimicoDAO;
 import com.daos.QuimicoDAOImp;
 
 import com.utilerias.Util;
+import entitys.QuimicoModel;
 import java.util.ArrayList;
 
 /**
@@ -22,7 +22,7 @@ public class QuimicoNegocio {
 
     public void cargaQuimicos() {
 
-        ArrayList<Quimico> quimicos = util.creaQuimicos();
+        ArrayList<QuimicoModel> quimicos = util.creaQuimicos();
 
         iQuimicoDAO.cargaQuimicos(quimicos);
 

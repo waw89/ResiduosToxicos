@@ -2,12 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package code;
+package entitys;
 
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,24 +15,30 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * 
+ *
+ * @author PRIDE ANACONDA
  */
+// Falta agregar Productor a esta clase y Solicitud de traslado
 @Entity
-@Table(name="Residuo")
-public class Residuo implements Serializable  {
-    /**
-     * 
-     */
-    @Id 
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
-    @Column (name = "id_residuo")
-    private long id;
+@Table (name = "Residuo")
+public class ResiduoModel implements Serializable {
 
-    /**
+ 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+/**
      * 
      */
     @Basic
@@ -47,9 +52,9 @@ public class Residuo implements Serializable  {
     @Column(name="nombre")
     private String nombre;
 
-    @ManyToOne
-    @JoinColumn (name = "IdProductor")
-    private Productor prod;
+//    @ManyToOne
+//    @JoinColumn (name = "IdProductor")
+//    private Productor prod;
 
     @ManyToMany 
     @JoinTable(
@@ -57,39 +62,27 @@ public class Residuo implements Serializable  {
             joinColumns = @JoinColumn(name = "id_Residuo"),
             inverseJoinColumns = @JoinColumn(name = "id_Quimico")
     )
-    private List<Quimico> listaQuimicos;
+    private List<QuimicoModel> listaQuimicos;
     
-    @ManyToMany (mappedBy = "listaResiduos")
-    private List<SolicitudTraslado> listaSolTraslados;
-    
+//    @ManyToMany (mappedBy = "listaResiduos")
+//    private List<SolicitudTraslado> listaSolTraslados;
+//    
     /**
      * Default constructor
      */
-    public Residuo() {
+    public ResiduoModel() {
     }
 
-    public Residuo(String codigo, String nombre) {
+    public ResiduoModel(String codigo, String nombre) {
 
         this.codigo = codigo;
         this.nombre = nombre;
     
     }
 
-    public Residuo(String codigo, String nombre, Productor prod) {
-
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.prod = prod;
-    }
 
     
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getCodigo() {
         return codigo;
@@ -106,14 +99,14 @@ public class Residuo implements Serializable  {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    public Productor getProd() {
-        return prod;
-    }
-
-    public void setProd(Productor prod) {
-        this.prod = prod;
-    }
-
+//
+//    public Productor getProd() {
+//        return prod;
+//    }
+//
+//    public void setProd(Productor prod) {
+//        this.prod = prod;
+//    }
+    
     
 }

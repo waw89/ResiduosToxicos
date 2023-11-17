@@ -4,13 +4,14 @@
  */
 package com.utilerias;
 
-import code.Quimico;
-import code.Usuario;
-import com.dto.DTOUsuario;
-import java.util.ArrayList;
-import java.util.List;
+
 
 ;
+
+import entitys.QuimicoModel;
+import java.util.ArrayList;
+
+
 
 /**
  *
@@ -25,23 +26,23 @@ public class Util {
      *
      * Convierte un objeto de tipo Usuario a un UsuarioDTO
      */
-    public DTOUsuario convertirUsuarioAUsuarioDTO(Usuario usuario) {
-        return new DTOUsuario(usuario.getId(), usuario.getTipo(), usuario.getNombre(), usuario.getUsuario(), usuario.getPassword());
+//    public DTOUsuario convertirUsuarioAUsuarioDTO(Usuario usuario) {
+//        return new DTOUsuario(usuario.getId(), usuario.getTipo(), usuario.getNombre(), usuario.getUsuario(), usuario.getPassword());
+//
+//    }
+//
+//    public Usuario ConvertirDTOUsuarioAUsuario(DTOUsuario DTOusuario) {
+//        if (DTOusuario != null) {
+//            return new Usuario(DTOusuario.getTipo(), DTOusuario.getNombre(), DTOusuario.getUsuario(), DTOusuario.getPassword());
+//        }
+//        return null;
+//    }
 
-    }
-
-    public Usuario ConvertirDTOUsuarioAUsuario(DTOUsuario DTOusuario) {
-        if (DTOusuario != null) {
-            return new Usuario(DTOusuario.getTipo(), DTOusuario.getNombre(), DTOusuario.getUsuario(), DTOusuario.getPassword());
-        }
-        return null;
-    }
-
-    public ArrayList<Quimico> creaQuimicos() {
-        Quimico quim1 = new Quimico("Plomo");
-        Quimico quim2 = new Quimico("Cianuro");
-        Quimico quim3 = new Quimico("Cobre");
-        Quimico quim4 = new Quimico("Arsénico");
+    public ArrayList<QuimicoModel> creaQuimicos() {
+        QuimicoModel quim1 = new QuimicoModel("Plomo", null);
+        QuimicoModel quim2 = new QuimicoModel("Cianuro", null);
+        QuimicoModel quim3 = new QuimicoModel("Cobre", null);
+        QuimicoModel quim4 = new QuimicoModel("Arsénico", null);
 
         ArrayList nuevosQuimicos = new ArrayList();
 

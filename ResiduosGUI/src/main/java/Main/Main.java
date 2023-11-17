@@ -4,19 +4,10 @@
  */
 package Main;
 
-import GUI.IniciarSesionFrm;
-import GUI.PantallaInicial;
 
-import GUI.RegistraResiduosFrm;
-import code.Productor;
+
 import com.validaciones.QuimicoNegocio;
 
-import java.lang.Math; 
-import javax.persistence.EntityManager;
-/**
- *
- * @author PC
- */
 public class Main {
 
     /**

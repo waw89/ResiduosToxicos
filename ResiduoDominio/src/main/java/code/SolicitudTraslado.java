@@ -59,7 +59,7 @@ public class SolicitudTraslado  {
      */
     @Basic
     @Column(name = "Asignado")
-    private boolean asignado;
+   private boolean asignado;
 
     /**
      *
@@ -164,3 +164,4 @@ public class SolicitudTraslado  {
     }
 
 }
+ 
