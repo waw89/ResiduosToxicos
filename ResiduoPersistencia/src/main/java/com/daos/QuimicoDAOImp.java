@@ -4,8 +4,6 @@
  */
 package com.daos;
 
-
-
 import entitys.QuimicoModel;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -46,6 +44,15 @@ public class QuimicoDAOImp implements IQuimicoDAO {
         }
     }
 
+    public boolean verificaQuimicos() {
+
+        if (findQuimicoEntities() == null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public List<QuimicoModel> cargaQuimicos(List<QuimicoModel> quimicos) {
         EntityManager em = getEntityManager();
@@ -53,12 +60,16 @@ public class QuimicoDAOImp implements IQuimicoDAO {
 
         try {
             transaction.begin();
+            if (verificaQuimicos() == true) {
+                for (QuimicoModel quimico : quimicos) {
+                    em.persist(quimico);
+                }
 
-            for (QuimicoModel quimico : quimicos) {
-                em.persist(quimico);
+                transaction.commit();
+            } else {
+                return findQuimicoEntities();
             }
 
-            transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
