@@ -1,2 +1,4 @@
-entitys\Productor_.class
-entitys\Residuo_.class
+entitys\ResiduoModel.class
+entitys\QuimicoModel_.class
+entitys\ResiduoModel_.class
+entitys\QuimicoModel.class
