@@ -10,6 +10,7 @@ import com.daos.QuimicoDAOImp;
 import com.utilerias.Util;
 import entitys.QuimicoModel;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,12 +21,12 @@ public class QuimicoNegocio {
     IQuimicoDAO iQuimicoDAO = new QuimicoDAOImp();
     Util util = new Util();
 
-    public void cargaQuimicos() {
+    public List<QuimicoModel> cargaQuimicos() {
 
         ArrayList<QuimicoModel> quimicos = util.creaQuimicos();
 
-        iQuimicoDAO.cargaQuimicos(quimicos);
-
+        return iQuimicoDAO.cargaQuimicos(quimicos);
+        
         
         
     }

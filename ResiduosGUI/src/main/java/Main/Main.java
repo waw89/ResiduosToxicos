@@ -4,9 +4,12 @@
  */
 package Main;
 
+import GUI.PantallaInicial;
+import code.Productor;
 
 
-import com.validaciones.QuimicoNegocio;
+
+
 
 public class Main {
 
@@ -18,17 +21,14 @@ public class Main {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-//               
-//               Productor p = new Productor();
-//               p.setTipo("Productor");
-//               
-//               new PantallaInicial(p).setVisible(true);
-//               
                
-               QuimicoNegocio qn = new QuimicoNegocio();
-               qn.cargaQuimicos();
+               Productor p = new Productor();
+               p.setTipo("Productor");
                
-                //System.out.println(qn.cargaQuimicos());
+               new PantallaInicial(p).setVisible(true);
+               
+               
+          
                
                
             }

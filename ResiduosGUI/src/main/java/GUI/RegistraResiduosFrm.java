@@ -6,6 +6,10 @@ package GUI;
 
 import code.Productor;
 import code.Usuario;
+import com.validaciones.QuimicoNegocio;
+import entitys.QuimicoModel;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -21,22 +25,25 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
      */
     DefaultListModel<String> modelDisponibles = new DefaultListModel<>();
     DefaultListModel<String> modelSeleccionados = new DefaultListModel<>();
+    QuimicoNegocio qn = new QuimicoNegocio();
+    
 
     public RegistraResiduosFrm(Usuario usuario) {
         initComponents();
         quimicosDisponiblesList.setModel(modelDisponibles);
         quimicosReservadosList.setModel(modelSeleccionados);
+        
         inicializaLista();
         this.setTitle("Registrar Residuos");
     }
 
     public void inicializaLista() {
-
-        modelDisponibles.addElement("Cloro");
-        modelDisponibles.addElement("Cianuro");
-        modelDisponibles.addElement("Plomo");
-        modelDisponibles.addElement("Amoniaco");
-
+        
+        List<QuimicoModel> listaQuimicos = qn.cargaQuimicos();
+        
+        for(QuimicoModel quimico: listaQuimicos){
+            modelDisponibles.addElement(quimico.getId().toString());
+        }
     }
 
     public boolean verificaFormatoCodigo() {
@@ -203,6 +210,8 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
             if (verificaFormatosVacios() == true) {
 
                 if (verificaSeleccionados() == true) {
+                    
+                    
 
                     JOptionPane.showMessageDialog(null, "Registro Exitoso");
                     Usuario usuario = new Usuario();
