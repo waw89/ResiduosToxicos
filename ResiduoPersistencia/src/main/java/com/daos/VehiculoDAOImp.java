@@ -20,9 +20,9 @@ import javax.persistence.EntityManagerFactory;
  *
  * @author PRIDE ANACONDA
  */
-public class VehiculoModelJpaController implements Serializable {
+public class VehiculoDAOImp implements IVehiculoDAO {
 
-    public VehiculoModelJpaController(EntityManagerFactory emf) {
+    public VehiculoDAOImp(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -31,7 +31,7 @@ public class VehiculoModelJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(VehiculoModel vehiculoModel) {
+    public VehiculoModel create(VehiculoModel vehiculoModel) {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -52,71 +52,10 @@ public class VehiculoModelJpaController implements Serializable {
                 em.close();
             }
         }
+        return vehiculoModel;
     }
 
-    public void edit(VehiculoModel vehiculoModel) throws NonexistentEntityException, Exception {
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            VehiculoModel persistentVehiculoModel = em.find(VehiculoModel.class, vehiculoModel.getId());
-            TransportistaModel transOld = persistentVehiculoModel.getTrans();
-            TransportistaModel transNew = vehiculoModel.getTrans();
-            if (transNew != null) {
-                transNew = em.getReference(transNew.getClass(), transNew.getId());
-                vehiculoModel.setTrans(transNew);
-            }
-            vehiculoModel = em.merge(vehiculoModel);
-            if (transOld != null && !transOld.equals(transNew)) {
-                transOld.getListaVehiculos().remove(vehiculoModel);
-                transOld = em.merge(transOld);
-            }
-            if (transNew != null && !transNew.equals(transOld)) {
-                transNew.getListaVehiculos().add(vehiculoModel);
-                transNew = em.merge(transNew);
-            }
-            em.getTransaction().commit();
-        } catch (Exception ex) {
-            String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
-                Long id = vehiculoModel.getId();
-                if (findVehiculoModel(id) == null) {
-                    throw new NonexistentEntityException("The vehiculoModel with id " + id + " no longer exists.");
-                }
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public void destroy(Long id) throws NonexistentEntityException {
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            VehiculoModel vehiculoModel;
-            try {
-                vehiculoModel = em.getReference(VehiculoModel.class, id);
-                vehiculoModel.getId();
-            } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The vehiculoModel with id " + id + " no longer exists.", enfe);
-            }
-            TransportistaModel trans = vehiculoModel.getTrans();
-            if (trans != null) {
-                trans.getListaVehiculos().remove(vehiculoModel);
-                trans = em.merge(trans);
-            }
-            em.remove(vehiculoModel);
-            em.getTransaction().commit();
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
+    
 
     public List<VehiculoModel> findVehiculoModelEntities() {
         return findVehiculoModelEntities(true, -1, -1);

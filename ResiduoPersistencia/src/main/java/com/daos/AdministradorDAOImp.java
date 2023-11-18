@@ -19,9 +19,9 @@ import javax.persistence.criteria.Root;
  *
  * @author PRIDE ANACONDA
  */
-public class AdministradorModelJpaController implements Serializable {
+public class AdministradorDAOImp implements IAdministradorDAO {
 
-    public AdministradorModelJpaController(EntityManagerFactory emf) {
+    public AdministradorDAOImp(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -30,7 +30,8 @@ public class AdministradorModelJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(AdministradorModel administradorModel) {
+    @Override
+    public AdministradorModel create(AdministradorModel administradorModel) {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -42,52 +43,10 @@ public class AdministradorModelJpaController implements Serializable {
                 em.close();
             }
         }
+        return administradorModel;
     }
 
-    public void edit(AdministradorModel administradorModel) throws NonexistentEntityException, Exception {
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            administradorModel = em.merge(administradorModel);
-            em.getTransaction().commit();
-        } catch (Exception ex) {
-            String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
-                Long id = administradorModel.getId();
-                if (findAdministradorModel(id) == null) {
-                    throw new NonexistentEntityException("The administradorModel with id " + id + " no longer exists.");
-                }
-            }
-            throw ex;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
-    public void destroy(Long id) throws NonexistentEntityException {
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            AdministradorModel administradorModel;
-            try {
-                administradorModel = em.getReference(AdministradorModel.class, id);
-                administradorModel.getId();
-            } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The administradorModel with id " + id + " no longer exists.", enfe);
-            }
-            em.remove(administradorModel);
-            em.getTransaction().commit();
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-    }
-
+ 
     public List<AdministradorModel> findAdministradorModelEntities() {
         return findAdministradorModelEntities(true, -1, -1);
     }
