@@ -21,7 +21,7 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn (name = "IdTransportista")
 @DiscriminatorValue (value = "Transportista")
 @Table(name = "Transportista")
-public class TransportistaModel implements Serializable {
+public class TransportistaModel extends UsuarioModel implements Serializable  {
 
  
     /**
@@ -44,7 +44,7 @@ public class TransportistaModel implements Serializable {
     }
     
     /**
-     *
+     *  
      * 
      */
     public TransportistaModel(List<SolicitudTrasladoModel> listaSolicitudes, List<VehiculoModel> listaVehiculos,String tipo, String nombre, String usuario, String password) {

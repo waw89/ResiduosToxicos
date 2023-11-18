@@ -4,10 +4,8 @@
  */
 package GUI;
 
-import code.Usuario;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+
+import entitys.UsuarioModel;
 
 /**
  *
@@ -25,7 +23,7 @@ public class PantallaInicial extends javax.swing.JFrame {
     
 
    
-    public PantallaInicial(Usuario usuario) {
+    public PantallaInicial(UsuarioModel usuario) {
         initComponents();
         panel = new javax.swing.JPanel();
         label = new javax.swing.JLabel();
@@ -102,7 +100,7 @@ public class PantallaInicial extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     private void btnRegistraResActionPerformed(java.awt.event.ActionEvent evt) {
-        Usuario usuario = new Usuario();
+        UsuarioModel usuario = new UsuarioModel();
         new RegistraResiduosFrm(usuario).setVisible(true);
         this.dispose();
     }

@@ -24,7 +24,7 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "Tipo")
 @Table(name = "Usuario")
-public class UsuarioModel implements Serializable {
+public class UsuarioModel implements Serializable  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

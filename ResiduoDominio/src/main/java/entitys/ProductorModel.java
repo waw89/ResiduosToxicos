@@ -24,7 +24,7 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn (name = "IdProductor")
 @DiscriminatorValue (value = "Productor")
 @Table (name = "Productor")
-public class ProductorModel implements Serializable {
+public class ProductorModel extends UsuarioModel implements Serializable {
 
 
     @Id

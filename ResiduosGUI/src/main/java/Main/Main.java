@@ -5,7 +5,7 @@
 package Main;
 
 import GUI.PantallaInicial;
-import code.Productor;
+import entitys.ProductorModel;
 
 
 
@@ -22,7 +22,7 @@ public class Main {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                
-               Productor p = new Productor();
+               ProductorModel p = new ProductorModel();
                p.setTipo("Productor");
                
                new PantallaInicial(p).setVisible(true);

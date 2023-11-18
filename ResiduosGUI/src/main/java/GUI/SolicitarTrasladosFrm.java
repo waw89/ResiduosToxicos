@@ -4,7 +4,8 @@
  */
 package GUI;
 
-import code.Usuario;
+
+import entitys.UsuarioModel;
 import java.time.LocalDate;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
@@ -272,7 +273,7 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
             mostrarError("Seleccione una fecha valida","Error","Error al Solicitar");
         }else{
         JOptionPane.showMessageDialog(null, "Solicitud Exitosa");
-        Usuario usuario = new Usuario();
+        UsuarioModel usuario = new UsuarioModel();
         usuario.setTipo("Productor");
         new PantallaInicial(usuario).setVisible(true);
         this.dispose();
@@ -281,7 +282,7 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-          Usuario usuario = new Usuario();
+          UsuarioModel usuario = new UsuarioModel();
         usuario.setTipo("Productor");
         new PantallaInicial(usuario).setVisible(true);
         this.dispose();

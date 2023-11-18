@@ -4,8 +4,8 @@
  */
 package com.validaciones;
 
-import code.Residuo;
 import com.dto.DTORegistraResiduo;
+import entitys.ResiduoModel;
 
 
 /**
@@ -17,7 +17,7 @@ public class ResiduoNegocio {
 //    public void guarda(Residuo res){
 //        iRes.guarda(res); 
 //    }
-    public Residuo guardar(DTORegistraResiduo dtoRegistraResiduo){
+    public ResiduoModel guardar(DTORegistraResiduo dtoRegistraResiduo){
         
     }
 }

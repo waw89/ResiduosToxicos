@@ -4,6 +4,13 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>entitys.QuimicoModel</class>
     <class>entitys.ResiduoModel</class>
+    <class>entitys.SolicitudTrasladoModel</class>
+    <class>entitys.VehiculoModel</class>
+    <class>entitys.UsuarioModel</class>
+    <class>entitys.ProductorModel</class>
+    <class>entitys.TrasladoModel</class>
+    <class>entitys.AdministradorModel</class>
+    <class>entitys.TransportistaModel</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/residuostoxicos?serverTimezone=UTC"/>

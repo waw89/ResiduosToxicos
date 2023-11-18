@@ -4,13 +4,13 @@
  */
 package GUI;
 
-import code.Productor;
-import code.Usuario;
+
 import com.daos.IQuimicoDAO;
 import com.daos.QuimicoDAOImp;
 import com.dto.DTORegistraResiduo;
 import com.validaciones.QuimicoNegocio;
 import entitys.QuimicoModel;
+import entitys.UsuarioModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -30,9 +30,9 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     DefaultListModel<String> modelSeleccionados = new DefaultListModel<>();
     QuimicoNegocio qn = new QuimicoNegocio();
     IQuimicoDAO qdao = new QuimicoDAOImp();
-    Usuario usuarioActual = new Usuario();
+    UsuarioModel usuarioActual = new UsuarioModel();
 
-    public RegistraResiduosFrm(Usuario usuario) {
+    public RegistraResiduosFrm(UsuarioModel usuario) {
         initComponents();
         this.usuarioActual = usuario;
         quimicosDisponiblesList.setModel(modelDisponibles);
@@ -248,7 +248,7 @@ public List<QuimicoModel> obtenerListaDeQuimicos(){
                     
                     JOptionPane.showMessageDialog(null, "Registro Exitoso");
                     
-                    Usuario usuario = new Usuario();
+                    UsuarioModel usuario = new UsuarioModel();
                     usuario.setTipo("Productor");
                     new PantallaInicial(usuario).setVisible(true);
                     this.dispose();
@@ -258,7 +258,7 @@ public List<QuimicoModel> obtenerListaDeQuimicos(){
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        Usuario usuario = new Usuario();
+        UsuarioModel usuario = new UsuarioModel();
         usuario.setTipo("Productor");
         new PantallaInicial(usuario).setVisible(true);
         this.dispose();

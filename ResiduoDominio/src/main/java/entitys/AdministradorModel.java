@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn (name = "IdAdministrador")
 @DiscriminatorValue (value = "Administrador")
 @Table (name = "Administrador")
-public class AdministradorModel implements Serializable {
+public class AdministradorModel extends UsuarioModel implements Serializable {
 
 
     public AdministradorModel() {

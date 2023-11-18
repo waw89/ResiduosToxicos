@@ -4,7 +4,6 @@
  */
 package GUI;
 
-import code.Usuario;
 //import com.validaciones.UsuarioNegocio;
 import javax.swing.JOptionPane;
 

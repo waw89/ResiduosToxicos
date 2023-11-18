@@ -101,12 +101,28 @@ public class ResiduoModel implements Serializable {
         this.nombre = nombre;
     }
 
-    public ProductorModel getProd() {
+    public ProductorModel getProductor() {
         return prod;
     }
 
-    public void setProd(ProductorModel prod) {
+    public void setProductor(ProductorModel prod) {
         this.prod = prod;
+    }
+
+    public List<QuimicoModel> getListaQuimicos() {
+        return listaQuimicos;
+    }
+
+    public void setListaQuimicos(List<QuimicoModel> listaQuimicos) {
+        this.listaQuimicos = listaQuimicos;
+    }
+
+    public List<SolicitudTrasladoModel> getListaSolTraslados() {
+        return listaSolTraslados;
+    }
+
+    public void setListaSolTraslados(List<SolicitudTrasladoModel> listaSolTraslados) {
+        this.listaSolTraslados = listaSolTraslados;
     }
     
     
