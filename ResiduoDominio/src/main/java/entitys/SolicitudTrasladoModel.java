@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -26,11 +27,12 @@ import javax.persistence.TemporalType;
  * @author PRIDE ANACONDA
  */
 @Entity
+@Table (name = "SolicitudTraslado")
 public class SolicitudTrasladoModel implements Serializable {
 
    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Long getId() {
@@ -72,12 +74,12 @@ public class SolicitudTrasladoModel implements Serializable {
     )
     private List<ResiduoModel> listaResiduos;
 
-    /**
-     *
-     */
-    @ManyToOne
-    @JoinColumn(name = "IdTransportistas")
-    private List<TransportistaModel> trans;
+//    /**
+//     *
+//     */
+//    @ManyToOne
+//    @JoinColumn(name = "IdTransportistas")
+//    private List<TransportistaModel> trans;
 
     /**
      *
@@ -99,7 +101,7 @@ public class SolicitudTrasladoModel implements Serializable {
         this.cantidadRes = cantidadRes;
         this.asignado = asignado;
         this.listaResiduos = listaResiduos;
-        this.trans = trans;
+//        this.trans = trans;
         this.prod = prod;
     }
 
@@ -137,13 +139,13 @@ public class SolicitudTrasladoModel implements Serializable {
         this.listaResiduos = listaResiduos;
     }
 
-    public List<TransportistaModel> getTrans() {
-        return trans;
-    }
-
-    public void setTrans(List<TransportistaModel> trans) {
-        this.trans = trans;
-    }
+//    public List<TransportistaModel> getTrans() {
+//        return trans;
+//    }
+//
+//    public void setTrans(List<TransportistaModel> trans) {
+//        this.trans = trans;
+//    }
 
     public ProductorModel getProd() {
         return prod;
@@ -153,8 +155,8 @@ public class SolicitudTrasladoModel implements Serializable {
         this.prod = prod;
     }
 
-    public void agregaTransportista(TransportistaModel transportista) {
-        trans.add(transportista);
-    }
+//    public void agregaTransportista(TransportistaModel transportista) {
+//        trans.add(transportista);
+//    }
 
 }

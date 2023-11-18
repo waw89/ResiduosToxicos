@@ -12,7 +12,7 @@ import java.util.List;
  * @author xfs85
  */
 public interface IResiduoDAO {
-    public void crear(ResiduoModel residuo);
+    public ResiduoModel crear(ResiduoModel residuo);
     public List<ResiduoModel> cargaResiduos(List<ResiduoModel> residuos);
     public ResiduoModel findResiduo(long id);
     public ResiduoModel findResiduoNombre(String nombre);

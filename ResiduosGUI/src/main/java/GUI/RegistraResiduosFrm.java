@@ -9,6 +9,7 @@ import com.daos.IQuimicoDAO;
 import com.daos.QuimicoDAOImp;
 import com.dto.DTORegistraResiduo;
 import com.validaciones.QuimicoNegocio;
+import com.validaciones.ResiduoNegocio;
 import entitys.QuimicoModel;
 import entitys.UsuarioModel;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     QuimicoNegocio qn = new QuimicoNegocio();
     IQuimicoDAO qdao = new QuimicoDAOImp();
     UsuarioModel usuarioActual = new UsuarioModel();
-
+    ResiduoNegocio residuoNeg = new ResiduoNegocio(); 
     public RegistraResiduosFrm(UsuarioModel usuario) {
         initComponents();
         this.usuarioActual = usuario;
@@ -245,7 +246,7 @@ public List<QuimicoModel> obtenerListaDeQuimicos(){
                     dtoRegistrarResiduo.setQuimicos(obtenerListaDeQuimicos());
                     dtoRegistrarResiduo.setCodigo_residuo(Long.parseLong(this.txtCodigo.getText()));
                     dtoRegistrarResiduo.setId_productor(this.usuarioActual.getId());
-                    
+                    residuoNeg.guardar(dtoRegistrarResiduo); 
                     JOptionPane.showMessageDialog(null, "Registro Exitoso");
                     
                     UsuarioModel usuario = new UsuarioModel();

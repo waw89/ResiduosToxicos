@@ -64,7 +64,7 @@ public class Util {
         residuo.setNombre(residuoDTO.getNombre_residuo());
         residuo.setListaQuimicos(residuoDTO.getQuimicos());
         residuo.setListaSolTraslados(null);
-        residuo.setProductor(residuoDTO.getId_productor());
+        residuo.setProductor(null);
         return residuo;
     }
 }

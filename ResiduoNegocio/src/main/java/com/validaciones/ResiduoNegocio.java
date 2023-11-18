@@ -4,7 +4,10 @@
  */
 package com.validaciones;
 
+import com.daos.IResiduoDAO;
+import com.daos.ResiduoDAOImp;
 import com.dto.DTORegistraResiduo;
+import com.utilerias.Util;
 import entitys.ResiduoModel;
 
 
@@ -13,11 +16,12 @@ import entitys.ResiduoModel;
  * @author PRIDE ANACONDA
  */
 public class ResiduoNegocio {
-//    IResiduoDAO iRes = new ResiduoDAOImp();
-//    public void guarda(Residuo res){
-//        iRes.guarda(res); 
-//    }
+    Util util = new Util(); 
+    IResiduoDAO iResiduo = new ResiduoDAOImp(); 
     public ResiduoModel guardar(DTORegistraResiduo dtoRegistraResiduo){
+        ResiduoModel res = util.convertirResiduoDTOAResiduo(dtoRegistraResiduo);
         
+        iResiduo.crear(res);
+        return res; 
     }
 }

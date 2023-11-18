@@ -24,11 +24,11 @@ import javax.persistence.Table;
 public class TransportistaModel extends UsuarioModel implements Serializable  {
 
  
-    /**
-     *
-     */
-    @OneToMany (mappedBy = "trans", cascade = CascadeType.ALL)
-    private List<SolicitudTrasladoModel> listaSolicitudes;
+//    /**
+//     *
+//     */
+//    @OneToMany (mappedBy = "trans", cascade = CascadeType.ALL)
+//    private List<SolicitudTrasladoModel> listaSolicitudes;
 
     /**
      *
@@ -49,17 +49,17 @@ public class TransportistaModel extends UsuarioModel implements Serializable  {
      */
     public TransportistaModel(List<SolicitudTrasladoModel> listaSolicitudes, List<VehiculoModel> listaVehiculos,String tipo, String nombre, String usuario, String password) {
         super(tipo, nombre, usuario, password);
-        this.listaSolicitudes = listaSolicitudes;
+//        this.listaSolicitudes = listaSolicitudes;
         this.listaVehiculos = listaVehiculos;
     }
 
-    public List<SolicitudTrasladoModel> getListaSolicitudes() {
-        return listaSolicitudes;
-    }
-
-    public void setListaSolicitudes(List<SolicitudTrasladoModel> listaSolicitudes) {
-        this.listaSolicitudes = listaSolicitudes;
-    }
+//    public List<SolicitudTrasladoModel> getListaSolicitudes() {
+//        return listaSolicitudes;
+//    }
+//
+//    public void setListaSolicitudes(List<SolicitudTrasladoModel> listaSolicitudes) {
+//        this.listaSolicitudes = listaSolicitudes;
+//    }
 
     public List<VehiculoModel> getListaVehiculos() {
         return listaVehiculos;

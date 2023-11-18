@@ -29,7 +29,7 @@ public class ResiduoDAOImp implements IResiduoDAO{
     
 
     @Override
-    public void crear(ResiduoModel residuo) {
+    public ResiduoModel crear(ResiduoModel residuo) {
     EntityManager em = null;
         try {
             em = getEntityManager();
@@ -41,6 +41,7 @@ public class ResiduoDAOImp implements IResiduoDAO{
                 em.close();
             }
         }
+        return residuo; 
     }
 
     @Override
