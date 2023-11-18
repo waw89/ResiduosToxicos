@@ -83,6 +83,12 @@ public class QuimicoModel implements Serializable {
         this.listaResiduos = listaResiduos;
     }
 
+    @Override
+    public String toString() {
+        return this.nombre;
+    }
+
+    
 
     
 }

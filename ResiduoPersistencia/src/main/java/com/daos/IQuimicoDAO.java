@@ -13,4 +13,6 @@ import java.util.List;
  */
 public interface IQuimicoDAO {
     public List<QuimicoModel> cargaQuimicos(List<QuimicoModel> quimicos);
+    public QuimicoModel findQuimico(long id);
+    public QuimicoModel findQuimicoNombre(String nombre);
 }

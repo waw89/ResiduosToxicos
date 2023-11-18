@@ -6,6 +6,8 @@ package GUI;
 
 import code.Productor;
 import code.Usuario;
+import com.daos.IQuimicoDAO;
+import com.daos.QuimicoDAOImp;
 import com.validaciones.QuimicoNegocio;
 import entitys.QuimicoModel;
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     DefaultListModel<String> modelDisponibles = new DefaultListModel<>();
     DefaultListModel<String> modelSeleccionados = new DefaultListModel<>();
     QuimicoNegocio qn = new QuimicoNegocio();
+    IQuimicoDAO qdao = new QuimicoDAOImp();
     
 
     public RegistraResiduosFrm(Usuario usuario) {
@@ -42,9 +45,12 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         List<QuimicoModel> listaQuimicos = qn.cargaQuimicos();
         
         for(QuimicoModel quimico: listaQuimicos){
-            modelDisponibles.addElement(quimico.getId().toString());
+            modelDisponibles.addElement(quimico.getNombre());
         }
     }
+    
+
+
 
     public boolean verificaFormatoCodigo() {
         String codigo = txtCodigo.getText();
@@ -74,6 +80,22 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     }
 
     return true;
+}
+   
+ 
+public void convertirQuimico(){
+   List<QuimicoModel> quimicosSeleccionados = new ArrayList<>();
+
+    
+    for (int i = 0; i < modelSeleccionados.size(); i++) {
+        String QuimicoSeleccionado = modelSeleccionados.getElementAt(i);
+        
+        QuimicoModel quimico = qdao.findQuimicoNombre(QuimicoSeleccionado);
+        quimicosSeleccionados.add(quimico);  
+    }
+    
+    System.out.println("Quimicos seleccionados:" + quimicosSeleccionados.toString());
+    
 }
 
 
@@ -212,7 +234,7 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
                 if (verificaSeleccionados() == true) {
                     
                     
-
+                    convertirQuimico();
                     JOptionPane.showMessageDialog(null, "Registro Exitoso");
                     Usuario usuario = new Usuario();
                     usuario.setTipo("Productor");
@@ -271,18 +293,6 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
-    public static void main(String[] args) {
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
 
-                Productor p = new Productor();
-                p.setTipo("Productor");
-
-                new PantallaInicial(p).setVisible(true);
-
-            }
-        });
-    }
 
 }

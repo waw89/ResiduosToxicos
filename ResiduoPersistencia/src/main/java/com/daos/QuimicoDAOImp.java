@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -109,6 +110,7 @@ public class QuimicoDAOImp implements IQuimicoDAO {
         }
     }
 
+    @Override
     public QuimicoModel findQuimico(long id) {
         EntityManager em = getEntityManager();
         try {
@@ -130,5 +132,21 @@ public class QuimicoDAOImp implements IQuimicoDAO {
             em.close();
         }
     }
+
+    @Override
+public QuimicoModel findQuimicoNombre(String nombre) {
+    EntityManager em = getEntityManager();
+    try {
+        TypedQuery<QuimicoModel> query = em.createQuery(
+                "SELECT q FROM QuimicoModel q WHERE q.nombre = :nombre", QuimicoModel.class);
+        query.setParameter("nombre", nombre);
+        List<QuimicoModel> resultados = query.getResultList();
+        return resultados.get(0);
+    } finally {
+        em.close();
+    }
+       
+}
+
 
 }
