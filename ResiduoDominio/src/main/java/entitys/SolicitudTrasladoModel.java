@@ -5,6 +5,7 @@
 package entitys;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -47,7 +48,7 @@ public class SolicitudTrasladoModel implements Serializable {
      */
     @Temporal(TemporalType.DATE)
     @Column(name = "FechaTraslado")
-    private Date fecha;
+    private LocalDate fecha;
 
     /**
      *
@@ -95,7 +96,7 @@ public class SolicitudTrasladoModel implements Serializable {
     public SolicitudTrasladoModel() {
     }
 
-    public SolicitudTrasladoModel(long id, Date fecha, float cantidadRes, boolean asignado, List<ResiduoModel> listaResiduos, List<TransportistaModel> trans, ProductorModel prod) {
+    public SolicitudTrasladoModel(long id, LocalDate fecha, float cantidadRes, boolean asignado, List<ResiduoModel> listaResiduos, List<TransportistaModel> trans, ProductorModel prod) {
         this.id = id;
         this.fecha = fecha;
         this.cantidadRes = cantidadRes;
@@ -107,11 +108,11 @@ public class SolicitudTrasladoModel implements Serializable {
 
  
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -142,7 +143,7 @@ public class SolicitudTrasladoModel implements Serializable {
 //    public List<TransportistaModel> getTrans() {
 //        return trans;
 //    }
-//
+
 //    public void setTrans(List<TransportistaModel> trans) {
 //        this.trans = trans;
 //    }

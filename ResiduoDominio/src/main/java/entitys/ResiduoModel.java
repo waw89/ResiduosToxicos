@@ -74,10 +74,11 @@ public class ResiduoModel implements Serializable {
     public ResiduoModel() {
     }
 
-    public ResiduoModel(long codigo, String nombre) {
+    public ResiduoModel(long codigo, String nombre, ProductorModel productor) {
 
         this.codigo = codigo;
         this.nombre = nombre;
+        this.prod = productor;
     
     }
 

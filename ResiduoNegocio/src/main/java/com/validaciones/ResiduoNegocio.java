@@ -9,6 +9,8 @@ import com.daos.ResiduoDAOImp;
 import com.dto.DTORegistraResiduo;
 import com.utilerias.Util;
 import entitys.ResiduoModel;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -23,5 +25,12 @@ public class ResiduoNegocio {
         
         iResiduo.crear(res);
         return res; 
+    }
+    
+    public List<ResiduoModel> obtenerResiduos(){
+      ArrayList<ResiduoModel> residuosList = new ArrayList<>();
+      List<ResiduoModel> residuos = iResiduo.cargaResiduos(residuosList);
+      return iResiduo.cargaResiduos(residuos);
+      
     }
 }

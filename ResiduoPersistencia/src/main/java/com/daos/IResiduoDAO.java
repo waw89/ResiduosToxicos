@@ -14,6 +14,6 @@ import java.util.List;
 public interface IResiduoDAO {
     public ResiduoModel crear(ResiduoModel residuo);
     public List<ResiduoModel> cargaResiduos(List<ResiduoModel> residuos);
-    public ResiduoModel findResiduo(long id);
+    public ResiduoModel findResiduoModel(long id);
     public ResiduoModel findResiduoNombre(String nombre);
 }

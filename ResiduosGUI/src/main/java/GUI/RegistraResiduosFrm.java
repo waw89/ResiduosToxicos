@@ -84,29 +84,15 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
 
     return true;
 }
-   
- /**
-  * Convierte los quimicos de la lista de reservados a objetos.
-     * @return quimicosSeleccionados
-  */
-public List<QuimicoModel> obtenerListaDeQuimicos(){
-   // Definimos una lista para guardar los quimicos de la lista
-   List<QuimicoModel> quimicosSeleccionados = new ArrayList<>();
-    
-    // Ciclo for que recorre todos los elementos del model
-    for (int i = 0; i < modelSeleccionados.size(); i++) {
-        // Asignacion del elemento del model a un objeto temporal de quimico
-        String quimicoActual = modelSeleccionados.getElementAt(i);
-        //  Conversion del objeto temporal a objeto de tipo Quimico
-        QuimicoModel quimico = qdao.findQuimicoNombre(quimicoActual);
-        // agregar el nuevo quimico a la lista
-        quimicosSeleccionados.add(quimico);  
-    }
-    
-    return quimicosSeleccionados;
-    //System.out.println("Quimicos seleccionados:" + quimicosSeleccionados.toString());
-    
-}       
+       public List<QuimicoModel> obtenerListaDeQuimicos(){
+           List<QuimicoModel> quimicosSeleccionados = new ArrayList<>();
+           for(int i = 0; i < modelSeleccionados.size(); i++){
+               String quimicoActual = modelSeleccionados.getElementAt(i);
+               QuimicoModel quimico = qn.buscarQuimicoPorNombre(quimicoActual);
+               quimicosSeleccionados.add(quimico);
+           }
+           return quimicosSeleccionados;
+       }
 
     /**
      * This method is called from within the constructor to initialize the form.

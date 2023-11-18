@@ -56,6 +56,9 @@ public class Util {
         return nuevosQuimicos;
     }
     
+   
+   
+    
     public ResiduoModel convertirResiduoDTOAResiduo (DTORegistraResiduo residuoDTO){
         
         ResiduoModel residuo = new ResiduoModel(); 

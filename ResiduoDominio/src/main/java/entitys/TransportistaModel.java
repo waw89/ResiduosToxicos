@@ -56,7 +56,7 @@ public class TransportistaModel extends UsuarioModel implements Serializable  {
 //    public List<SolicitudTrasladoModel> getListaSolicitudes() {
 //        return listaSolicitudes;
 //    }
-//
+
 //    public void setListaSolicitudes(List<SolicitudTrasladoModel> listaSolicitudes) {
 //        this.listaSolicitudes = listaSolicitudes;
 //    }

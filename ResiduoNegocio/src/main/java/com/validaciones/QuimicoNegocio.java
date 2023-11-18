@@ -30,4 +30,11 @@ public class QuimicoNegocio {
         
         
     }
+    
+    public QuimicoModel buscarQuimicoPorNombre(String nombre){
+        QuimicoModel quimico = iQuimicoDAO.findQuimicoNombre(nombre);
+        
+        return quimico;
+        
+    }
 }

@@ -5,8 +5,13 @@
 package GUI;
 
 
+import com.dto.DTOSolicitaTraslado;
+import com.validaciones.ResiduoNegocio;
+import com.validaciones.SolicitudNegocio;
+import entitys.ResiduoModel;
 import entitys.UsuarioModel;
 import java.time.LocalDate;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -25,6 +30,10 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     
     DefaultListModel<String> modelDisponibles = new DefaultListModel<>();
     DefaultListModel<String> modelSeleccionados = new DefaultListModel<>();
+    ResiduoNegocio rn = new ResiduoNegocio();
+    UsuarioModel usuarioActual = new UsuarioModel();
+    SolicitudNegocio solicitudNeg = new SolicitudNegocio();
+    
     public SolicitarTrasladosFrm() {
         initComponents();
         residuosDisponiblesList.setModel(modelDisponibles);
@@ -35,10 +44,11 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     }
  public void inicializaLista() {
 
-        modelDisponibles.addElement("Cloruro de Sodio");
-        modelDisponibles.addElement("Dioxido de Carbono");
-        modelDisponibles.addElement("H20");
-        modelDisponibles.addElement("kanye west");
+       List<ResiduoModel> listaResiduos = rn.obtenerResiduos();
+       
+       for(ResiduoModel residuo : listaResiduos)
+        modelDisponibles.addElement(residuo.getNombre());
+        
        
     }
  
@@ -272,6 +282,8 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         if(verificarFecha() == false){
             mostrarError("Seleccione una fecha valida","Error","Error al Solicitar");
         }else{
+          DTOSolicitaTraslado dtoSolicitaTraslado = new DTOSolicitaTraslado(); 
+          
         JOptionPane.showMessageDialog(null, "Solicitud Exitosa");
         UsuarioModel usuario = new UsuarioModel();
         usuario.setTipo("Productor");
