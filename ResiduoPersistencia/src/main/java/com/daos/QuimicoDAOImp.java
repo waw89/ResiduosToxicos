@@ -55,7 +55,7 @@ public class QuimicoDAOImp implements IQuimicoDAO {
     }
 
     @Override
-    public List<QuimicoModel> cargaQuimicos(List<QuimicoModel> quimicos) {
+    public List<QuimicoModel> llenaListaQuimicos(List<QuimicoModel> quimicos) {
         EntityManager em = getEntityManager();
         EntityTransaction transaction = em.getTransaction();
 

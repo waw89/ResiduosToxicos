@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -43,7 +44,7 @@ public class ResiduoModel implements Serializable {
      */
     @Basic
     @Column(name="codigo")
-    private String codigo;
+    private Long codigo;
 
     /**
      * 
@@ -52,9 +53,9 @@ public class ResiduoModel implements Serializable {
     @Column(name="nombre")
     private String nombre;
 
-//    @ManyToOne
-//    @JoinColumn (name = "IdProductor")
-//    private Productor prod;
+    @ManyToOne
+    @JoinColumn (name = "IdProductor")
+    private ProductorModel prod;
 
     @ManyToMany 
     @JoinTable(
@@ -64,16 +65,16 @@ public class ResiduoModel implements Serializable {
     )
     private List<QuimicoModel> listaQuimicos;
     
-//    @ManyToMany (mappedBy = "listaResiduos")
-//    private List<SolicitudTraslado> listaSolTraslados;
-//    
+    @ManyToMany (mappedBy = "listaResiduos")
+    private List<SolicitudTrasladoModel> listaSolTraslados;
+    
     /**
      * Default constructor
      */
     public ResiduoModel() {
     }
 
-    public ResiduoModel(String codigo, String nombre) {
+    public ResiduoModel(long codigo, String nombre) {
 
         this.codigo = codigo;
         this.nombre = nombre;
@@ -84,11 +85,11 @@ public class ResiduoModel implements Serializable {
     
 
 
-    public String getCodigo() {
+    public long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(long codigo) {
         this.codigo = codigo;
     }
 
@@ -99,14 +100,14 @@ public class ResiduoModel implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-//
-//    public Productor getProd() {
-//        return prod;
-//    }
-//
-//    public void setProd(Productor prod) {
-//        this.prod = prod;
-//    }
+
+    public ProductorModel getProd() {
+        return prod;
+    }
+
+    public void setProd(ProductorModel prod) {
+        this.prod = prod;
+    }
     
     
 }

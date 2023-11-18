@@ -8,6 +8,7 @@ import code.Productor;
 import code.Usuario;
 import com.daos.IQuimicoDAO;
 import com.daos.QuimicoDAOImp;
+import com.dto.DTORegistraResiduo;
 import com.validaciones.QuimicoNegocio;
 import entitys.QuimicoModel;
 import java.util.ArrayList;
@@ -29,10 +30,11 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     DefaultListModel<String> modelSeleccionados = new DefaultListModel<>();
     QuimicoNegocio qn = new QuimicoNegocio();
     IQuimicoDAO qdao = new QuimicoDAOImp();
-    
+    Usuario usuarioActual = new Usuario();
 
     public RegistraResiduosFrm(Usuario usuario) {
         initComponents();
+        this.usuarioActual = usuario;
         quimicosDisponiblesList.setModel(modelDisponibles);
         quimicosReservadosList.setModel(modelSeleccionados);
         
@@ -42,7 +44,7 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
 
     public void inicializaLista() {
         
-        List<QuimicoModel> listaQuimicos = qn.cargaQuimicos();
+        List<QuimicoModel> listaQuimicos = qn.llenaListaQuimicos();
         
         for(QuimicoModel quimico: listaQuimicos){
             modelDisponibles.addElement(quimico.getNombre());
@@ -82,22 +84,28 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     return true;
 }
    
- 
-public void convertirQuimico(){
+ /**
+  * Convierte los quimicos de la lista de reservados a objetos.
+     * @return quimicosSeleccionados
+  */
+public List<QuimicoModel> obtenerListaDeQuimicos(){
+   // Definimos una lista para guardar los quimicos de la lista
    List<QuimicoModel> quimicosSeleccionados = new ArrayList<>();
-
     
+    // Ciclo for que recorre todos los elementos del model
     for (int i = 0; i < modelSeleccionados.size(); i++) {
-        String QuimicoSeleccionado = modelSeleccionados.getElementAt(i);
-        
-        QuimicoModel quimico = qdao.findQuimicoNombre(QuimicoSeleccionado);
+        // Asignacion del elemento del model a un objeto temporal de quimico
+        String quimicoActual = modelSeleccionados.getElementAt(i);
+        //  Conversion del objeto temporal a objeto de tipo Quimico
+        QuimicoModel quimico = qdao.findQuimicoNombre(quimicoActual);
+        // agregar el nuevo quimico a la lista
         quimicosSeleccionados.add(quimico);  
     }
     
-    System.out.println("Quimicos seleccionados:" + quimicosSeleccionados.toString());
+    return quimicosSeleccionados;
+    //System.out.println("Quimicos seleccionados:" + quimicosSeleccionados.toString());
     
-}
-
+}       
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -172,7 +180,7 @@ public void convertirQuimico(){
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 170, 130));
 
-        txtCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 340, 50));
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 340, 50));
 
@@ -232,10 +240,14 @@ public void convertirQuimico(){
             if (verificaFormatosVacios() == true) {
 
                 if (verificaSeleccionados() == true) {
+                    DTORegistraResiduo dtoRegistrarResiduo = new DTORegistraResiduo(); 
+                    dtoRegistrarResiduo.setNombre_residuo(this.txtNombre.getText());
+                    dtoRegistrarResiduo.setQuimicos(obtenerListaDeQuimicos());
+                    dtoRegistrarResiduo.setCodigo_residuo(Long.parseLong(this.txtCodigo.getText()));
+                    dtoRegistrarResiduo.setId_productor(this.usuarioActual.getId());
                     
-                    
-                    convertirQuimico();
                     JOptionPane.showMessageDialog(null, "Registro Exitoso");
+                    
                     Usuario usuario = new Usuario();
                     usuario.setTipo("Productor");
                     new PantallaInicial(usuario).setVisible(true);

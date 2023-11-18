@@ -21,11 +21,11 @@ public class QuimicoNegocio {
     IQuimicoDAO iQuimicoDAO = new QuimicoDAOImp();
     Util util = new Util();
 
-    public List<QuimicoModel> cargaQuimicos() {
+    public List<QuimicoModel> llenaListaQuimicos(){
 
         ArrayList<QuimicoModel> quimicos = util.creaQuimicos();
 
-        return iQuimicoDAO.cargaQuimicos(quimicos);
+        return iQuimicoDAO.llenaListaQuimicos(quimicos);
         
         
         

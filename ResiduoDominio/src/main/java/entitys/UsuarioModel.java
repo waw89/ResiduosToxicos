@@ -1,6 +1,10 @@
-package code;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package entitys;
+
 import java.io.Serializable;
-import java.util.*;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -13,52 +17,48 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 /**
- * 
+ *
+ * @author PRIDE ANACONDA
  */
-
 @Entity
-@Inheritance (strategy = InheritanceType.JOINED)
-@DiscriminatorColumn (name = "Tipo")
-@Table (name = "Usuario")
-public class Usuario  {
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "Tipo")
+@Table(name = "Usuario")
+public class UsuarioModel implements Serializable {
 
-    /**
-     * 
-     */
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
-    @Column (name = "id_Usuario")
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Basic
-    @Column (name = "Tipo")
+    @Column(name = "Tipo")
     private String tipo;
 
     /**
-     * 
+     *
      */
     @Basic
-    @Column (name = "Nombre")
+    @Column(name = "Nombre")
     private String nombre;
 
     /**
-     * 
+     *
      */
     @Basic
-    @Column (name = "nomUsuario")
+    @Column(name = "nomUsuario")
     private String usuario;
 
     /**
-     * 
+     *
      */
     @Basic
-    @Column (name = "Contraseña")
+    @Column(name = "Contraseña")
     private String password;
-    
-    public Usuario() {
+
+    public UsuarioModel() {
     }
-    
-    public Usuario( String tipo, String nombre, String usuario, String password) {
+
+    public UsuarioModel(String tipo, String nombre, String usuario, String password) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.usuario = usuario;
@@ -66,11 +66,13 @@ public class Usuario  {
     }
 
 
-    public Usuario(long id, String tipo, String nombre, String usuario, String password) {
-        this.tipo = tipo;
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.password = password;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTipo() {
@@ -104,17 +106,9 @@ public class Usuario  {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-   public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
     @Override
     public String toString() {
         return "Usuario{" + "tipo=" + tipo + ", nombre=" + nombre + ", usuario=" + usuario + ", password=" + password + '}';
     }
-
 }

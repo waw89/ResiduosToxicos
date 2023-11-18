@@ -2,13 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package code;
+package entitys;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,25 +13,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
- * 
+ *
+ * @author PRIDE ANACONDA
  */
 @Entity
-@Table (name = "Vehiculo")
-public class Vehiculo  {
+public class VehiculoModel implements Serializable {
 
-    /**
-     * 
-     */
+
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
-    @Column (name = "Id_Vehiculo")
-    private long id;
-    
-    /**
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+ /**
      * 
      */
     @Basic
@@ -57,17 +56,17 @@ public class Vehiculo  {
      */
     @ManyToOne
     @JoinColumn (name = "IdTransportista")
-    private Transportista trans;
+    private TransportistaModel trans;
 
 
     
     /**
      * Default constructor
      */
-    public Vehiculo() {
+    public VehiculoModel() {
     }
 
-    public Vehiculo(long id, String tipo, String marca, int modelo, String linea, Transportista trans) {
+    public VehiculoModel(long id, String tipo, String marca, int modelo, String linea, TransportistaModel trans) {
         this.id = id;
         this.tipo = tipo;
         this.marca = marca;
@@ -77,13 +76,7 @@ public class Vehiculo  {
     
     }
 
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getTipo() {
         return tipo;
@@ -117,14 +110,14 @@ public class Vehiculo  {
         this.linea = linea;
     }
 
-    public Transportista getTrans() {
+    public TransportistaModel getTrans() {
         return trans;
     }
 
-    public void setTrans(Transportista trans) {
+    public void setTrans(TransportistaModel trans) {
         this.trans = trans;
     }
 
 
-
+    
 }

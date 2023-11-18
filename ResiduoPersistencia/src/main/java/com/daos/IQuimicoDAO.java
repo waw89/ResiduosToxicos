@@ -12,7 +12,7 @@ import java.util.List;
  * @author PRIDE ANACONDA
  */
 public interface IQuimicoDAO {
-    public List<QuimicoModel> cargaQuimicos(List<QuimicoModel> quimicos);
+    public List<QuimicoModel> llenaListaQuimicos(List<QuimicoModel> quimicos);
     public QuimicoModel findQuimico(long id);
     public QuimicoModel findQuimicoNombre(String nombre);
 }

@@ -2,77 +2,74 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package code;
+package entitys;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
  *
+ * @author PRIDE ANACONDA
  */
 @Entity
 @PrimaryKeyJoinColumn (name = "IdTransportista")
 @DiscriminatorValue (value = "Transportista")
 @Table(name = "Transportista")
-public class Transportista extends Usuario {
+public class TransportistaModel implements Serializable {
 
+ 
     /**
      *
      */
     @OneToMany (mappedBy = "trans", cascade = CascadeType.ALL)
-    private List<SolicitudTraslado> listaSolicitudes;
+    private List<SolicitudTrasladoModel> listaSolicitudes;
 
     /**
      *
      */
     
     @OneToMany (mappedBy = "trans", cascade = CascadeType.ALL)
-    private List<Vehiculo> listaVehiculos;
+    private List<VehiculoModel> listaVehiculos;
 
     /**
      * Default constructor
      */
-    public Transportista() {
+    public TransportistaModel() {
     }
     
     /**
      *
      * 
      */
-    public Transportista(List<SolicitudTraslado> listaSolicitudes, List<Vehiculo> listaVehiculos,String tipo, String nombre, String usuario, String password) {
+    public TransportistaModel(List<SolicitudTrasladoModel> listaSolicitudes, List<VehiculoModel> listaVehiculos,String tipo, String nombre, String usuario, String password) {
         super(tipo, nombre, usuario, password);
         this.listaSolicitudes = listaSolicitudes;
         this.listaVehiculos = listaVehiculos;
     }
 
-    public List<SolicitudTraslado> getListaSolicitudes() {
+    public List<SolicitudTrasladoModel> getListaSolicitudes() {
         return listaSolicitudes;
     }
 
-    public void setListaSolicitudes(List<SolicitudTraslado> listaSolicitudes) {
+    public void setListaSolicitudes(List<SolicitudTrasladoModel> listaSolicitudes) {
         this.listaSolicitudes = listaSolicitudes;
     }
 
-    public List<Vehiculo> getListaVehiculos() {
+    public List<VehiculoModel> getListaVehiculos() {
         return listaVehiculos;
     }
 
-    public void setListaVehiculos(List<Vehiculo> listaVehiculos) {
+    public void setListaVehiculos(List<VehiculoModel> listaVehiculos) {
         this.listaVehiculos = listaVehiculos;
     }
 
-    public void agregaVehiculo(Vehiculo vehiculo) {
+    public void agregaVehiculo(VehiculoModel vehiculo) {
         listaVehiculos.add(vehiculo);
     }
-
 }

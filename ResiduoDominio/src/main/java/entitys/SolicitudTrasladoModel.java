@@ -2,11 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package code;
+package entitys;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -20,26 +18,28 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  *
+ * @author PRIDE ANACONDA
  */
 @Entity
-@Table(name = "SolicitudTraslado")
-public class SolicitudTraslado  {
+public class SolicitudTrasladoModel implements Serializable {
 
-    /**
-     *
-     */
+   
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_solicitud")
-    private long id;
+    private Long id;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     /**
      *
      */
@@ -70,30 +70,30 @@ public class SolicitudTraslado  {
             joinColumns = @JoinColumn(name = "id_solicitud", referencedColumnName = "idSolicitud"),
             inverseJoinColumns = @JoinColumn (name = "id_residuo", referencedColumnName = "id_residuo")
     )
-    private List<Residuo> listaResiduos;
+    private List<ResiduoModel> listaResiduos;
 
     /**
      *
      */
     @ManyToOne
     @JoinColumn(name = "IdTransportistas")
-    private List<Transportista> trans;
+    private List<TransportistaModel> trans;
 
     /**
      *
      */
     @ManyToOne
     @JoinColumn(name = "IdProductor")
-    private Productor prod;
+    private ProductorModel prod;
 
 
     /**
      * Default constructor
      */
-    public SolicitudTraslado() {
+    public SolicitudTrasladoModel() {
     }
 
-    public SolicitudTraslado(long id, Date fecha, float cantidadRes, boolean asignado, List<Residuo> listaResiduos, List<Transportista> trans, Productor prod) {
+    public SolicitudTrasladoModel(long id, Date fecha, float cantidadRes, boolean asignado, List<ResiduoModel> listaResiduos, List<TransportistaModel> trans, ProductorModel prod) {
         this.id = id;
         this.fecha = fecha;
         this.cantidadRes = cantidadRes;
@@ -103,13 +103,7 @@ public class SolicitudTraslado  {
         this.prod = prod;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+ 
 
     public Date getFecha() {
         return fecha;
@@ -135,33 +129,32 @@ public class SolicitudTraslado  {
         this.asignado = asignado;
     }
 
-    public List<Residuo> getListaResiduos() {
+    public List<ResiduoModel> getListaResiduos() {
         return listaResiduos;
     }
 
-    public void setListaResiduos(List<Residuo> listaResiduos) {
+    public void setListaResiduos(List<ResiduoModel> listaResiduos) {
         this.listaResiduos = listaResiduos;
     }
 
-    public List<Transportista> getTrans() {
+    public List<TransportistaModel> getTrans() {
         return trans;
     }
 
-    public void setTrans(List<Transportista> trans) {
+    public void setTrans(List<TransportistaModel> trans) {
         this.trans = trans;
     }
 
-    public Productor getProd() {
+    public ProductorModel getProd() {
         return prod;
     }
 
-    public void setProd(Productor prod) {
+    public void setProd(ProductorModel prod) {
         this.prod = prod;
     }
 
-    public void agregaTransportista(Transportista transportista) {
+    public void agregaTransportista(TransportistaModel transportista) {
         trans.add(transportista);
     }
 
 }
- 

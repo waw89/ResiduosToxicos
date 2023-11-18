@@ -8,6 +8,27 @@ package com.utilerias;
 
 ;
 
+import code.Residuo;
+import com.dto.DTORegistraResiduo;
+import entitys.QuimicoModel;
+import java.util.ArrayList;
+import entitys.QuimicoModel;
+import java.util.ArrayList;
+import code.Residuo;
+import entitys.QuimicoModel;
+import java.util.ArrayList;
+import entitys.QuimicoModel;
+import entitys.ResiduoModel;
+import java.util.ArrayList;
+import code.Residuo;
+import com.dto.DTORegistraResiduo;
+import entitys.QuimicoModel;
+import java.util.ArrayList;
+import entitys.QuimicoModel;
+import java.util.ArrayList;
+import code.Residuo;
+import entitys.QuimicoModel;
+import java.util.ArrayList;
 import entitys.QuimicoModel;
 import java.util.ArrayList;
 
@@ -52,5 +73,14 @@ public class Util {
         nuevosQuimicos.add(quim4);
 
         return nuevosQuimicos;
+    }
+    
+    public ResiduoModel convertirResiduoDTOAResiduo (DTORegistraResiduo residuoDTO){
+        
+        ResiduoModel residuo = new ResiduoModel(); 
+        
+        residuo.setCodigo(residuoDTO.getCodigo_residuo());
+        residuo.setNombre(residuoDTO.getNombre_residuo());
+        
     }
 }
