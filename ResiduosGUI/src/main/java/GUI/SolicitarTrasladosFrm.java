@@ -11,6 +11,7 @@ import com.validaciones.SolicitudNegocio;
 import entitys.ResiduoModel;
 import entitys.UsuarioModel;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
@@ -33,6 +34,7 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     ResiduoNegocio rn = new ResiduoNegocio();
     UsuarioModel usuarioActual = new UsuarioModel();
     SolicitudNegocio solicitudNeg = new SolicitudNegocio();
+    
     
     public SolicitarTrasladosFrm() {
         initComponents();
@@ -134,7 +136,15 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
 
     return true;
  }
- 
+ public List<ResiduoModel> obtenerListaDeResiduos(){
+           List<ResiduoModel> residuosSeleccionados = new ArrayList<>();
+           for(int i = 0; i < modelSeleccionados.size(); i++){
+               String residuoActual = modelSeleccionados.getElementAt(i);
+               ResiduoModel residuo = rn.buscarResiduoPorNombre(residuoActual);
+               residuosSeleccionados.add(residuo);
+           }
+           return residuosSeleccionados;
+       }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -282,7 +292,13 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         if(verificarFecha() == false){
             mostrarError("Seleccione una fecha valida","Error","Error al Solicitar");
         }else{
-          DTOSolicitaTraslado dtoSolicitaTraslado = new DTOSolicitaTraslado(); 
+          DTOSolicitaTraslado dtoSolicitaTraslado = new DTOSolicitaTraslado();
+          dtoSolicitaTraslado.setAsignado(false);
+          dtoSolicitaTraslado.setFecha(this.calendario.getSelectedDate());
+          dtoSolicitaTraslado.setCantidadRes(Float.parseFloat(this.txtCantidad.getText()));
+          dtoSolicitaTraslado.setResiduos(obtenerListaDeResiduos());
+          dtoSolicitaTraslado.setProductor(null);
+          solicitudNeg.guardar(dtoSolicitaTraslado);
           
         JOptionPane.showMessageDialog(null, "Solicitud Exitosa");
         UsuarioModel usuario = new UsuarioModel();

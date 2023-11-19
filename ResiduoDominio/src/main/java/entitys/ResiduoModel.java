@@ -30,6 +30,7 @@ public class ResiduoModel implements Serializable {
  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "id_residuo")
     private Long id;
 
     public Long getId() {

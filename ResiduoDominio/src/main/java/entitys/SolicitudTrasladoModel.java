@@ -6,6 +6,7 @@ package entitys;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -28,12 +29,13 @@ import javax.persistence.TemporalType;
  * @author PRIDE ANACONDA
  */
 @Entity
-@Table (name = "SolicitudTraslado")
+@Table(name = "SolicitudTraslado")
 public class SolicitudTrasladoModel implements Serializable {
 
-   
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idSolicitud")
+
     private Long id;
 
     public Long getId() {
@@ -48,7 +50,7 @@ public class SolicitudTrasladoModel implements Serializable {
      */
     @Temporal(TemporalType.DATE)
     @Column(name = "FechaTraslado")
-    private LocalDate fecha;
+    private Date fecha;
 
     /**
      *
@@ -62,16 +64,16 @@ public class SolicitudTrasladoModel implements Serializable {
      */
     @Basic
     @Column(name = "Asignado")
-   private boolean asignado;
+    private boolean asignado;
 
     /**
      *
      */
-    @ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
-            name = "Especificacion Residuos",
+            name = "Especificacion_Residuos",
             joinColumns = @JoinColumn(name = "id_solicitud", referencedColumnName = "idSolicitud"),
-            inverseJoinColumns = @JoinColumn (name = "id_residuo", referencedColumnName = "id_residuo")
+            inverseJoinColumns = @JoinColumn(name = "id_residuo", referencedColumnName = "id_residuo")
     )
     private List<ResiduoModel> listaResiduos;
 
@@ -81,14 +83,12 @@ public class SolicitudTrasladoModel implements Serializable {
 //    @ManyToOne
 //    @JoinColumn(name = "IdTransportistas")
 //    private List<TransportistaModel> trans;
-
     /**
      *
      */
     @ManyToOne
     @JoinColumn(name = "IdProductor")
     private ProductorModel prod;
-
 
     /**
      * Default constructor
@@ -98,7 +98,7 @@ public class SolicitudTrasladoModel implements Serializable {
 
     public SolicitudTrasladoModel(long id, LocalDate fecha, float cantidadRes, boolean asignado, List<ResiduoModel> listaResiduos, List<TransportistaModel> trans, ProductorModel prod) {
         this.id = id;
-        this.fecha = fecha;
+        this.fecha = Date.from(fecha.atStartOfDay(ZoneId.systemDefault()).toInstant());;
         this.cantidadRes = cantidadRes;
         this.asignado = asignado;
         this.listaResiduos = listaResiduos;
@@ -106,14 +106,12 @@ public class SolicitudTrasladoModel implements Serializable {
         this.prod = prod;
     }
 
- 
-
     public LocalDate getFecha() {
-        return fecha;
+        return fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
     public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
+        this.fecha = Date.from(fecha.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
     public float getCantidadRes() {
@@ -143,11 +141,9 @@ public class SolicitudTrasladoModel implements Serializable {
 //    public List<TransportistaModel> getTrans() {
 //        return trans;
 //    }
-
 //    public void setTrans(List<TransportistaModel> trans) {
 //        this.trans = trans;
 //    }
-
     public ProductorModel getProd() {
         return prod;
     }
@@ -159,5 +155,4 @@ public class SolicitudTrasladoModel implements Serializable {
 //    public void agregaTransportista(TransportistaModel transportista) {
 //        trans.add(transportista);
 //    }
-
 }

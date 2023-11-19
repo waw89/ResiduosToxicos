@@ -18,6 +18,53 @@ public class DTOSolicitaTraslado {
     private float cantidadRes;
     private List<ResiduoModel> residuos;
     private ProductorModel productor;
+    private boolean asignado;
+
+    public DTOSolicitaTraslado() {
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public float getCantidadRes() {
+        return cantidadRes;
+    }
+
+    public void setCantidadRes(float cantidadRes) {
+        this.cantidadRes = cantidadRes;
+    }
+
+    public List<ResiduoModel> getResiduos() {
+        return residuos;
+    }
+
+    public void setResiduos(List<ResiduoModel> residuos) {
+        this.residuos = residuos;
+    }
+
+    public ProductorModel getProductor() {
+        return productor;
+    }
+
+    public void setProductor(ProductorModel productor) {
+        this.productor = productor;
+    }
+
+    public boolean isAsignado() {
+        return asignado;
+    }
+
+    public void setAsignado(boolean asignado) {
+        this.asignado = asignado;
+    }
+    
+    
+    
     
     
 }

@@ -26,10 +26,10 @@ public class QuimicoNegocio {
         ArrayList<QuimicoModel> quimicos = util.creaQuimicos();
 
         return iQuimicoDAO.llenaListaQuimicos(quimicos);
-        
-        
-        
+    
     }
+    
+    
     
     public QuimicoModel buscarQuimicoPorNombre(String nombre){
         QuimicoModel quimico = iQuimicoDAO.findQuimicoNombre(nombre);

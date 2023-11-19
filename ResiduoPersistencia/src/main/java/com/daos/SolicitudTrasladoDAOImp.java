@@ -25,19 +25,18 @@ import javax.persistence.EntityManagerFactory;
  */
 public class SolicitudTrasladoDAOImp implements ISolicitudTrasladoDAO {
 
-    public SolicitudTrasladoDAOImp(EntityManagerFactory emf) {
-        this.emf = emf;
+    public SolicitudTrasladoDAOImp() {
+        
     }
-    private EntityManagerFactory emf = null;
+    EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    @Override
     public SolicitudTrasladoModel create(SolicitudTrasladoModel solicitudTrasladoModel) {
-        if (solicitudTrasladoModel.getTrans() == null) {
-            solicitudTrasladoModel.setTrans(new ArrayList<TransportistaModel>());
-        }
+        
         if (solicitudTrasladoModel.getListaResiduos() == null) {
             solicitudTrasladoModel.setListaResiduos(new ArrayList<ResiduoModel>());
         }
@@ -45,12 +44,7 @@ public class SolicitudTrasladoDAOImp implements ISolicitudTrasladoDAO {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<TransportistaModel> attachedTrans = new ArrayList<TransportistaModel>();
-            for (TransportistaModel transTransportistaModelToAttach : solicitudTrasladoModel.getTrans()) {
-                transTransportistaModelToAttach = em.getReference(transTransportistaModelToAttach.getClass(), transTransportistaModelToAttach.getId());
-                attachedTrans.add(transTransportistaModelToAttach);
-            }
-            solicitudTrasladoModel.setTrans(attachedTrans);
+            
             ProductorModel prod = solicitudTrasladoModel.getProd();
             if (prod != null) {
                 prod = em.getReference(prod.getClass(), prod.getId());
@@ -63,10 +57,7 @@ public class SolicitudTrasladoDAOImp implements ISolicitudTrasladoDAO {
             }
             solicitudTrasladoModel.setListaResiduos(attachedListaResiduos);
             em.persist(solicitudTrasladoModel);
-            for (TransportistaModel transTransportistaModel : solicitudTrasladoModel.getTrans()) {
-                transTransportistaModel.getListaSolicitudes().add(solicitudTrasladoModel);
-                transTransportistaModel = em.merge(transTransportistaModel);
-            }
+            
             if (prod != null) {
                 prod.getListaSolicitudes().add(solicitudTrasladoModel);
                 prod = em.merge(prod);

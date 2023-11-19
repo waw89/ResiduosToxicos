@@ -18,6 +18,7 @@ import entitys.SolicitudTrasladoModel;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -162,7 +163,16 @@ public class ResiduoDAOImp implements IResiduoDAO {
 
     @Override
     public ResiduoModel findResiduoNombre(String nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+          EntityManager em = getEntityManager();
+    try {
+        TypedQuery<ResiduoModel> query = em.createQuery(
+                "SELECT q FROM ResiduoModel q WHERE q.nombre = :nombre", ResiduoModel.class);
+        query.setParameter("nombre", nombre);
+        List<ResiduoModel> resultados = query.getResultList();
+        return resultados.get(0);
+    } finally {
+        em.close();
+    }
     }
     
     public boolean verificaResiduos() {

@@ -33,4 +33,10 @@ public class ResiduoNegocio {
       return iResiduo.cargaResiduos(residuos);
       
     }
+    
+    public ResiduoModel buscarResiduoPorNombre(String nombre){
+        ResiduoModel residuo = iResiduo.findResiduoNombre(nombre);
+        
+        return residuo;
+    }
 }

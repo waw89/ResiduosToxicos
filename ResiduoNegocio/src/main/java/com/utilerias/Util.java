@@ -5,15 +5,11 @@
 package com.utilerias;
 
 import com.dto.DTORegistraResiduo;
+import com.dto.DTOSolicitaTraslado;
 import entitys.QuimicoModel;
 import entitys.ResiduoModel;
+import entitys.SolicitudTrasladoModel;
 import java.util.ArrayList;
-
-
-
-
-
-
 
 /**
  *
@@ -39,7 +35,6 @@ public class Util {
 //        }
 //        return null;
 //    }
-
     public ArrayList<QuimicoModel> creaQuimicos() {
         QuimicoModel quim1 = new QuimicoModel("Plomo", null);
         QuimicoModel quim2 = new QuimicoModel("Cianuro", null);
@@ -55,19 +50,29 @@ public class Util {
 
         return nuevosQuimicos;
     }
-    
-   
-   
-    
-    public ResiduoModel convertirResiduoDTOAResiduo (DTORegistraResiduo residuoDTO){
-        
-        ResiduoModel residuo = new ResiduoModel(); 
-        
+
+    public ResiduoModel convertirResiduoDTOAResiduo(DTORegistraResiduo residuoDTO) {
+
+        ResiduoModel residuo = new ResiduoModel();
+
         residuo.setCodigo(residuoDTO.getCodigo_residuo());
         residuo.setNombre(residuoDTO.getNombre_residuo());
         residuo.setListaQuimicos(residuoDTO.getQuimicos());
         residuo.setListaSolTraslados(null);
         residuo.setProductor(null);
         return residuo;
+    }
+
+    public SolicitudTrasladoModel convertirSolicitudTrasladoDTOaSolicitudTraslado(DTOSolicitaTraslado solicitudTrasladoDTO) {
+
+        SolicitudTrasladoModel solicitudTraslado = new SolicitudTrasladoModel();
+
+        solicitudTraslado.setAsignado(solicitudTrasladoDTO.isAsignado());
+        solicitudTraslado.setFecha(solicitudTrasladoDTO.getFecha());
+        solicitudTraslado.setCantidadRes(solicitudTrasladoDTO.getCantidadRes());
+        solicitudTraslado.setListaResiduos(solicitudTrasladoDTO.getResiduos());
+        solicitudTraslado.setProd(null);
+
+        return solicitudTraslado;
     }
 }
