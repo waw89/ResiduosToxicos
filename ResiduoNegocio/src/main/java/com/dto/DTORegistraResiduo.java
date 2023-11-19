@@ -4,6 +4,7 @@
  */
 package com.dto;
 
+import entitys.ProductorModel;
 import entitys.QuimicoModel;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class DTORegistraResiduo {
     private String nombre_residuo; 
     private Long codigo_residuo;
     private List<QuimicoModel> quimicos;
-    private Long id_productor;
+    private ProductorModel id_productor;
 
     public DTORegistraResiduo() {
     }
@@ -33,7 +34,7 @@ public class DTORegistraResiduo {
         return quimicos;
     }
 
-    public Long getId_productor() {
+    public ProductorModel getId_productor() {
         return id_productor;
     }
 
@@ -49,7 +50,7 @@ public class DTORegistraResiduo {
         this.quimicos = quimicos;
     }
 
-    public void setId_productor(Long id_productor) {
+    public void setId_productor(ProductorModel id_productor) {
         this.id_productor = id_productor;
     }
     

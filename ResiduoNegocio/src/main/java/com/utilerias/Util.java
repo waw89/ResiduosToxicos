@@ -4,11 +4,16 @@
  */
 package com.utilerias;
 
+import com.dto.DTOIniciarSesion;
 import com.dto.DTORegistraResiduo;
 import com.dto.DTOSolicitaTraslado;
+import entitys.AdministradorModel;
+import entitys.ProductorModel;
 import entitys.QuimicoModel;
 import entitys.ResiduoModel;
 import entitys.SolicitudTrasladoModel;
+import entitys.TransportistaModel;
+import entitys.UsuarioModel;
 import java.util.ArrayList;
 
 /**
@@ -24,17 +29,27 @@ public class Util {
      *
      * Convierte un objeto de tipo Usuario a un UsuarioDTO
      */
-//    public DTOUsuario convertirUsuarioAUsuarioDTO(Usuario usuario) {
-//        return new DTOUsuario(usuario.getId(), usuario.getTipo(), usuario.getNombre(), usuario.getUsuario(), usuario.getPassword());
-//
-//    }
-//
+    public DTOIniciarSesion convertirUsuarioAUsuarioDTO(UsuarioModel usuario) {
+        return new DTOIniciarSesion(usuario.getTipo(), usuario.getNombre(), usuario.getUsuario(), usuario.getPassword());
+
+    }
+
 //    public Usuario ConvertirDTOUsuarioAUsuario(DTOUsuario DTOusuario) {
 //        if (DTOusuario != null) {
 //            return new Usuario(DTOusuario.getTipo(), DTOusuario.getNombre(), DTOusuario.getUsuario(), DTOusuario.getPassword());
 //        }
 //        return null;
 //    }
+    
+    public UsuarioModel ConvertirDTOUsuarioAUsuario(DTOIniciarSesion dtoIniciarSesion) {
+        if (dtoIniciarSesion != null) {
+            return new UsuarioModel(dtoIniciarSesion.getTipo(), dtoIniciarSesion.getNombre(), dtoIniciarSesion.getUsuario(), dtoIniciarSesion.getContraseña());
+        }
+        return null;
+    }
+    
+    
+    
     public ArrayList<QuimicoModel> creaQuimicos() {
         QuimicoModel quim1 = new QuimicoModel("Plomo", null);
         QuimicoModel quim2 = new QuimicoModel("Cianuro", null);
@@ -59,7 +74,7 @@ public class Util {
         residuo.setNombre(residuoDTO.getNombre_residuo());
         residuo.setListaQuimicos(residuoDTO.getQuimicos());
         residuo.setListaSolTraslados(null);
-        residuo.setProductor(null);
+        residuo.setProductor(residuoDTO.getId_productor());
         return residuo;
     }
 
@@ -75,4 +90,47 @@ public class Util {
 
         return solicitudTraslado;
     }
+    
+    
+//    public ArrayList<DTOIniciarSesion> creaDTOUsuarios(){
+//        
+//        
+//        DTOIniciarSesion usuario1 = new DTOIniciarSesion();
+//        usuario1.setTipo("Productor");
+//        usuario1.setNombre("Raúl");
+//        usuario1.setContraseña("1234");
+//        usuario1.setUsuario("rully");
+//       
+//        ConvertirDTOUsuarioAUsuario(usuario1);
+//      
+//        ArrayList nuevosUsuarios = new ArrayList();
+//        
+//        if(nuevosUsuarios.isEmpty()){
+//        nuevosUsuarios.add(usuario1); 
+//        }
+//        return nuevosUsuarios;
+//    }
+    
+    
+     public ArrayList<UsuarioModel> creaUsuarios(){
+        
+        // Los parametros son tipo,nombre, nombre de usuario y contraseña
+        UsuarioModel usuario1 = new ProductorModel("Productor", "Raúl", "rully", "1234");
+       
+        
+        UsuarioModel usuario2 = new AdministradorModel("Administrador", "Luis", "waw", "1234");
+    
+        
+        UsuarioModel usuario3 = new TransportistaModel("Transportista", "Softcode", "softcode", "1234");
+        
+        ArrayList nuevosUsuarios = new ArrayList();
+        
+        if(nuevosUsuarios.isEmpty()){
+        nuevosUsuarios.add(usuario1); 
+        nuevosUsuarios.add(usuario2);
+        nuevosUsuarios.add(usuario3);
+        }
+        return nuevosUsuarios;
+    }
+    
 }

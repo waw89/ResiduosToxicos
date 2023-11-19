@@ -5,6 +5,7 @@
 package GUI;
 
 
+import entitys.ProductorModel;
 import entitys.UsuarioModel;
 
 /**
@@ -100,7 +101,7 @@ public class PantallaInicial extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     private void btnRegistraResActionPerformed(java.awt.event.ActionEvent evt) {
-        UsuarioModel usuario = new UsuarioModel();
+        UsuarioModel usuario = new ProductorModel();
         new RegistraResiduosFrm(usuario).setVisible(true);
         this.dispose();
     }

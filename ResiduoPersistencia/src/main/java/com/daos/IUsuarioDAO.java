@@ -11,11 +11,13 @@ import java.util.List;
  *
  * @author xfs85
  */
-interface IUsuarioDAO {
+public interface IUsuarioDAO {
     public UsuarioModel create(UsuarioModel usuarioModel);
     public List<UsuarioModel> findUsuarioModelEntities();
     public List<UsuarioModel> findUsuarioModelEntities(int maxResults, int firstResult);
     public UsuarioModel findUsuarioModel(Long id);
+    public UsuarioModel consultaCredenciales(String nomUsuario, String contraseña);
     public int getUsuarioModelCount();
+    public List<UsuarioModel> llenaListaUsuarios(List<UsuarioModel> usuarios);
     
 }

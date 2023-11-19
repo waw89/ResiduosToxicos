@@ -4,36 +4,43 @@
  */
 package Main;
 
+import GUI.IniciarSesionFrm;
 import GUI.PantallaInicial;
+import com.dto.DTOIniciarSesion;
+import com.utilerias.Util;
+import com.validaciones.UsuarioNegocio;
 import entitys.ProductorModel;
+import entitys.UsuarioModel;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
 
 
 public class Main {
+Util u = new Util();
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-  
+     
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                
-               ProductorModel p = new ProductorModel();
-               p.setTipo("Productor");
-               
-               new PantallaInicial(p).setVisible(true);
                
                
-          
+               new IniciarSesionFrm().setVisible(true);
                
-               
+      
             }
         });
 
     }
     
+  
 }
+    
+    

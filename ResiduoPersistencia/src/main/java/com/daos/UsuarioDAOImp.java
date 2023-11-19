@@ -5,6 +5,7 @@
 package com.daos;
 
 import com.daos.exceptions.NonexistentEntityException;
+import entitys.QuimicoModel;
 import entitys.UsuarioModel;
 import java.io.Serializable;
 import java.util.List;
@@ -12,8 +13,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,10 +26,10 @@ import javax.persistence.criteria.Root;
  */
 public class UsuarioDAOImp implements IUsuarioDAO{
 
-    public UsuarioDAOImp(EntityManagerFactory emf) {
-        this.emf = emf;
+    public UsuarioDAOImp() {
+        
     }
-    private EntityManagerFactory emf = null;
+    private EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -33,6 +38,7 @@ public class UsuarioDAOImp implements IUsuarioDAO{
     @Override
     public UsuarioModel create(UsuarioModel usuarioModel) {
         EntityManager em = null;
+        
         try {
             em = getEntityManager();
             em.getTransaction().begin();
@@ -94,5 +100,70 @@ public class UsuarioDAOImp implements IUsuarioDAO{
             em.close();
         }
     }
+    
+    @Override
+    public UsuarioModel consultaCredenciales(String nomUsuario, String contraseña) {
+    EntityManager em = getEntityManager();
+    try {
+        TypedQuery<UsuarioModel> query = em.createQuery(
+            "SELECT u FROM UsuarioModel u WHERE u.usuario = :nomUsuario AND u.password = :contraseña", UsuarioModel.class);
+        query.setParameter("nomUsuario", nomUsuario);
+        query.setParameter("contraseña", contraseña);
+        
+     
+        
+             UsuarioModel usuario = query.getSingleResult();
+        
+        return usuario;
+        
+    }catch(NoResultException e){
+        return null;
+    }finally {
+        em.close();
+    }
+}
+    
+
+    
+    @Override
+    public List<UsuarioModel> llenaListaUsuarios(List<UsuarioModel> usuarios) {
+        EntityManager em = getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        try {
+            transaction.begin();
+            if (verificaUsuarios() == true) {
+                for (UsuarioModel usuario : usuarios) {
+                    em.merge(usuario);
+                }
+
+                transaction.commit();
+            } else {
+                return findUsuarioModelEntities();
+            }
+
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return usuarios;
+    }
+        
+        public boolean verificaUsuarios() {
+  
+        if (findUsuarioModelEntities().isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     
 }

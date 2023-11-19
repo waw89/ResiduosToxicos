@@ -19,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @PrimaryKeyJoinColumn (name = "IdTransportista")
-@DiscriminatorValue (value = "Transportista")
+@DiscriminatorValue ("Transportista")
 @Table(name = "Transportista")
 public class TransportistaModel extends UsuarioModel implements Serializable  {
 
@@ -47,10 +47,16 @@ public class TransportistaModel extends UsuarioModel implements Serializable  {
      *  
      * 
      */
-    public TransportistaModel(List<SolicitudTrasladoModel> listaSolicitudes, List<VehiculoModel> listaVehiculos,String tipo, String nombre, String usuario, String password) {
+    
+    
+    public TransportistaModel(String tipo, String nombre, String usuario, String password) {
+        super(tipo, nombre, usuario, password);
+    }
+
+    public TransportistaModel(List<SolicitudTrasladoModel> listaSolicitudes, List<VehiculoModel> listaVehiculos, String tipo, String nombre, String usuario, String password) {
         super(tipo, nombre, usuario, password);
 //        this.listaSolicitudes = listaSolicitudes;
-        this.listaVehiculos = listaVehiculos;
+this.listaVehiculos = listaVehiculos;
     }
 
 //    public List<SolicitudTrasladoModel> getListaSolicitudes() {

@@ -4,6 +4,13 @@
  */
 package com.validaciones;
 
+import com.daos.UsuarioDAOImp;
+import com.daos.IUsuarioDAO;
+import com.utilerias.Util;
+import entitys.UsuarioModel;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  *
@@ -11,8 +18,8 @@ package com.validaciones;
  */
 public class UsuarioNegocio {
     
-//   // IUsuarioDAO interfaceUsuario = new UsuarioDAOImp(); 
-//    Util utilUsario = new Util();
+    IUsuarioDAO udao = new UsuarioDAOImp(); 
+    Util util = new Util();
 //
 //    public void cargaUsuariosProductores(){
 //        Usuario user = new Productor("Productor", "luis", "6442327211", "Kikirimiau7**"); 
@@ -21,17 +28,26 @@ public class UsuarioNegocio {
 //       
 //    }
     
-//    public Usuario confirmaCredenciales(String usuario, String password){
+    public UsuarioModel confirmaCredenciales(String usuario, String contraseña){
+
+
+            if (udao.consultaCredenciales(usuario, contraseña) != null){
+                 return udao.consultaCredenciales(usuario, contraseña);
+//                return utilUsasrio.ConvertirDTOUsuarioAUsuario(interfaceUsuario.consultaCredenciales(usuario, password)); 
+            }else{
+                return null;
+            }
 //
 //
-//            if (interfaceUsuario.consultaCredenciales(usuario, password)!=null){
-//                 return utilUsasrio.ConvertirDTOUsuarioAUsuario(interfaceUsuario.consultaCredenciales(usuario, password)); 
-//            }else{
-//                return null;
-//            }
 //
-//
-//
-//    }
-//}
+    }
+    
+    
+    public List<UsuarioModel> llenaListaUsuarios(){
+        ArrayList<UsuarioModel> usuarios = util.creaUsuarios();
+        
+        return udao.llenaListaUsuarios(usuarios);
+    }
+
 }
+    

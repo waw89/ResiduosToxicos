@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @PrimaryKeyJoinColumn (name = "IdAdministrador")
-@DiscriminatorValue (value = "Administrador")
+@DiscriminatorValue ("Administrador")
 @Table (name = "Administrador")
 public class AdministradorModel extends UsuarioModel implements Serializable {
 
@@ -29,8 +29,8 @@ public class AdministradorModel extends UsuarioModel implements Serializable {
         super(tipo, nombre, usuario, password);
     }
     
-     public AdministradorModel(long id, String nombre,String usuario_correo, String passowrd_usuario) {
-        super("Trasnsportista", nombre, usuario_correo, passowrd_usuario ); 
+     public AdministradorModel(long id, String nombre,String usuario_correo, String password) {
+        super("Administrador", nombre, usuario_correo, password); 
     }
      
     

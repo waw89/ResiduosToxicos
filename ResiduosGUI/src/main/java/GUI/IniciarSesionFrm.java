@@ -5,6 +5,8 @@
 package GUI;
 
 //import com.validaciones.UsuarioNegocio;
+import com.validaciones.UsuarioNegocio;
+import entitys.UsuarioModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,13 +14,14 @@ import javax.swing.JOptionPane;
  * @author xfs85
  */
 public class IniciarSesionFrm extends javax.swing.JFrame {
-    //UsuarioNegocio usuarioNeg = new UsuarioNegocio();
+    UsuarioNegocio usuarioNeg = new UsuarioNegocio();
     
     /**
      * Creates new form IniciarSesionFrm
      */
     public IniciarSesionFrm() {
         initComponents();
+        usuarioNeg.llenaListaUsuarios();
     }
 
     /**
@@ -72,22 +75,22 @@ public class IniciarSesionFrm extends javax.swing.JFrame {
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
           
-//            if(usuarioNeg.confirmaCredenciales(this.txtUsuario.getText(), this.txtContrasena.getText())!=null){
-//                JOptionPane.showMessageDialog(null, "Validacion correcta");
-//                 Usuario usuario = usuarioNeg.confirmaCredenciales(this.txtUsuario.getText(), this.txtContrasena.getText()); 
-//                 if(usuario.getTipo().equalsIgnoreCase("Productor")){
-//                          this.dispose();
-//                     new PantallaInicial(usuario).setVisible(true);
-//                 }else if(usuario.getTipo().equalsIgnoreCase("Administrador")){
-//                        this.dispose();
-//                     new PantallaInicial(usuario).setVisible(true);
-//                 }else if (usuario.getTipo().equalsIgnoreCase("Transportista")){
-//                     this.dispose();
-//                     new PantallaInicial(usuario).setVisible(true);
-//                 }
-//            }else{
-//                JOptionPane.showMessageDialog(null, "Error en validación");
-//            }
+            if(usuarioNeg.confirmaCredenciales(this.txtUsuario.getText(), this.txtContrasena.getText())!=null){
+                JOptionPane.showMessageDialog(null, "Validacion correcta");
+                 UsuarioModel usuario = usuarioNeg.confirmaCredenciales(this.txtUsuario.getText(), this.txtContrasena.getText()); 
+                 if(usuario.getTipo().equalsIgnoreCase("Productor")){
+                          this.dispose();
+                     new PantallaInicial(usuario).setVisible(true);
+                 }else if(usuario.getTipo().equalsIgnoreCase("Administrador")){
+                        this.dispose();
+                     new PantallaInicial(usuario).setVisible(true);
+                 }else if (usuario.getTipo().equalsIgnoreCase("Transportista")){
+                     this.dispose();
+                     new PantallaInicial(usuario).setVisible(true);
+                 }
+            }else{
+                JOptionPane.showMessageDialog(null, "Error en validación");
+            }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
    
