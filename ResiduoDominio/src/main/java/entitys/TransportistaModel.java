@@ -18,23 +18,20 @@ import javax.persistence.Table;
  * @author PRIDE ANACONDA
  */
 @Entity
-@PrimaryKeyJoinColumn (name = "IdTransportista")
-@DiscriminatorValue ("Transportista")
+@PrimaryKeyJoinColumn(name = "IdTransportista")
+@DiscriminatorValue("Transportista")
 @Table(name = "Transportista")
-public class TransportistaModel extends UsuarioModel implements Serializable  {
+public class TransportistaModel extends UsuarioModel implements Serializable {
 
- 
 //    /**
 //     *
 //     */
 //    @OneToMany (mappedBy = "trans", cascade = CascadeType.ALL)
 //    private List<SolicitudTrasladoModel> listaSolicitudes;
-
     /**
      *
      */
-    
-    @OneToMany (mappedBy = "trans", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "trans", cascade = CascadeType.ALL)
     private List<VehiculoModel> listaVehiculos;
 
     /**
@@ -42,13 +39,11 @@ public class TransportistaModel extends UsuarioModel implements Serializable  {
      */
     public TransportistaModel() {
     }
-    
+
     /**
-     *  
-     * 
+     *
+     *
      */
-    
-    
     public TransportistaModel(String tipo, String nombre, String usuario, String password) {
         super(tipo, nombre, usuario, password);
     }
@@ -56,17 +51,15 @@ public class TransportistaModel extends UsuarioModel implements Serializable  {
     public TransportistaModel(List<SolicitudTrasladoModel> listaSolicitudes, List<VehiculoModel> listaVehiculos, String tipo, String nombre, String usuario, String password) {
         super(tipo, nombre, usuario, password);
 //        this.listaSolicitudes = listaSolicitudes;
-this.listaVehiculos = listaVehiculos;
+        this.listaVehiculos = listaVehiculos;
     }
 
 //    public List<SolicitudTrasladoModel> getListaSolicitudes() {
 //        return listaSolicitudes;
 //    }
-
 //    public void setListaSolicitudes(List<SolicitudTrasladoModel> listaSolicitudes) {
 //        this.listaSolicitudes = listaSolicitudes;
 //    }
-
     public List<VehiculoModel> getListaVehiculos() {
         return listaVehiculos;
     }
