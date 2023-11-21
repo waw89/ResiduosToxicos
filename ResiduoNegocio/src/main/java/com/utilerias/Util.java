@@ -117,6 +117,7 @@ public class Util {
 
         TransportistaModel usuario3 = new TransportistaModel("Transportista", "Softcode", "softcode", "1234");
         
+        TransportistaModel usuario4 = new TransportistaModel("Transportista", "DHL", "dhl", "1234");
        
         
         
@@ -126,6 +127,7 @@ public class Util {
             nuevosUsuarios.add(usuario1);
             nuevosUsuarios.add(usuario2);
             nuevosUsuarios.add(usuario3);
+            nuevosUsuarios.add(usuario4);
         }
         return nuevosUsuarios;
     }

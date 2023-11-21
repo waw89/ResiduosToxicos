@@ -4,19 +4,23 @@
  */
 package GUI;
 
+import entitys.UsuarioModel;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author xfs85
  */
+
 public class SolicitudesSinAsignarFrm extends javax.swing.JFrame {
 
     /**
      * Creates new form AsignarEmpresa
      */
-    public SolicitudesSinAsignarFrm() {
+    UsuarioModel usuarioActual;
+    public SolicitudesSinAsignarFrm(UsuarioModel usuario) {
         initComponents();
+        this.usuarioActual = usuario;
     }
 
     /**
@@ -29,6 +33,10 @@ public class SolicitudesSinAsignarFrm extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        solicitudesSinAsignarList = new javax.swing.JList<>();
+        btnVolver = new javax.swing.JButton();
+        btnAsignar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -36,7 +44,33 @@ public class SolicitudesSinAsignarFrm extends javax.swing.JFrame {
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Ver solicitudes no asignadas - Residuos Tóxicos.png"))); // NOI18N
+        solicitudesSinAsignarList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        solicitudesSinAsignarList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jScrollPane1.setViewportView(solicitudesSinAsignarList);
+
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 480, 200));
+
+        btnVolver.setContentAreaFilled(false);
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 13, 50, 30));
+
+        btnAsignar.setContentAreaFilled(false);
+        btnAsignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnAsignar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 380, 160, 40));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla nueva solicitudes sin asignar.png"))); // NOI18N
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 720, 490));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -54,10 +88,24 @@ public class SolicitudesSinAsignarFrm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+      new AsignarEmpresaFrm(this.usuarioActual).setVisible(true);
+      this.dispose();
+    }//GEN-LAST:event_btnAsignarActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+       new PantallaInicial(this.usuarioActual).setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAsignar;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> solicitudesSinAsignarList;
     // End of variables declaration//GEN-END:variables
 }

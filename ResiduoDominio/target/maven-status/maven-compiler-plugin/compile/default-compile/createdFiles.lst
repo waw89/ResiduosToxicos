@@ -1,2 +1,7 @@
+entitys\VehiculoModel_.class
 entitys\ResiduoModel.class
+entitys\TrasladoModel_.class
+entitys\UsuarioModel_.class
+entitys\AdministradorModel_.class
+entitys\QuimicoModel_.class
 entitys\QuimicoModel.class

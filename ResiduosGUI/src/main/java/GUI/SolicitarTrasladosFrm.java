@@ -312,9 +312,9 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-          UsuarioModel usuario = new UsuarioModel();
-        usuario.setTipo("Productor");
-        new PantallaInicial(usuario).setVisible(true);
+        
+        this.usuarioActual.setTipo("Productor");
+        new PantallaInicial(this.usuarioActual).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 public void eliminaDeListaDisponibles() {

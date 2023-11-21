@@ -59,9 +59,9 @@ public class VehiculoNegocio {
             this.vehiculos.add(auto3);
             this.vehiculos.add(auto4);
 
-            for (VehiculoModel vehiculo : this.vehiculos) {
+            for (TransportistaModel transportista : transportistas) {
 
-                for (TransportistaModel transportista : transportistas) {
+                for (VehiculoModel vehiculo : this.vehiculos) {
                     vehiculo.setTrans(transportista);
                 }
             }

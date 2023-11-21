@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import entitys.UsuarioModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author xfs85
@@ -13,7 +16,10 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
     /**
      * Creates new form RegistrarTraslado
      */
-    public RegistrarTrasladoFrm() {
+    UsuarioModel usuarioActual;
+
+    public RegistrarTrasladoFrm(UsuarioModel usuario) {
+        this.usuarioActual = usuario;
         initComponents();
     }
 
@@ -27,6 +33,14 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        btnRegistrarTraslado = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
+        fechaLlegadaPicker = new com.github.lgooddatepicker.components.DatePicker();
+        txtKm = new javax.swing.JTextField();
+        txtCosto = new javax.swing.JTextField();
+        vehiculoCheckBox = new javax.swing.JCheckBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtTratamiento = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -34,7 +48,35 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Registrar Traslado - Residuos Tóxicos.png"))); // NOI18N
+        btnRegistrarTraslado.setContentAreaFilled(false);
+        btnRegistrarTraslado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarTrasladoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRegistrarTraslado, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 400, 160, 30));
+
+        btnVolver.setContentAreaFilled(false);
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 33, 40, 30));
+        jPanel1.add(fechaLlegadaPicker, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, -1, -1));
+        jPanel1.add(txtKm, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, 50, -1));
+        jPanel1.add(txtCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, 50, -1));
+
+        vehiculoCheckBox.setText("Vehiculo");
+        jPanel1.add(vehiculoCheckBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, -1, -1));
+
+        txtTratamiento.setColumns(20);
+        txtTratamiento.setRows(5);
+        jScrollPane1.setViewportView(txtTratamiento);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 270, 250, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla nueva registrar traslado 2.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 480));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -52,10 +94,29 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-   
+    private void btnRegistrarTrasladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTrasladoActionPerformed
+      JOptionPane.showMessageDialog(null, "Registro Exitoso");
+      new PantallaInicial(this.usuarioActual).setVisible(true);
+      this.dispose();
+    }//GEN-LAST:event_btnRegistrarTrasladoActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        new SolicitudesAsignadasFrm(this.usuarioActual).setVisible(true);
+        this.dispose();
+
+    }//GEN-LAST:event_btnVolverActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegistrarTraslado;
+    private javax.swing.JButton btnVolver;
+    private com.github.lgooddatepicker.components.DatePicker fechaLlegadaPicker;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField txtCosto;
+    private javax.swing.JTextField txtKm;
+    private javax.swing.JTextArea txtTratamiento;
+    private javax.swing.JCheckBox vehiculoCheckBox;
     // End of variables declaration//GEN-END:variables
 }

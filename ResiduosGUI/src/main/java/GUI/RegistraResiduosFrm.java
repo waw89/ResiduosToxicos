@@ -181,7 +181,7 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         });
         jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 150, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Registrar Residuo - Residuos Tóxicos.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla nueva registrar residuo.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 720, 480));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -247,9 +247,9 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        UsuarioModel usuario = new UsuarioModel();
-        usuario.setTipo("Productor");
-        new PantallaInicial(usuario).setVisible(true);
+        
+        this.usuarioActual.setTipo("Productor");
+        new PantallaInicial(this.usuarioActual).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
     public void eliminaDeListaDisponibles() {

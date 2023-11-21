@@ -21,6 +21,8 @@ public class PantallaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistraRes;
     private javax.swing.JButton btnSolicitaTras;
     private javax.swing.JPanel panel;
+    private javax.swing.JButton btnVerSolicitudes;
+    private javax.swing.JButton btnRegistrarTras;
     UsuarioModel usuario;
 
    
@@ -31,8 +33,8 @@ public class PantallaInicial extends javax.swing.JFrame {
         label = new javax.swing.JLabel();
         btnRegistraRes = new javax.swing.JButton();
         btnSolicitaTras = new javax.swing.JButton();
-        
-        
+        btnVerSolicitudes = new javax.swing.JButton(); 
+        btnRegistrarTras = new javax.swing.JButton();
         panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,8 +72,23 @@ public class PantallaInicial extends javax.swing.JFrame {
         } else if (usuario.getTipo().equalsIgnoreCase("administrador")) {
             label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Administrador - Residuos Toxicos.png"))); // NOI18N
             panel.add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 720, 480));
+            btnVerSolicitudes.setContentAreaFilled(false);
+            btnVerSolicitudes.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    btnVerSolicitudesActionPerformed(evt);
+                }  
+            });
+            panel.add(btnVerSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 200, 40));
         } else if (usuario.getTipo().equalsIgnoreCase("transportista")) {
-
+            label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Empresas- Residuos Tóxicos.png")));
+            panel.add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 720, 480));
+            btnRegistrarTras.setContentAreaFilled(false);
+            btnRegistrarTras.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    btnRegistrarTrasActionPerformed(evt);
+                }  
+            });
+            panel.add(btnRegistrarTras, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 200, 40));
         }
     }
 
@@ -111,6 +128,16 @@ public class PantallaInicial extends javax.swing.JFrame {
         new SolicitarTrasladosFrm(usuario).setVisible(true);
         this.dispose();
     }
+    
+     private void btnVerSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {
+         new SolicitudesSinAsignarFrm(usuario).setVisible(true);
+         this.dispose();
+     }
+     
+     private void btnRegistrarTrasActionPerformed(java.awt.event.ActionEvent evt) {
+         new SolicitudesAsignadasFrm(usuario).setVisible(true);
+         this.dispose();
+     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
