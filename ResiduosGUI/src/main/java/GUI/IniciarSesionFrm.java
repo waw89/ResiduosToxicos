@@ -4,8 +4,8 @@
  */
 package GUI;
 
-//import com.validaciones.UsuarioNegocio;
 import com.validaciones.UsuarioNegocio;
+import com.validaciones.VehiculoNegocio;
 import entitys.UsuarioModel;
 import javax.swing.JOptionPane;
 
@@ -15,14 +15,18 @@ import javax.swing.JOptionPane;
  */
 public class IniciarSesionFrm extends javax.swing.JFrame {
     UsuarioNegocio usuarioNeg = new UsuarioNegocio();
-    
+    VehiculoNegocio vehiculoNeg = new VehiculoNegocio();
     /**
      * Creates new form IniciarSesionFrm
      */
     public IniciarSesionFrm() {
         initComponents();
         usuarioNeg.llenaListaUsuarios();
+        vehiculoNeg.creaAutos();
     }
+    
+
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.

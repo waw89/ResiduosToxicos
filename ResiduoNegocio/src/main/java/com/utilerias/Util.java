@@ -117,7 +117,8 @@ public class Util {
 
         TransportistaModel usuario3 = new TransportistaModel("Transportista", "Softcode", "softcode", "1234");
         
-        asignaVehiculos(usuario3);
+       
+        
         
         ArrayList nuevosUsuarios = new ArrayList();
 
@@ -128,48 +129,9 @@ public class Util {
         }
         return nuevosUsuarios;
     }
-
-    public ArrayList<VehiculoModel> creaAutos() {
-        ArrayList<VehiculoModel> vehiculos = new ArrayList<VehiculoModel>();
-        VehiculoModel auto1 = new VehiculoModel();
-        auto1.setLinea("Focus");
-        auto1.setMarca("Ford");
-        auto1.setModelo(2004);
-        auto1.setTipo("Automóvil");
-
-        VehiculoModel auto2 = new VehiculoModel();
-        auto1.setLinea("Atos");
-        auto1.setMarca("Hyundai");
-        auto1.setModelo(1500);
-        auto1.setTipo("Automóvil");
-
-        VehiculoModel auto3 = new VehiculoModel();
-        auto1.setLinea("Linea 12");
-        auto1.setMarca("Mercedes");
-        auto1.setModelo(2009);
-        auto1.setTipo("Camión");
-        
-        VehiculoModel auto4 = new VehiculoModel();
-        auto1.setLinea("Linea 9");
-        auto1.setMarca("Mercedes");
-        auto1.setModelo(2012);
-        auto1.setTipo("Camión");
-        
-        vehiculos.add(auto1); 
-        vehiculos.add(auto2);
-        vehiculos.add(auto3); 
-        vehiculos.add(auto4);
     
-        return vehiculos; 
-    }
-    
-    public void asignaVehiculos(TransportistaModel transportistaModel){
-        
-        ArrayList<VehiculoModel> vehiculos = creaAutos(); 
-        
-        for (VehiculoModel vehiculo: vehiculos){
-             transportistaModel.agregaVehiculo(vehiculo);
-        }
+
+
        
     }
-}
+

@@ -20,6 +20,7 @@ public class UsuarioNegocio {
     
     IUsuarioDAO udao = new UsuarioDAOImp(); 
     Util util = new Util();
+    ArrayList<UsuarioModel> usuarios;
 //
 //    public void cargaUsuariosProductores(){
 //        Usuario user = new Productor("Productor", "luis", "6442327211", "Kikirimiau7**"); 
@@ -44,10 +45,17 @@ public class UsuarioNegocio {
     
     
     public List<UsuarioModel> llenaListaUsuarios(){
-        ArrayList<UsuarioModel> usuarios = util.creaUsuarios();
+        
+         this.usuarios = util.creaUsuarios();
         
         return udao.llenaListaUsuarios(usuarios);
     }
+    
+    public List<UsuarioModel> obtieneListaUsuarios(){
+        
+         return this.usuarios;
+    }
+    
 
 }
     

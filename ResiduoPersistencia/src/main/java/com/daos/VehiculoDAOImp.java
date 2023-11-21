@@ -22,10 +22,10 @@ import javax.persistence.EntityManagerFactory;
  */
 public class VehiculoDAOImp implements IVehiculoDAO {
 
-    public VehiculoDAOImp(EntityManagerFactory emf) {
-        this.emf = emf;
+    public VehiculoDAOImp() {
+       
     }
-    private EntityManagerFactory emf = null;
+    private EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();

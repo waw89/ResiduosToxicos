@@ -24,10 +24,10 @@ import javax.persistence.EntityManagerFactory;
  */
 public class TransportistaDAOImp implements ITransportistaDAO {
 
-    public TransportistaDAOImp(EntityManagerFactory emf) {
-        this.emf = emf;
+    public TransportistaDAOImp() {
+        
     }
-    private EntityManagerFactory emf = null;
+    private EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();

@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author xfs85
  */
-interface IVehiculoDAO {
+public interface IVehiculoDAO {
     public VehiculoModel create(VehiculoModel vehiculoModel);
     public List<VehiculoModel> findVehiculoModelEntities();
     public List<VehiculoModel> findVehiculoModelEntities(int maxResults, int firstResult);
