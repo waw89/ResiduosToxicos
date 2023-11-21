@@ -12,9 +12,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import entitys.TransportistaModel;
 import entitys.VehiculoModel;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -23,7 +26,7 @@ import javax.persistence.EntityManagerFactory;
 public class VehiculoDAOImp implements IVehiculoDAO {
 
     public VehiculoDAOImp() {
-       
+
     }
     private EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
 
@@ -54,8 +57,6 @@ public class VehiculoDAOImp implements IVehiculoDAO {
         }
         return vehiculoModel;
     }
-
-    
 
     public List<VehiculoModel> findVehiculoModelEntities() {
         return findVehiculoModelEntities(true, -1, -1);
@@ -102,5 +103,17 @@ public class VehiculoDAOImp implements IVehiculoDAO {
             em.close();
         }
     }
-    
+
+    public List<VehiculoModel> obtenerVehiculosPorTransportista(Long idTransportista) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<VehiculoModel> query = em.createQuery(
+                    "SELECT v FROM VehiculoModel v WHERE v.trans.id = :idTransportista", VehiculoModel.class);
+            query.setParameter("idTransportista", idTransportista);
+            return query.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
 }

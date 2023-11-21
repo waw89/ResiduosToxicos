@@ -17,5 +17,6 @@ public interface IVehiculoDAO {
     public List<VehiculoModel> findVehiculoModelEntities(int maxResults, int firstResult);
     public VehiculoModel findVehiculoModel(Long id);
     public int getVehiculoModelCount();
+    public List<VehiculoModel> obtenerVehiculosPorTransportista(Long idTransportista);
     
 }

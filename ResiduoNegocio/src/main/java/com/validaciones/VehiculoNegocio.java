@@ -69,4 +69,8 @@ public class VehiculoNegocio {
 
         }
     }
+    
+    public List<VehiculoModel>obtenerVehiculos(Long id){
+        return iVehiculo.obtenerVehiculosPorTransportista(id);
+    }
 }
