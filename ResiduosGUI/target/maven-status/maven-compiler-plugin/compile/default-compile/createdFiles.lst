@@ -9,6 +9,7 @@ GUI\PantallaInicialTransportista$1.class
 GUI\RegistrarTrasladoFrm.class
 GUI\RegistraResiduosFrm.class
 GUI\RegistraResiduosFrm$6.class
+GUI\AsignarEmpresaFrm$1.class
 GUI\SolicitarTrasladosFrm$4.class
 GUI\IniciarSesionFrm$1.class
 GUI\PantallaInicial.class
@@ -26,4 +27,5 @@ GUI\SolicitarTrasladosFrm.class
 GUI\IniciarSesionFrm.class
 GUI\SolicitarTrasladosFrm$3.class
 Main\Main.class
+GUI\AsignarEmpresaFrm.class
 GUI\PantallaInicial$1.class

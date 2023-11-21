@@ -21,10 +21,11 @@ public class PantallaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistraRes;
     private javax.swing.JButton btnSolicitaTras;
     private javax.swing.JPanel panel;
-    
+    UsuarioModel usuario;
 
    
     public PantallaInicial(UsuarioModel usuario) {
+        this.usuario = usuario;
         initComponents();
         panel = new javax.swing.JPanel();
         label = new javax.swing.JLabel();
@@ -101,13 +102,13 @@ public class PantallaInicial extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     private void btnRegistraResActionPerformed(java.awt.event.ActionEvent evt) {
-        UsuarioModel usuario = new ProductorModel();
+        
         new RegistraResiduosFrm(usuario).setVisible(true);
         this.dispose();
     }
 
     private void btnSolicitaTrasActionPerformed(java.awt.event.ActionEvent evt) {
-        new SolicitarTrasladosFrm().setVisible(true);
+        new SolicitarTrasladosFrm(usuario).setVisible(true);
         this.dispose();
     }
 

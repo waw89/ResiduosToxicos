@@ -8,6 +8,7 @@ package GUI;
 import com.dto.DTOSolicitaTraslado;
 import com.validaciones.ResiduoNegocio;
 import com.validaciones.SolicitudNegocio;
+import entitys.ProductorModel;
 import entitys.ResiduoModel;
 import entitys.UsuarioModel;
 import java.time.LocalDate;
@@ -32,12 +33,13 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     DefaultListModel<String> modelDisponibles = new DefaultListModel<>();
     DefaultListModel<String> modelSeleccionados = new DefaultListModel<>();
     ResiduoNegocio rn = new ResiduoNegocio();
-    UsuarioModel usuarioActual = new UsuarioModel();
+    UsuarioModel usuarioActual;
     SolicitudNegocio solicitudNeg = new SolicitudNegocio();
     
     
-    public SolicitarTrasladosFrm() {
+    public SolicitarTrasladosFrm(UsuarioModel usuario) {
         initComponents();
+        this.usuarioActual = usuario;
         residuosDisponiblesList.setModel(modelDisponibles);
         residuosSeleccionadosList.setModel(modelSeleccionados);
         inicializaLista();
@@ -297,13 +299,13 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
           dtoSolicitaTraslado.setFecha(this.calendario.getSelectedDate());
           dtoSolicitaTraslado.setCantidadRes(Float.parseFloat(this.txtCantidad.getText()));
           dtoSolicitaTraslado.setResiduos(obtenerListaDeResiduos());
-          dtoSolicitaTraslado.setProductor(null);
+          dtoSolicitaTraslado.setProductor((ProductorModel) this.usuarioActual);
           solicitudNeg.guardar(dtoSolicitaTraslado);
           
         JOptionPane.showMessageDialog(null, "Solicitud Exitosa");
-        UsuarioModel usuario = new UsuarioModel();
-        usuario.setTipo("Productor");
-        new PantallaInicial(usuario).setVisible(true);
+        
+        this.usuarioActual.setTipo("Productor");
+        new PantallaInicial(this.usuarioActual).setVisible(true);
         this.dispose();
          }
         }

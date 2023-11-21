@@ -1,5 +1,2 @@
-com\dto\DTOUsuario.class
 com\validaciones\QuimicoNegocio.class
 com\utilerias\Util.class
-com\dto\DTOProductor.class
-com\dto\DTOResiduo.class

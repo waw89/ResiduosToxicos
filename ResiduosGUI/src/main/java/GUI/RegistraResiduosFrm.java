@@ -32,7 +32,7 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     DefaultListModel<String> modelSeleccionados = new DefaultListModel<>();
     QuimicoNegocio qn = new QuimicoNegocio();
     IQuimicoDAO qdao = new QuimicoDAOImp();
-    UsuarioModel usuarioActual = new ProductorModel();
+    UsuarioModel usuarioActual;
     ResiduoNegocio residuoNeg = new ResiduoNegocio(); 
     public RegistraResiduosFrm(UsuarioModel usuario) {
         initComponents();
@@ -232,13 +232,13 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
                     dtoRegistrarResiduo.setNombre_residuo(this.txtNombre.getText());
                     dtoRegistrarResiduo.setQuimicos(obtenerListaDeQuimicos());
                     dtoRegistrarResiduo.setCodigo_residuo(Long.parseLong(this.txtCodigo.getText()));
-                    dtoRegistrarResiduo.setId_productor(null);
+                    dtoRegistrarResiduo.setId_productor((ProductorModel) this.usuarioActual);
                     residuoNeg.guardar(dtoRegistrarResiduo); 
                     JOptionPane.showMessageDialog(null, "Registro Exitoso");
                     
-                    UsuarioModel usuario = new UsuarioModel();
-                    usuario.setTipo("Productor");
-                    new PantallaInicial(usuario).setVisible(true);
+                    
+                    this.usuarioActual.setTipo("Productor");
+                    new PantallaInicial(this.usuarioActual).setVisible(true);
                     this.dispose();
                 }
             }

@@ -86,7 +86,7 @@ public class Util {
         solicitudTraslado.setFecha(solicitudTrasladoDTO.getFecha());
         solicitudTraslado.setCantidadRes(solicitudTrasladoDTO.getCantidadRes());
         solicitudTraslado.setListaResiduos(solicitudTrasladoDTO.getResiduos());
-        solicitudTraslado.setProd(null);
+        solicitudTraslado.setProd(solicitudTrasladoDTO.getProductor());
 
         return solicitudTraslado;
     }
