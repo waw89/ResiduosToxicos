@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -148,9 +149,21 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
                 vehiculo.getModelo()
             };
             tableModel.addRow(fila);
+            
+            addCheckbox(0,jTable2);
         }
 
     
+    }
+    
+    public void addCheckbox(int column, JTable table){
+        TableColumn tc = table.getColumnModel().getColumn(column);
+        tc.setCellEditor(table.getDefaultEditor(Boolean.class));
+        tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
+    }
+    
+    public boolean isSelected(int row, int column, JTable table){
+        return table.getValueAt(row, column) != null;
     }
 
     private void btnRegistrarTrasladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTrasladoActionPerformed
