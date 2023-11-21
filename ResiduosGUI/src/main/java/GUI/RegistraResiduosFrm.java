@@ -27,6 +27,7 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
 
     /**
      * Creates new form RegistraResiduosFrm
+     * 
      */
     DefaultListModel<String> modelDisponibles = new DefaultListModel<>();
     DefaultListModel<String> modelSeleccionados = new DefaultListModel<>();
