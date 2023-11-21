@@ -27,17 +27,7 @@ import javax.persistence.Table;
 public class ProductorModel extends UsuarioModel implements Serializable {
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     /**
      * 
