@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+
+
 /**
  *
  * @author PRIDE ANACONDA
