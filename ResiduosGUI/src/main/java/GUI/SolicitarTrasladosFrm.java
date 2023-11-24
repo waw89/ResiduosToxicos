@@ -4,7 +4,6 @@
  */
 package GUI;
 
-
 import com.dto.DTOSolicitaTraslado;
 import com.validaciones.ResiduoNegocio;
 import com.validaciones.SolicitudNegocio;
@@ -29,14 +28,12 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     /**
      * Creates new form SolicitarTraslados
      */
-    
     DefaultListModel<String> modelDisponibles = new DefaultListModel<>();
     DefaultListModel<String> modelSeleccionados = new DefaultListModel<>();
     ResiduoNegocio rn = new ResiduoNegocio();
     UsuarioModel usuarioActual;
     SolicitudNegocio solicitudNeg = new SolicitudNegocio();
-    
-    
+
     public SolicitarTrasladosFrm(UsuarioModel usuario) {
         initComponents();
         this.usuarioActual = usuario;
@@ -46,26 +43,24 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         inicializaListeners();
         this.setTitle("Solicitar Traslados");
     }
- public void inicializaLista() {
 
-       List<ResiduoModel> listaResiduos = rn.obtenerResiduos();
-       
-       for(ResiduoModel residuo : listaResiduos)
-        modelDisponibles.addElement(residuo.getNombre());
-        
-       
+    public void inicializaLista() {
+
+        List<ResiduoModel> listaResiduos = rn.obtenerResiduos();
+
+        for (ResiduoModel residuo : listaResiduos) {
+            modelDisponibles.addElement(residuo.getNombre());
+        }
+
     }
- 
- 
- 
- private void inicializaListeners() {
-     
-     
+
+    private void inicializaListeners() {
+
         residuosDisponiblesList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    
+
                     boolean hayElementosSeleccionados = residuosDisponiblesList.getSelectedIndex() != -1;
 
                     // Habilita o deshabilita el campo de texto según si hay elementos seleccionados
@@ -75,78 +70,75 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
             }
         });
     }
- 
- public boolean verificaComboCantidad(){
-   
-     if(comboCantidad.getSelectedItem() == null){
-       JOptionPane.showMessageDialog(null, "Por favor, seleccione una unidad de medida", "Error", JOptionPane.ERROR_MESSAGE);
-       return false;
-   }  
-     return true;
- }
-     
-     
- public boolean verificaFormatoCantidadDeResiduo(){
-     String cantidad = txtCantidad.getText();
-     
-      if (cantidad.matches("\\d+")) {
-            
-            int cantidadResiduo = Integer.parseInt(cantidad);
-           
-            
-            if(cantidadResiduo <= 0){
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese un valor numérico válido", "Error", JOptionPane.ERROR_MESSAGE);  
-            txtCantidad.setText("");
-            return false;
-            }
-        } else {
-           
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese un valor numérico", "Error", JOptionPane.ERROR_MESSAGE);
-           
-            txtCantidad.setText("");
-            
+
+    public boolean verificaComboCantidad() {
+
+        if (comboCantidad.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione una unidad de medida", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-      return true;
-     
- }
- 
-
- public boolean verificarFecha(){
-    LocalDate fechaSeleccionada = calendario.getSelectedDate();
-    LocalDate fechaActual = LocalDate.now();
-
-    if (fechaSeleccionada == null) {
-        
-        return false;
-    }
-    if(fechaSeleccionada.isBefore(fechaActual) || fechaSeleccionada.equals(fechaActual)){
-         return false;
-     }
-     
-     
-     return true;
- }
- 
- public boolean verificarSeleccion(){
-       int cantidadSeleccionada = modelSeleccionados.size(); 
-
-    if (cantidadSeleccionada < 1) {
-        mostrarError("Debe seleccionar al menos un residuo", "Error", "Error al registrar");
-        return false;
+        return true;
     }
 
-    return true;
- }
- public List<ResiduoModel> obtenerListaDeResiduos(){
-           List<ResiduoModel> residuosSeleccionados = new ArrayList<>();
-           for(int i = 0; i < modelSeleccionados.size(); i++){
-               String residuoActual = modelSeleccionados.getElementAt(i);
-               ResiduoModel residuo = rn.buscarResiduoPorNombre(residuoActual);
-               residuosSeleccionados.add(residuo);
-           }
-           return residuosSeleccionados;
-       }
+    public boolean verificaFormatoCantidadDeResiduo() {
+        String cantidad = txtCantidad.getText();
+
+        if (cantidad.matches("\\d+")) {
+
+            int cantidadResiduo = Integer.parseInt(cantidad);
+
+            if (cantidadResiduo <= 0) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un valor numérico válido", "Error", JOptionPane.ERROR_MESSAGE);
+                txtCantidad.setText("");
+                return false;
+            }
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un valor numérico", "Error", JOptionPane.ERROR_MESSAGE);
+
+            txtCantidad.setText("");
+
+            return false;
+        }
+        return true;
+
+    }
+
+    public boolean verificarFecha() {
+        LocalDate fechaSeleccionada = calendario.getSelectedDate();
+        LocalDate fechaActual = LocalDate.now();
+
+        if (fechaSeleccionada == null) {
+
+            return false;
+        }
+        if (fechaSeleccionada.isBefore(fechaActual) || fechaSeleccionada.equals(fechaActual)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean verificarSeleccion() {
+        int cantidadSeleccionada = modelSeleccionados.size();
+
+        if (cantidadSeleccionada < 1) {
+            mostrarError("Debe seleccionar al menos un residuo", "Error", "Error al registrar");
+            return false;
+        }
+
+        return true;
+    }
+
+    public List<ResiduoModel> obtenerListaDeResiduos() {
+        List<ResiduoModel> residuosSeleccionados = new ArrayList<>();
+        for (int i = 0; i < modelSeleccionados.size(); i++) {
+            String residuoActual = modelSeleccionados.getElementAt(i);
+            ResiduoModel residuo = rn.buscarResiduoPorNombre(residuoActual);
+            residuosSeleccionados.add(residuo);
+        }
+        return residuosSeleccionados;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -260,26 +252,24 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-          if(verificaFormatoCantidadDeResiduo() == true){
-           if(verificaComboCantidad() == true){
-               
-              
-          
-        if (residuosDisponiblesList.getSelectedIndex() != -1) {
-            agregaAListaSeleccionados();
-            eliminaDeListaDisponibles();
-        } else if (residuosSeleccionadosList.getSelectedIndex() != -1) {
-            mostrarError("No puedes agregar ningun quimico aquí", "Error", "Error al Agregar");
-        } else {
-            mostrarError("No seleccionó ningun quimico", "Error", "Error al Agregar");
+        if (verificaFormatoCantidadDeResiduo() == true) {
+            if (verificaComboCantidad() == true) {
+
+                if (residuosDisponiblesList.getSelectedIndex() != -1) {
+                    agregaAListaSeleccionados();
+                    eliminaDeListaDisponibles();
+                } else if (residuosSeleccionadosList.getSelectedIndex() != -1) {
+                    mostrarError("No puedes agregar ningun quimico aquí", "Error", "Error al Agregar");
+                } else {
+                    mostrarError("No seleccionó ningun quimico", "Error", "Error al Agregar");
+                }
+            }
+
         }
-        }
-              
-    }     
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-         if (residuosSeleccionadosList.getSelectedIndex() != -1) {
+        if (residuosSeleccionadosList.getSelectedIndex() != -1) {
             agregaAListaDisponibles();
             eliminaDeListaSeleccionados();
         } else if (residuosDisponiblesList.getSelectedIndex() != -1) {
@@ -290,34 +280,37 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
-        if(verificarSeleccion() == true){
-        if(verificarFecha() == false){
-            mostrarError("Seleccione una fecha valida","Error","Error al Solicitar");
-        }else{
-          DTOSolicitaTraslado dtoSolicitaTraslado = new DTOSolicitaTraslado();
-          dtoSolicitaTraslado.setAsignado(false);
-          dtoSolicitaTraslado.setFecha(this.calendario.getSelectedDate());
-          dtoSolicitaTraslado.setCantidadRes(Float.parseFloat(this.txtCantidad.getText()));
-          dtoSolicitaTraslado.setResiduos(obtenerListaDeResiduos());
-          dtoSolicitaTraslado.setProductor((ProductorModel) this.usuarioActual);
-          solicitudNeg.guardar(dtoSolicitaTraslado);
-          
-        JOptionPane.showMessageDialog(null, "Solicitud Exitosa");
-        
-        this.usuarioActual.setTipo("Productor");
-        new PantallaInicial(this.usuarioActual).setVisible(true);
-        this.dispose();
-         }
+        if (verificarSeleccion() == true) {
+            if (verificarFecha() == false) {
+                mostrarError("Seleccione una fecha valida", "Error", "Error al Solicitar");
+            }
+            if (solicitudNeg.verificarMaximoTrasladosPorDia(this.calendario.getSelectedDate()) == true) {
+                DTOSolicitaTraslado dtoSolicitaTraslado = new DTOSolicitaTraslado();
+                dtoSolicitaTraslado.setAsignado(false);
+                dtoSolicitaTraslado.setFecha(this.calendario.getSelectedDate());
+                dtoSolicitaTraslado.setCantidadRes(Float.parseFloat(this.txtCantidad.getText()));
+                dtoSolicitaTraslado.setResiduos(obtenerListaDeResiduos());
+                dtoSolicitaTraslado.setProductor((ProductorModel) this.usuarioActual);
+                solicitudNeg.guardar(dtoSolicitaTraslado);
+
+                JOptionPane.showMessageDialog(null, "Solicitud Exitosa");
+
+                this.usuarioActual.setTipo("Productor");
+                new PantallaInicial(this.usuarioActual).setVisible(true);
+                this.dispose();
+            }else{
+                mostrarError("Se tienen 5 solicitudes en ese mismo día, seleccione otro", "Error", "Error al solicitar");
+            }
         }
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        
+
         this.usuarioActual.setTipo("Productor");
         new PantallaInicial(this.usuarioActual).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
-public void eliminaDeListaDisponibles() {
+    public void eliminaDeListaDisponibles() {
         modelDisponibles.removeElementAt(residuosDisponiblesList.getSelectedIndex());
     }
 
@@ -332,19 +325,19 @@ public void eliminaDeListaDisponibles() {
     public void agregaAListaSeleccionados() {
         modelSeleccionados.addElement(residuosDisponiblesList.getSelectedValue());
     }
-    public void mostrarError (String mensaje, String tipo, String titulo){
+
+    public void mostrarError(String mensaje, String tipo, String titulo) {
         JOptionPane optionPane = new JOptionPane(mensaje);
-        if(tipo.equals("Info")){
+        if (tipo.equals("Info")) {
             optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        }
-        else if(tipo.equals("Error")){
+        } else if (tipo.equals("Error")) {
             optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
         JDialog dialog = optionPane.createDialog(titulo);
         dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);      
+        dialog.setVisible(true);
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
