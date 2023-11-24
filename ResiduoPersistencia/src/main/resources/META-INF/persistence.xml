@@ -8,9 +8,9 @@
     <class>entitys.TransportistaModel</class>
     <class>entitys.ProductorModel</class>
     <class>entitys.ResiduoModel</class>
-    <class>entitys.SolicitudTrasladoModel</class>
     <class>entitys.UsuarioModel</class>
     <class>entitys.VehiculoModel</class>
+    <class>entitys.SolicitudTrasladoModel</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/residuostoxicos?serverTimezone=UTC"/>

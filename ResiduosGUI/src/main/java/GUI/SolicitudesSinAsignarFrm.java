@@ -5,6 +5,10 @@
 package GUI;
 
 import entitys.UsuarioModel;
+import entitys.SolicitudTrasladoModel;
+import com.validaciones.SolicitudNegocio;
+import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,15 +18,38 @@ import javax.swing.JOptionPane;
 
 public class SolicitudesSinAsignarFrm extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AsignarEmpresa
-     */
+    //Atributos
     UsuarioModel usuarioActual;
+    DefaultListModel<SolicitudTrasladoModel> modelSolicitudesSinAsignar = new DefaultListModel<>();
+    SolicitudNegocio solicitudNegocio = new SolicitudNegocio();
+  
+    
+    /**
+     * Método constructor que inicializa los componentes del frame, inicializa el usuario y asigna e 
+     * inicializa la lista de solicitudes sin asignar
+     * @param usuario el usuario que seleccionará la solicitud sin asignar
+     */
     public SolicitudesSinAsignarFrm(UsuarioModel usuario) {
         initComponents();
         this.usuarioActual = usuario;
+        solicitudesSinAsignarList.setModel(modelSolicitudesSinAsignar);
+        inicializaListaResiduos();
     }
 
+    /**
+     *Método inicializaListaResiduos que obtiene las solicitudes de traslado, selecciona las
+     * que se encuentra en estado "sin asignar" y las agrega al modelo de solicitudes sin asignar
+     */
+    public void inicializaListaResiduos() {
+        
+        List<SolicitudTrasladoModel> listaSolicitudes = solicitudNegocio.obtenerSolicitudes();
+        
+        for(SolicitudTrasladoModel solicitud: listaSolicitudes){
+            if(solicitud.esAsignado() == false){
+                modelSolicitudesSinAsignar.addElement(solicitud);
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,11 +71,7 @@ public class SolicitudesSinAsignarFrm extends javax.swing.JFrame {
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        solicitudesSinAsignarList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        solicitudesSinAsignarList.setModel(solicitudesSinAsignarList.getModel());
         solicitudesSinAsignarList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         jScrollPane1.setViewportView(solicitudesSinAsignarList);
 
@@ -88,9 +111,15 @@ public class SolicitudesSinAsignarFrm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Botón de asignarActionPerformed que asigna la solicitud sin asignar selecionada de la lista 
+     * de solicitudes
+     * @param evt el evento de de asignar empresa
+     */
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
-      new AsignarEmpresaFrm(this.usuarioActual).setVisible(true);
-      this.dispose();
+        SolicitudTrasladoModel solicitud = solicitudesSinAsignarList.getSelectedValue();
+        new AsignarEmpresaFrm(this.usuarioActual, solicitud).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnAsignarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -98,14 +127,14 @@ public class SolicitudesSinAsignarFrm extends javax.swing.JFrame {
        this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
-    
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> solicitudesSinAsignarList;
+    private javax.swing.JList<SolicitudTrasladoModel> solicitudesSinAsignarList;
     // End of variables declaration//GEN-END:variables
 }

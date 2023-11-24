@@ -9,6 +9,8 @@ import com.daos.SolicitudTrasladoDAOImp;
 import com.dto.DTOSolicitaTraslado;
 import com.utilerias.Util;
 import entitys.SolicitudTrasladoModel;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -23,6 +25,26 @@ public class SolicitudNegocio {
        SolicitudTrasladoModel st =  util.convertirSolicitudTrasladoDTOaSolicitudTraslado(dtoSolicitaTraslado);
        sdao.create(st);
        return st;
+    }
+    
+    
+    public SolicitudTrasladoModel actualizar(DTOSolicitaTraslado dtoSolicitaTraslado){
+        SolicitudTrasladoModel st = util.convertirSolicitudTrasladoDTOaSolicitudTraslado(dtoSolicitaTraslado);
+        sdao.update(st);
+        return st;
+    }
+    
+    /**
+     * Método obtenerSolicitudes que invoca al método de cargaSolicitudes de la capa de persistencia para 
+     * regresar la lista de solicitudes de traslado
+     * @return la lista de solicitudes de traslado
+     */
+    public List<SolicitudTrasladoModel> obtenerSolicitudes(){
+
+        ArrayList<SolicitudTrasladoModel> solicitudesList = new ArrayList<>();
+        List<SolicitudTrasladoModel> solicitudes = sdao.cargaSolicitudes(solicitudesList);
+    
+        return solicitudes;
     }
 
 }

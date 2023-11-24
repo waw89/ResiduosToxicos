@@ -6,6 +6,7 @@ package com.dto;
 
 import entitys.ProductorModel;
 import entitys.ResiduoModel;
+import entitys.TransportistaModel;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,7 +20,11 @@ public class DTOSolicitaTraslado {
     private List<ResiduoModel> residuos;
     private ProductorModel productor;
     private boolean asignado;
-
+    //versión preeliminar
+    private Long id;
+    private List<TransportistaModel> transportistas;
+    ///////
+    
     public DTOSolicitaTraslado() {
     }
 
@@ -62,9 +67,23 @@ public class DTOSolicitaTraslado {
     public void setAsignado(boolean asignado) {
         this.asignado = asignado;
     }
+
+    //Versión preeliminar
+    public List<TransportistaModel> getTransportistas() {
+        return transportistas;
+    }
+
+    public void setTransportistas(List<TransportistaModel> transportistas) {
+        this.transportistas = transportistas;
+    }
     
-    
-    
-    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    ////////////  
     
 }

@@ -7,6 +7,8 @@ package Main;
 
 import GUI.IniciarSesionFrm;
 import GUI.PantallaInicial;
+import GUI.SolicitudesSinAsignarFrm;
+import GUI.SolicitudesSinAsignarFrm;
 import com.dto.DTOIniciarSesion;
 import com.utilerias.Util;
 import com.validaciones.UsuarioNegocio;
@@ -14,7 +16,7 @@ import entitys.ProductorModel;
 import entitys.UsuarioModel;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.validaciones.UsuarioNegocio;
 
 
 
@@ -27,6 +29,8 @@ Util u = new Util();
      */
     public static void main(String args[]) {
      
+        UsuarioNegocio usuarioNeg = new UsuarioNegocio();
+        UsuarioModel usuario = usuarioNeg.confirmaCredenciales("rully", "1234"); 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -34,7 +38,7 @@ Util u = new Util();
                
                
                new IniciarSesionFrm().setVisible(true);
-               
+//               new SolicitudesSinAsignarFrm(usuario).setVisible(true);
       
             }
         });

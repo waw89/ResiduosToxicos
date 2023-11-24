@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.daos;
 
 import com.daos.exceptions.NonexistentEntityException;
@@ -17,6 +14,7 @@ import java.util.List;
 import entitys.VehiculoModel;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 
 /**
  *
@@ -160,6 +158,61 @@ public class TransportistaDAOImp implements ITransportistaDAO {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    
+    
+    /**
+     * Método cargaTransportistas que regresa la lista de empresas transportistas
+     * desde la base de datos
+     * @param transportistas la lista de empresas transportistas que regresará
+     * @return lista de empresas transportistas
+     */
+    @Override
+    public List<TransportistaModel> cargaTransportistas(List<TransportistaModel> transportistas){
+        
+        EntityManager em = getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        
+        try {
+            transaction.begin();
+            if (verificaTransportistas()== true) {
+                for (TransportistaModel transportista : transportistas) {
+                    em.persist(transportista);
+                }
+
+                transaction.commit();
+            } else {
+                return findTransportistaModelEntities();
+            }
+
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            // Puedes manejar la excepción o relanzarla según tus necesidades
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+
+        return transportistas;
+    }
+    
+    
+    /**
+     * Método verificaTransportistas que regresa true en caso de encontrar empresas transportistas en la base 
+     * de datos, false caso contrario
+     * @return true en caso de encontrar empresas transportistas, false caso contrario
+     */
+    public boolean verificaTransportistas() {
+  
+        if (findTransportistaModelEntities().isEmpty()) {
+            return true;
+        } else {
+            return false;
         }
     }
     

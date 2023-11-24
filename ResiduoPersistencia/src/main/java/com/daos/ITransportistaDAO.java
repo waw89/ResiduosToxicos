@@ -16,5 +16,6 @@ public interface ITransportistaDAO {
     public List<TransportistaModel> findTransportistaModelEntities();
     public TransportistaModel findTransportistaModel(Long id);
     public int getTransportistaModelCount();
+    public List<TransportistaModel> cargaTransportistas(List<TransportistaModel> transportistaList);
     
 }

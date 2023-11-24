@@ -20,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -89,20 +90,26 @@ public class SolicitudTrasladoModel implements Serializable {
     @ManyToOne
     @JoinColumn(name = "IdProductor")
     private ProductorModel prod;
-
+    
+    //Versión preeliminar
+    @OneToMany(mappedBy = "solicitudTraslado")
+    private List<TransportistaModel> transportistas;
+    /////////
+    
+    
     /**
      * Default constructor
      */
     public SolicitudTrasladoModel() {
     }
 
-    public SolicitudTrasladoModel(long id, LocalDate fecha, float cantidadRes, boolean asignado, List<ResiduoModel> listaResiduos, List<TransportistaModel> trans, ProductorModel prod) {
+    public SolicitudTrasladoModel(long id, LocalDate fecha, float cantidadRes, boolean asignado, List<ResiduoModel> listaResiduos, List<TransportistaModel> transportistas, ProductorModel prod) {
         this.id = id;
         this.fecha = Date.from(fecha.atStartOfDay(ZoneId.systemDefault()).toInstant());;
         this.cantidadRes = cantidadRes;
         this.asignado = asignado;
         this.listaResiduos = listaResiduos;
-//        this.trans = trans;
+        this.transportistas = transportistas;
         this.prod = prod;
     }
 
@@ -138,12 +145,15 @@ public class SolicitudTrasladoModel implements Serializable {
         this.listaResiduos = listaResiduos;
     }
 
-//    public List<TransportistaModel> getTrans() {
-//        return trans;
-//    }
-//    public void setTrans(List<TransportistaModel> trans) {
-//        this.trans = trans;
-//    }
+    //versión preeliminar
+    public List<TransportistaModel> getTransportistas() {
+        return this.transportistas;
+    }
+    public void setTransportistas(List<TransportistaModel> transportistas) {
+        this.transportistas = transportistas;
+    }
+    //////
+    
     public ProductorModel getProd() {
         return prod;
     }
@@ -155,4 +165,33 @@ public class SolicitudTrasladoModel implements Serializable {
 //    public void agregaTransportista(TransportistaModel transportista) {
 //        trans.add(transportista);
 //    }
+    
+    /**
+     * Método toString que muestra la fecha de la solicitud, la lista de los residuos en la solicitud y el 
+     * productor que solicitó el traslado
+     * @return la fecha de la solicitud del traslado, los residuos de la solicitud de traslado y el productor que
+     * solicitó el traslado
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Fecha de Solicitud: ").append(getFecha()).append("\n");
+        
+        if (getListaResiduos() != null && !getListaResiduos().isEmpty()) {
+            sb.append("\nResiduos:\n");
+            for (ResiduoModel residuo : getListaResiduos()) {
+                sb.append(" - ").append(residuo.getNombre()); 
+                sb.append("\n");
+            }
+        } else {
+            sb.append("\nNo hay residuos en esta solicitud.\n");
+        }
+        
+        sb.append("Productor: ").append(getProd().getUsuario()); 
+
+
+        return sb.toString();
+    }
+
+    
 }

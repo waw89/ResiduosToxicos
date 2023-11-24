@@ -18,6 +18,7 @@ import entitys.ResiduoModel;
 import entitys.SolicitudTrasladoModel;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 
 /**
  *
@@ -76,10 +77,51 @@ public class SolicitudTrasladoDAOImp implements ISolicitudTrasladoDAO {
         return solicitudTrasladoModel;
     }
 
+    /**
+     * Método update que actualiza la solicitud de traslado en la base de datos 
+     * @param solicitudTrasladoModel la solicitud de traslado a actualizar
+     * @return la solicitud de traslado actualizada
+     */
+    @Override
+    public SolicitudTrasladoModel update(SolicitudTrasladoModel solicitudTrasladoModel){
+        
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+
+            // Cargar la entidad desde la base de datos
+            SolicitudTrasladoModel persistentSolicitud = em.find(SolicitudTrasladoModel.class, solicitudTrasladoModel.getId());
+
+            // Actualizar los campos de la entidad cargada con los valores del parámetro
+            persistentSolicitud.setFecha(solicitudTrasladoModel.getFecha());
+            persistentSolicitud.setCantidadRes(solicitudTrasladoModel.getCantidadRes());
+            persistentSolicitud.setAsignado(solicitudTrasladoModel.esAsignado());
+            persistentSolicitud.setProd(solicitudTrasladoModel.getProd());
+            // Actualizar la lista de residuos (puedes necesitar una lógica más compleja dependiendo de tus necesidades)
+            persistentSolicitud.setListaResiduos(solicitudTrasladoModel.getListaResiduos());
+            //Actualizar la lista de empresas transportistas, versión preeliminar
+            persistentSolicitud.setTransportistas(solicitudTrasladoModel.getTransportistas());
+            // Puedes necesitar manejar las relaciones bidireccionales aquí si es necesario
+            // Realizar la operación de actualización
+            em.merge(persistentSolicitud);
+
+            em.getTransaction().commit();
+
+            return persistentSolicitud;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+    
+    @Override
     public List<SolicitudTrasladoModel> findSolicitudTrasladoModelEntities() {
         return findSolicitudTrasladoModelEntities(true, -1, -1);
     }
 
+    @Override
     public List<SolicitudTrasladoModel> findSolicitudTrasladoModelEntities(int maxResults, int firstResult) {
         return findSolicitudTrasladoModelEntities(false, maxResults, firstResult);
     }
@@ -100,6 +142,7 @@ public class SolicitudTrasladoDAOImp implements ISolicitudTrasladoDAO {
         }
     }
 
+    @Override
     public SolicitudTrasladoModel findSolicitudTrasladoModel(Long id) {
         EntityManager em = getEntityManager();
         try {
@@ -109,6 +152,7 @@ public class SolicitudTrasladoDAOImp implements ISolicitudTrasladoDAO {
         }
     }
 
+    @Override
     public int getSolicitudTrasladoModelCount() {
         EntityManager em = getEntityManager();
         try {
@@ -122,4 +166,56 @@ public class SolicitudTrasladoDAOImp implements ISolicitudTrasladoDAO {
         }
     }
     
+    /**
+     * Método cargaSolicitudes que regresa la lista de solicitudes de traslado
+     * desde la base de datos
+     * @param solicitudes la lista de solicitudes que se regresará
+     * @return lista de solicitudes de traslado
+     */
+    @Override
+    public List<SolicitudTrasladoModel> cargaSolicitudes(List<SolicitudTrasladoModel> solicitudes){
+        
+        EntityManager em = getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        
+        try {
+            transaction.begin();
+            if (verificaSolicitudes()== true) {
+                for (SolicitudTrasladoModel solicitud : solicitudes) {
+                    em.persist(solicitud);
+                }
+
+                transaction.commit();
+            } else {
+                return findSolicitudTrasladoModelEntities();
+            }
+
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            // Puedes manejar la excepción o relanzarla según tus necesidades
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+
+        return solicitudes;
+    }
+    
+    /**
+     * Método verificaSolicitudes que regresa true en caso de encontrar solicitudes de traslado en la base 
+     * de datos, false caso contrario
+     * @return true en caso de encontrar solicitudes de traslado, false caso contrario
+     */
+    public boolean verificaSolicitudes() {
+  
+        if (findSolicitudTrasladoModelEntities().isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

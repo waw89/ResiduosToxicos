@@ -86,8 +86,30 @@ public class Util {
         solicitudTraslado.setCantidadRes(solicitudTrasladoDTO.getCantidadRes());
         solicitudTraslado.setListaResiduos(solicitudTrasladoDTO.getResiduos());
         solicitudTraslado.setProd(solicitudTrasladoDTO.getProductor());
-
+        solicitudTraslado.setTransportistas(solicitudTrasladoDTO.getTransportistas());
+        //versión preeliminar 
+        solicitudTraslado.setId(solicitudTrasladoDTO.getId());
         return solicitudTraslado;
+    }
+    
+    /**
+     * 
+     * @param solicitud
+     * @return 
+     */
+    public DTOSolicitaTraslado convertirSolicitudTrasladoASolicitudTrasladoDTO(SolicitudTrasladoModel solicitud){
+        
+        DTOSolicitaTraslado solicitudTrasladoDTO = new DTOSolicitaTraslado();
+
+        solicitudTrasladoDTO.setAsignado(solicitud.esAsignado());
+        solicitudTrasladoDTO.setFecha(solicitud.getFecha());
+        solicitudTrasladoDTO.setCantidadRes(solicitud.getCantidadRes());
+        solicitudTrasladoDTO.setResiduos(solicitud.getListaResiduos());
+        solicitudTrasladoDTO.setProductor(solicitud.getProd());
+        solicitudTrasladoDTO.setTransportistas(solicitud.getTransportistas());
+        //Versión preeliminar
+        solicitudTrasladoDTO.setId(solicitud.getId());
+        return solicitudTrasladoDTO;
     }
 
 //    public ArrayList<DTOIniciarSesion> creaDTOUsuarios(){

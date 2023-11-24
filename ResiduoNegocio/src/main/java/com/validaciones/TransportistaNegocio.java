@@ -1,13 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.validaciones;
 
+package com.validaciones;
+import entitys.TransportistaModel;
+import com.daos.ITransportistaDAO;
+import com.daos.TransportistaDAOImp;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author PRIDE ANACONDA
  */
 public class TransportistaNegocio {
     
+    ITransportistaDAO transportistaDAO = new TransportistaDAOImp();
+    
+    
+    /**
+     * Método obtenerTransportistas que invoca al método de cargaTransportistas de la capa de persistencia para 
+     * regresar la lista de empresas transportistas
+     * @return la lista de empresas transportistas
+     */
+    public List<TransportistaModel> obtenerTransportistas(){
+
+        ArrayList<TransportistaModel> transportistasList = new ArrayList<>();
+        List<TransportistaModel> transportistas = transportistaDAO.cargaTransportistas(transportistasList);
+    
+        return transportistas;
+    }
 }

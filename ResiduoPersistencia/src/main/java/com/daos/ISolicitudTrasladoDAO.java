@@ -13,9 +13,11 @@ import java.util.List;
  */
 public interface ISolicitudTrasladoDAO {
     public SolicitudTrasladoModel create(SolicitudTrasladoModel solicitudTrasladoModel);
+    public SolicitudTrasladoModel update(SolicitudTrasladoModel solicitudTrasladoModel);
     public List<SolicitudTrasladoModel> findSolicitudTrasladoModelEntities();
     public List<SolicitudTrasladoModel> findSolicitudTrasladoModelEntities(int maxResults, int firstResult);
     public SolicitudTrasladoModel findSolicitudTrasladoModel(Long id);
     public int getSolicitudTrasladoModelCount();
+    public List<SolicitudTrasladoModel> cargaSolicitudes(List<SolicitudTrasladoModel>solicitudesList);
     
 }
