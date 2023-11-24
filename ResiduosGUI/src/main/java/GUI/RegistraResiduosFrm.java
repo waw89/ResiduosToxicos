@@ -59,7 +59,7 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     public boolean verificaFormatoCodigo() {
         String codigo = txtCodigo.getText();
 
-        if (codigo.matches("\\d{6}")) {
+        if (codigo.matches("\\d{6}") && codigo.matches("^[1-9][0-9]*$")) {
             return true;
         }
 
