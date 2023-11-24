@@ -72,10 +72,11 @@ public class SolicitudTrasladoModel implements Serializable {
      */
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
-            name = "Especificacion_Residuos",
+            name = "Solicitud_Residuos",
             joinColumns = @JoinColumn(name = "id_solicitud", referencedColumnName = "idSolicitud"),
             inverseJoinColumns = @JoinColumn(name = "id_residuo", referencedColumnName = "id_residuo")
     )
+    
     private List<ResiduoModel> listaResiduos;
 
 //    /**

@@ -22,7 +22,7 @@ import com.validaciones.UsuarioNegocio;
 
 
 public class Main {
-Util u = new Util();
+
 
     /**
      * @param args the command line arguments
