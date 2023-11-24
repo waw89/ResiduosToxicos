@@ -37,6 +37,8 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
 
     public RegistraResiduosFrm(UsuarioModel usuario) {
         initComponents();
+        this.labelCaracteres.setVisible(false);
+
         this.usuarioActual = usuario;
         quimicosDisponiblesList.setModel(modelDisponibles);
         quimicosReservadosList.setModel(modelSeleccionados);
@@ -104,6 +106,7 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        labelCaracteres = new javax.swing.JLabel();
         btnVolver = new javax.swing.JButton();
         agregarBtn = new javax.swing.JButton();
         eliminarBtn = new javax.swing.JButton();
@@ -120,6 +123,11 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        labelCaracteres.setFont(new java.awt.Font("Segoe UI Symbol", 1, 12)); // NOI18N
+        labelCaracteres.setForeground(new java.awt.Color(255, 255, 102));
+        labelCaracteres.setText("Max. Caracteres: 6 !");
+        jPanel1.add(labelCaracteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 110, 20));
 
         btnVolver.setContentAreaFilled(false);
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -168,6 +176,16 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 170, 130));
 
         txtCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 340, 50));
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 340, 50));
 
@@ -239,7 +257,7 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
                         this.usuarioActual.setTipo("Productor");
                         new PantallaInicial(this.usuarioActual).setVisible(true);
                         this.dispose();
-                    } else if (validaResiduoNoExistente(dtoRegistrarResiduo)== false){
+                    } else if (validaResiduoNoExistente(dtoRegistrarResiduo) == false) {
                         JOptionPane.showMessageDialog(null, "Validación incorrecta");
                     }
 
@@ -258,6 +276,20 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         new PantallaInicial(this.usuarioActual).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        // TODO add your handling code here:
+        if (txtCodigo.getText().length() == 6) {
+            evt.consume();
+            this.labelCaracteres.setVisible(true);
+        }else{
+            this.labelCaracteres.setVisible(false);
+        }
+    }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
     public void eliminaDeListaDisponibles() {
         modelDisponibles.removeElementAt(quimicosDisponiblesList.getSelectedIndex());
     }
@@ -285,6 +317,7 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarBtn;
     private javax.swing.JButton btnRegistrar;
@@ -294,6 +327,7 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JLabel labelCaracteres;
     private javax.swing.JList<String> quimicosDisponiblesList;
     private javax.swing.JList<String> quimicosReservadosList;
     private javax.swing.JTextField txtCodigo;
