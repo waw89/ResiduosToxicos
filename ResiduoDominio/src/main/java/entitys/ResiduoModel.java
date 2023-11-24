@@ -22,7 +22,7 @@ import javax.persistence.Table;
  *
  * @author PRIDE ANACONDA
  */
-// Falta agregar Productor a esta clase y Solicitud de traslado
+
 @Entity
 @Table (name = "Residuo")
 public class ResiduoModel implements Serializable {
