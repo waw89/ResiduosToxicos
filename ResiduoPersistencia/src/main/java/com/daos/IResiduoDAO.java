@@ -16,4 +16,6 @@ public interface IResiduoDAO {
     public List<ResiduoModel> cargaResiduos(List<ResiduoModel> residuos);
     public ResiduoModel findResiduoModel(long id);
     public ResiduoModel findResiduoNombre(String nombre);
+    public List<ResiduoModel> findResiduoModelEntities();
+    
 }

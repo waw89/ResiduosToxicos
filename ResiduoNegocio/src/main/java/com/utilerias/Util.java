@@ -14,9 +14,7 @@ import entitys.ResiduoModel;
 import entitys.SolicitudTrasladoModel;
 import entitys.TransportistaModel;
 import entitys.UsuarioModel;
-import entitys.VehiculoModel;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -76,6 +74,15 @@ public class Util {
         residuo.setProductor(residuoDTO.getId_productor());
         return residuo;
     }
+    public DTORegistraResiduo convertirResiduoADTORegistraResiduo(ResiduoModel residuo){
+        DTORegistraResiduo DTORegistrarResiduo = new DTORegistraResiduo(); 
+        DTORegistrarResiduo.setCodigo_residuo(residuo.getCodigo());
+        DTORegistrarResiduo.setNombre_residuo(residuo.getNombre());
+        DTORegistrarResiduo.setId_productor(residuo.getProductor()); 
+        DTORegistrarResiduo.setQuimicos(residuo.getListaQuimicos());
+        
+        return DTORegistrarResiduo; 
+    }
 
     public SolicitudTrasladoModel convertirSolicitudTrasladoDTOaSolicitudTraslado(DTOSolicitaTraslado solicitudTrasladoDTO) {
 
@@ -130,7 +137,7 @@ public class Util {
 //        }
 //        return nuevosUsuarios;
 //    }
-    public ArrayList<UsuarioModel> creaUsuarios() {
+    public ArrayList<UsuarioModel> creaUsuarios() { 
 
         // Los parametros son tipo,nombre, nombre de usuario y contraseña
         ProductorModel usuario1 = new ProductorModel("Productor", "Raúl", "rully", "1234");

@@ -126,6 +126,11 @@ public class ResiduoModel implements Serializable {
     public void setListaSolTraslados(List<SolicitudTrasladoModel> listaSolTraslados) {
         this.listaSolTraslados = listaSolTraslados;
     }
+
+    @Override
+    public String toString() {
+        return "ResiduoModel{" + "id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + '}';
+    }
     
     
 }

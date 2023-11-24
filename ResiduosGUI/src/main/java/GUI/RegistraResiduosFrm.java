@@ -4,7 +4,6 @@
  */
 package GUI;
 
-
 import com.daos.IQuimicoDAO;
 import com.daos.QuimicoDAOImp;
 import com.dto.DTORegistraResiduo;
@@ -27,35 +26,33 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
 
     /**
      * Creates new form RegistraResiduosFrm
-     * 
+     *
      */
     DefaultListModel<String> modelDisponibles = new DefaultListModel<>();
     DefaultListModel<String> modelSeleccionados = new DefaultListModel<>();
     QuimicoNegocio qn = new QuimicoNegocio();
     IQuimicoDAO qdao = new QuimicoDAOImp();
     UsuarioModel usuarioActual;
-    ResiduoNegocio residuoNeg = new ResiduoNegocio(); 
+    ResiduoNegocio residuoNeg = new ResiduoNegocio();
+
     public RegistraResiduosFrm(UsuarioModel usuario) {
         initComponents();
         this.usuarioActual = usuario;
         quimicosDisponiblesList.setModel(modelDisponibles);
         quimicosReservadosList.setModel(modelSeleccionados);
-        
+
         inicializaLista();
         this.setTitle("Registrar Residuos");
     }
 
     public void inicializaLista() {
-        
+
         List<QuimicoModel> listaQuimicos = qn.llenaListaQuimicos();
-        
-        for(QuimicoModel quimico: listaQuimicos){
+
+        for (QuimicoModel quimico : listaQuimicos) {
             modelDisponibles.addElement(quimico.getNombre());
         }
     }
-    
-
-
 
     public boolean verificaFormatoCodigo() {
         String codigo = txtCodigo.getText();
@@ -76,25 +73,26 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         return true;
     }
 
-   public boolean verificaSeleccionados() {
-    int cantidadSeleccionada = modelSeleccionados.size(); 
+    public boolean verificaSeleccionados() {
+        int cantidadSeleccionada = modelSeleccionados.size();
 
-    if (cantidadSeleccionada < 2) {
-        mostrarError("Debe seleccionar al menos 2 químicos", "Error", "Error al registrar");
-        return false;
+        if (cantidadSeleccionada < 2) {
+            mostrarError("Debe seleccionar al menos 2 químicos", "Error", "Error al registrar");
+            return false;
+        }
+
+        return true;
     }
 
-    return true;
-}
-       public List<QuimicoModel> obtenerListaDeQuimicos(){
-           List<QuimicoModel> quimicosSeleccionados = new ArrayList<>();
-           for(int i = 0; i < modelSeleccionados.size(); i++){
-               String quimicoActual = modelSeleccionados.getElementAt(i);
-               QuimicoModel quimico = qn.buscarQuimicoPorNombre(quimicoActual);
-               quimicosSeleccionados.add(quimico);
-           }
-           return quimicosSeleccionados;
-       }
+    public List<QuimicoModel> obtenerListaDeQuimicos() {
+        List<QuimicoModel> quimicosSeleccionados = new ArrayList<>();
+        for (int i = 0; i < modelSeleccionados.size(); i++) {
+            String quimicoActual = modelSeleccionados.getElementAt(i);
+            QuimicoModel quimico = qn.buscarQuimicoPorNombre(quimicoActual);
+            quimicosSeleccionados.add(quimico);
+        }
+        return quimicosSeleccionados;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -229,25 +227,33 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
             if (verificaFormatosVacios() == true) {
 
                 if (verificaSeleccionados() == true) {
-                    DTORegistraResiduo dtoRegistrarResiduo = new DTORegistraResiduo(); 
+                    DTORegistraResiduo dtoRegistrarResiduo = new DTORegistraResiduo();
                     dtoRegistrarResiduo.setNombre_residuo(this.txtNombre.getText());
                     dtoRegistrarResiduo.setQuimicos(obtenerListaDeQuimicos());
                     dtoRegistrarResiduo.setCodigo_residuo(Long.parseLong(this.txtCodigo.getText()));
                     dtoRegistrarResiduo.setId_productor((ProductorModel) this.usuarioActual);
-                    residuoNeg.guardar(dtoRegistrarResiduo); 
-                    JOptionPane.showMessageDialog(null, "Registro Exitoso");
-                    
-                    
-                    this.usuarioActual.setTipo("Productor");
-                    new PantallaInicial(this.usuarioActual).setVisible(true);
-                    this.dispose();
+
+                    if ((validaResiduoNoExistente(dtoRegistrarResiduo) == true)) {
+                        residuoNeg.guardar(dtoRegistrarResiduo);
+                        JOptionPane.showMessageDialog(null, "Registro Exitoso");
+                        this.usuarioActual.setTipo("Productor");
+                        new PantallaInicial(this.usuarioActual).setVisible(true);
+                        this.dispose();
+                    } else if (validaResiduoNoExistente(dtoRegistrarResiduo)== false){
+                        JOptionPane.showMessageDialog(null, "Validación incorrecta");
+                    }
+
                 }
             }
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
+    private boolean validaResiduoNoExistente(DTORegistraResiduo dtoRegistrarResiduo) {
+
+        return residuoNeg.validaResiduoNoExistente(dtoRegistrarResiduo);
+    }
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        
+
         this.usuarioActual.setTipo("Productor");
         new PantallaInicial(this.usuarioActual).setVisible(true);
         this.dispose();
@@ -293,7 +299,5 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
-
-
 
 }
