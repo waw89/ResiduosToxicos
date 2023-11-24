@@ -92,7 +92,12 @@ public class SolicitudTrasladoModel implements Serializable {
     private ProductorModel prod;
     
     //Versión preeliminar
-    @OneToMany(mappedBy = "solicitudTraslado")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "Solicitud_Transportista",
+            joinColumns = @JoinColumn(name = "idSolicitud"),
+            inverseJoinColumns = @JoinColumn(name = "IdTransportista")
+    )
     private List<TransportistaModel> transportistas;
     /////////
     

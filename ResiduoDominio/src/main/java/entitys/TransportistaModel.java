@@ -10,6 +10,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -28,9 +29,8 @@ public class TransportistaModel extends UsuarioModel implements Serializable {
 //    /**
 //     *
 //     */
-    @ManyToOne
-    @JoinColumn(name = "IdTransportista")
-    private SolicitudTrasladoModel solicitudTraslado;
+    @ManyToMany(mappedBy = "transportistas")
+    private List<SolicitudTrasladoModel> listaSolicitudes;
     /**
      *
      */
@@ -57,12 +57,12 @@ public class TransportistaModel extends UsuarioModel implements Serializable {
         this.listaVehiculos = listaVehiculos;
     }
 
-//    public List<SolicitudTrasladoModel> getListaSolicitudes() {
-//        return listaSolicitudes;
-//    }
-//    public void setListaSolicitudes(List<SolicitudTrasladoModel> listaSolicitudes) {
-//        this.listaSolicitudes = listaSolicitudes;
-//    }
+    public List<SolicitudTrasladoModel> getListaSolicitudes() {
+        return listaSolicitudes;
+    }
+    public void setListaSolicitudes(List<SolicitudTrasladoModel> listaSolicitudes) {
+        this.listaSolicitudes = listaSolicitudes;
+    }
     public List<VehiculoModel> getListaVehiculos() {
         return listaVehiculos;
     }
