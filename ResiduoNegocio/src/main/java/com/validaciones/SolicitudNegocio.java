@@ -10,10 +10,12 @@ import com.daos.SolicitudTrasladoDAOImp;
 import com.dto.DTOSolicitaTraslado;
 import com.utilerias.Util;
 import entitys.Especificacion_Residuos;
+import entitys.ResiduoModel;
 import entitys.SolicitudTrasladoModel;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -72,7 +74,7 @@ public class SolicitudNegocio {
 
     public void actualizaCantidadDelResiduo(List<Float> cantidadesResiduos) {
         int i = especificacionDAO.getEspecificacion_ResiduosCount()-1;
-        Especificacion_Residuos registroEspecificacion ; 
+        Especificacion_Residuos registroEspecificacion; 
         for (Float cantidad : cantidadesResiduos) {
             
             registroEspecificacion = especificacionDAO.findEspecificacion_Residuos((long) i);
@@ -89,5 +91,63 @@ public class SolicitudNegocio {
 
     }
     
+public boolean validaSolicitudNoExistente(DTOSolicitaTraslado dtoSolicitudARegistrar) {
+    SolicitudTrasladoModel solicitudARegistrar = util.convertirSolicitudTrasladoDTOaSolicitudTraslado(dtoSolicitudARegistrar);
+    List<SolicitudTrasladoModel> solicitudes = sdao.findSolicitudTrasladoModelEntities();
 
+    boolean solicitudNoExistente = true;
+
+    for (SolicitudTrasladoModel solicitudActual : solicitudes) {
+        if (solicitudActual == null || solicitudARegistrar == null) {
+            return false; // Manejo de error o lanzar una excepción según tu lógica de negocio
+        }
+
+        LocalDate fechaSolicitudRegistrada = solicitudActual.getFecha();
+
+        if (fechaSolicitudRegistrada.equals(solicitudARegistrar.getFecha())) {
+            JOptionPane.showMessageDialog(null, "Ya tienes una solicitud para esta fecha, selecciona otra");
+            return false;
+        }
+
+        List<ResiduoModel> listaResiduoRegistrado = solicitudActual.getListaResiduos();
+        List<ResiduoModel> listaResiduoARegistrar = solicitudARegistrar.getListaResiduos();
+
+        if (listaResiduoRegistrado.size() == listaResiduoARegistrar.size()) {
+            // Solo verifica si las listas tienen la misma longitud
+            boolean mismaCombinacion = true;
+
+            for (ResiduoModel residuoActualSolicitudARegistrar : listaResiduoARegistrar) {
+                boolean residuoEncontrado = false;
+
+                for (ResiduoModel residuoActualSolicitudRegistrado : listaResiduoRegistrado) {
+                    // Ajusta la comparación según tu lógica específica para los residuos
+                    if (residuoActualSolicitudARegistrar.getNombre().equalsIgnoreCase(residuoActualSolicitudRegistrado.getNombre())) {
+                        residuoEncontrado = true;
+                        break; // Si se encuentra un residuo, no es necesario seguir buscando
+                    }
+                }
+
+                if (residuoEncontrado) {
+                    mismaCombinacion = false;
+                    JOptionPane.showMessageDialog(null, "Ya tienes una solicitud con estos residuos, selecciona otros");
+                    return false; // Si un residuo se encuentra, la combinación no es la misma
+                }
+            }
+
+            if (mismaCombinacion) {
+                return false; // La combinación de residuos ya existe en otra solicitud, retorna false
+            }
+        }
+
+        if (!solicitudNoExistente) {
+            return false; // Si se encontró una coincidencia, termina la verificación y retorna false
+        }
+    }
+
+    return solicitudNoExistente; // Retorna el resultado final
 }
+
+ 
+    
+}
+

@@ -42,35 +42,63 @@ public class ResiduoNegocio {
         return residuo;
     }
 
-    public boolean validaResiduoNoExistente(DTORegistraResiduo DTOresiduoARegistrar) {
+  public boolean validaResiduoNoExistente(DTORegistraResiduo DTOresiduoARegistrar) {
+    ResiduoModel residuoARegistrar = util.convertirResiduoDTOAResiduo(DTOresiduoARegistrar);
+    List<ResiduoModel> residuos = iResiduo.findResiduoModelEntities();
 
-        ResiduoModel residuoARegistrar = util.convertirResiduoDTOAResiduo(DTOresiduoARegistrar);
-        List<ResiduoModel> residuos = iResiduo.findResiduoModelEntities();
+    boolean residuoNoExistente = true;
 
-        for (ResiduoModel residuoActual : residuos) {
-            String nombreResiduoRegistrado = residuoActual.getNombre();
-            Long codigoResiduoRegistrado = residuoActual.getCodigo();
+    for (ResiduoModel residuoActual : residuos) {
+        // Verificar nulos
+        if (residuoActual == null || residuoARegistrar == null) {
+            // Manejo de error o lanzar una excepción según tu lógica de negocio
+            return false;
+        }
 
-            if (nombreResiduoRegistrado.equalsIgnoreCase(residuoARegistrar.getNombre()) || codigoResiduoRegistrado == residuoARegistrar.getCodigo()) {
-                return false;
+        // Verificar nombre y código del residuo principal
+        String nombreResiduoRegistrado = residuoActual.getNombre();
+        Long codigoResiduoRegistrado = residuoActual.getCodigo();
+
+        if (nombreResiduoRegistrado.equalsIgnoreCase(residuoARegistrar.getNombre()) || codigoResiduoRegistrado.equals(residuoARegistrar.getCodigo())) {
+            return false; // Si se encuentra una coincidencia en nombre o código, retorna false
+        }
+
+        // Descomentar esta sección si deseas verificar la existencia de químicos
+        List<QuimicoModel> listaQuimicosResiduoRegistrado = residuoActual.getListaQuimicos();
+        List<QuimicoModel> listaQuimicosResiduoARegistrar = residuoARegistrar.getListaQuimicos();
+
+        if (listaQuimicosResiduoRegistrado.size() == listaQuimicosResiduoARegistrar.size()) {
+            // Solo verifica si las listas tienen la misma longitud
+            boolean mismaCombinacion = true;
+
+            for (QuimicoModel quimicoActualResiduoARegistrar : listaQuimicosResiduoARegistrar) {
+                boolean quimicoEncontrado = false;
+
+                for (QuimicoModel quimicoActualResiduoRegistrado : listaQuimicosResiduoRegistrado) {
+                    if (quimicoActualResiduoARegistrar.getNombre().equalsIgnoreCase(quimicoActualResiduoRegistrado.getNombre())) {
+                        quimicoEncontrado = true;
+                        break; // Si se encuentra un químico, no es necesario seguir buscando
+                    }
+                }
+
+                if (!quimicoEncontrado) {
+                    mismaCombinacion = false;
+                    break; // Si un químico no se encuentra, la combinación no es la misma
+                }
             }
 
-//            List<QuimicoModel> listaQuimicosResiduoRegistrado = residuoActual.getListaQuimicos();
-//            List<QuimicoModel> listaQuimicosResiduoARegistrar = residuoARegistrar.getListaQuimicos();
-//            for (QuimicoModel quimicoActualResiduoARegistrar : listaQuimicosResiduoARegistrar) {
-//
-//                for (QuimicoModel quimicoActualResiduoRegistrado : listaQuimicosResiduoRegistrado) {
-//
-//                    if (quimicoActualResiduoARegistrar.getNombre().equalsIgnoreCase(quimicoActualResiduoRegistrado.getNombre())) {
-//                        return false;
-//                    }
-//                }
-//
-//            }
+            if (mismaCombinacion) {
+                return false; // La combinación de químicos ya existe, retorna false
+            }
         }
-        return true; 
-        //return util.convertirResiduoADTORegistraResiduo(residuoARegistrar);
 
+        if (!residuoNoExistente) {
+            return false; // Si se encontró una coincidencia, termina la verificación y retorna false
+        }
     }
+
+    return residuoNoExistente; // Retorna el resultado final
+}
+
 
 }

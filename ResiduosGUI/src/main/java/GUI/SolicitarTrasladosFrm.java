@@ -33,7 +33,7 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     ResiduoNegocio rn = new ResiduoNegocio();
     UsuarioModel usuarioActual;
     SolicitudNegocio solicitudNeg = new SolicitudNegocio();
-    List<Float> cantidadesResiduos = new ArrayList<>(); 
+    List<Float> cantidadesResiduos = new ArrayList<>();
 
     public SolicitarTrasladosFrm(UsuarioModel usuario) {
         initComponents();
@@ -282,31 +282,34 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
 
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
         if (verificarSeleccion() == true) {
-    if (verificarFecha() == false) {
-        mostrarError("Seleccione una fecha valida", "Error", "Error al Solicitar");
-    } else {
-        if (solicitudNeg.verificarMaximoTrasladosPorDia(this.calendario.getSelectedDate()) == true) {
-            
-            DTOSolicitaTraslado dtoSolicitaTraslado = new DTOSolicitaTraslado();
-            dtoSolicitaTraslado.setAsignado(false);
-            dtoSolicitaTraslado.setFecha(this.calendario.getSelectedDate());
-            dtoSolicitaTraslado.setCantidadRes(Float.parseFloat(this.txtCantidad.getText()));
-            dtoSolicitaTraslado.setResiduos(obtenerListaDeResiduos());
-            dtoSolicitaTraslado.setProductor((ProductorModel) this.usuarioActual);
+            if (verificarFecha() == false) {
+                mostrarError("Seleccione una fecha valida", "Error", "Error al Solicitar");
+            } else {
+                if (solicitudNeg.verificarMaximoTrasladosPorDia(this.calendario.getSelectedDate()) == true) {
 
-            solicitudNeg.guardar(dtoSolicitaTraslado);
+                    DTOSolicitaTraslado dtoSolicitaTraslado = new DTOSolicitaTraslado();
+                    dtoSolicitaTraslado.setAsignado(false);
+                    dtoSolicitaTraslado.setFecha(this.calendario.getSelectedDate());
+                    dtoSolicitaTraslado.setCantidadRes(Float.parseFloat(this.txtCantidad.getText()));
+                    dtoSolicitaTraslado.setResiduos(obtenerListaDeResiduos());
+                    dtoSolicitaTraslado.setProductor((ProductorModel) this.usuarioActual);
+                    
+                    if(solicitudNeg.validaSolicitudNoExistente(dtoSolicitaTraslado) == true){
+                    solicitudNeg.guardar(dtoSolicitaTraslado);
 
-            solicitudNeg.actualizaCantidadDelResiduo(this.cantidadesResiduos);
-            JOptionPane.showMessageDialog(null, "Solicitud Exitosa");
+                    solicitudNeg.actualizaCantidadDelResiduo(this.cantidadesResiduos);
+                    JOptionPane.showMessageDialog(null, "Solicitud Exitosa");
 
-            this.usuarioActual.setTipo("Productor");
-            new PantallaInicial(this.usuarioActual).setVisible(true);
-            this.dispose();
-        } else {
-            mostrarError("Se tienen 5 solicitudes en ese mismo día, seleccione otro", "Error", "Error al solicitar");
+                    this.usuarioActual.setTipo("Productor");
+                    new PantallaInicial(this.usuarioActual).setVisible(true);
+                    this.dispose();
+                    }
+                    } else {
+                    mostrarError("Se tienen 5 solicitudes en ese mismo día, seleccione otro", "Error", "Error al solicitar");
+                }
+            }
         }
-    }
-}
+        
 
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
@@ -325,14 +328,14 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     }
 
     public void eliminaDeListaSeleccionados() {
-           this.cantidadesResiduos.remove(this.residuosSeleccionadosList.getSelectedIndex()); 
+        this.cantidadesResiduos.remove(this.residuosSeleccionadosList.getSelectedIndex());
         modelSeleccionados.removeElementAt(residuosSeleccionadosList.getSelectedIndex());
-     
+
     }
 
     public void agregaAListaSeleccionados() {
         modelSeleccionados.addElement(residuosDisponiblesList.getSelectedValue());
-       cantidadesResiduos.add(Float.parseFloat(this.txtCantidad.getText())); 
+        cantidadesResiduos.add(Float.parseFloat(this.txtCantidad.getText()));
     }
 
     public void mostrarError(String mensaje, String tipo, String titulo) {
