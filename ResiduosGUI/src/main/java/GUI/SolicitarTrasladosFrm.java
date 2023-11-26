@@ -209,6 +209,11 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         jPanel3.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 33, 40, 30));
 
         txtCantidad.setEnabled(false);
+        txtCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCantidadActionPerformed(evt);
+            }
+        });
         jPanel3.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 140, 60, -1));
 
         jScrollPane3.setBorder(null);
@@ -319,6 +324,10 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         new PantallaInicial(this.usuarioActual).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadActionPerformed
     public void eliminaDeListaDisponibles() {
         modelDisponibles.removeElementAt(residuosDisponiblesList.getSelectedIndex());
     }

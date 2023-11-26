@@ -73,14 +73,14 @@ public class SolicitudNegocio {
  
 
     public void actualizaCantidadDelResiduo(List<Float> cantidadesResiduos) {
-        int i = especificacionDAO.getEspecificacion_ResiduosCount()-1;
+        int i = especificacionDAO.getEspecificacion_ResiduosCount();
         Especificacion_Residuos registroEspecificacion; 
         for (Float cantidad : cantidadesResiduos) {
             
             registroEspecificacion = especificacionDAO.findEspecificacion_Residuos((long) i);
             
             registroEspecificacion.setCantidad(cantidad);
-            registroEspecificacion.setAsignado(true);
+            
             try {
                 especificacionDAO.edit(registroEspecificacion);
             } catch (Exception e) {
