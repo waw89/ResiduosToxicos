@@ -15,6 +15,7 @@ import com.validaciones.SolicitudNegocio;
 import com.validaciones.TransportistaNegocio;
 import com.validaciones.SolicitudNegocio;
 import entitys.Especificacion_Residuos;
+import entitys.Solicitud_Transportista;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -263,7 +264,9 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
-
+        
+        List<TransportistaModel> listaTransportistas = new ArrayList<>();
+        
         DTOSolicitaTraslado dtoSolicitaTraslado = new DTOSolicitaTraslado();
         Util util = new Util();
         Especificacion_Residuos especificacion = residuosATransportarList.getSelectedValue();
@@ -272,6 +275,11 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
         dtoSolicitaTraslado.setTransportistas(obtenerListaDeTransportistas());
         dtoSolicitaTraslado.setAsignado(true);
         solicitudNegocio.actualizar(dtoSolicitaTraslado, especificacion);
+        
+        for (TransportistaModel transportista : obtenerListaDeTransportistas()) {
+            listaTransportistas.add(transportista);
+        }
+        solicitudNegocio.repartirCantidad(listaTransportistas, especificacion);
         
         JOptionPane.showMessageDialog(null, "Asignación Exitosa");
         new PantallaInicial(this.usuarioActual).setVisible(true);

@@ -5,6 +5,8 @@
 package entitys;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,7 +34,11 @@ public class Solicitud_Transportista implements Serializable {
     
     @ManyToOne
     @JoinColumn(name = "id_transportista", referencedColumnName = "idTransportista")
-    private ResiduoModel residuo;
+    private TransportistaModel transportista;
+    
+
+    @Column(name = "cantidad")
+    private float cantidad;
      
      
     public Long getId() {
@@ -51,12 +57,22 @@ public class Solicitud_Transportista implements Serializable {
         this.solicitud = solicitud;
     }
 
-    public ResiduoModel getResiduo() {
-        return residuo;
+    public TransportistaModel getTransportista() {
+        return transportista;
     }
 
-    public void setResiduo(ResiduoModel residuo) {
-        this.residuo = residuo;
+    public void setTransportista(TransportistaModel transportista) {
+        this.transportista = transportista;
+    }
+
+    
+
+    public float getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(float cantidad) {
+        this.cantidad = cantidad;
     }
     
     

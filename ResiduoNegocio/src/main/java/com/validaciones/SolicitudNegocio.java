@@ -8,10 +8,13 @@ import com.daos.Especificacion_ResiduosJpaController;
 import com.daos.ISolicitudTrasladoDAO;
 import com.daos.SolicitudTrasladoDAOImp;
 import com.dto.DTOSolicitaTraslado;
+import com.daos.Solicitud_TransportistaJpaController;
 import com.utilerias.Util;
 import entitys.Especificacion_Residuos;
 import entitys.ResiduoModel;
 import entitys.SolicitudTrasladoModel;
+import entitys.Solicitud_Transportista;
+import entitys.TransportistaModel;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,15 +50,24 @@ public class SolicitudNegocio {
     
     /**
      * Método repartirCantidad que reparte la cantidad del residuo entre las empresas transportistas
+     * @param listaTransportistas
+     * @param especificacion
+     * @param numeroEmpresas
      */
-    public void repartirCantidad(SolicitudTrasladoModel solicitud){
-        int i = especificacionDAO.getEspecificacion_ResiduosCount();
-        int numeroTransportistas = solicitud.getTransportistas().size();
-        Especificacion_Residuos registroEspecificacion;
+    public void repartirCantidad(List<TransportistaModel> listaTransportistas, Especificacion_Residuos especificacion){
+        Solicitud_Transportista solicitudTransportista = new Solicitud_Transportista();
+        float cantidad = especificacion.getCantidad() / listaTransportistas.size();
         
-        registroEspecificacion = especificacionDAO.findEspecificacion_Residuos((long) i);
-        registroEspecificacion.setCantidad(registroEspecificacion.getCantidad()/numeroTransportistas);
-        System.out.println("la cantidad para cada empresa es de: " + registroEspecificacion.getCantidad());
+        solicitudTransportista.setCantidad(cantidad);
+        Solicitud_TransportistaJpaController solicitudDAO = new Solicitud_TransportistaJpaController();
+        
+        try{
+            solicitudDAO.edit(solicitudTransportista);
+        }catch(Exception e){
+            
+        }
+        
+        
     }
 
     /**
