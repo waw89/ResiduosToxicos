@@ -4,7 +4,11 @@
  */
 package GUI;
 
+import com.validaciones.SolicitudNegocio;
+import entitys.SolicitudTrasladoModel;
 import entitys.UsuarioModel;
+import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,9 +21,25 @@ public class SolicitudesAsignadasFrm extends javax.swing.JFrame {
      * Creates new form SolicitudesAsignadasFrm
      */
     UsuarioModel usuarioActual;
+    SolicitudNegocio sn = new SolicitudNegocio();
+    DefaultListModel<SolicitudTrasladoModel> modelSolicitudesAsignadas = new DefaultListModel();
     public SolicitudesAsignadasFrm(UsuarioModel usuario) {
+         initComponents();
         this.usuarioActual = usuario;
-        initComponents();
+        solicitudesAsignadasList.setModel(modelSolicitudesAsignadas);
+        inicializaListaResiduos();
+       
+    }
+    
+    public void inicializaListaResiduos() {
+        
+        List<SolicitudTrasladoModel> listaSolicitudes = sn.obtenerSolicitudes();
+        
+        for(SolicitudTrasladoModel solicitud: listaSolicitudes){
+            if(solicitud.esAsignado() == true){
+                modelSolicitudesAsignadas.addElement(solicitud);
+            }
+        }
     }
 
     /**
@@ -43,11 +63,7 @@ public class SolicitudesAsignadasFrm extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        solicitudesAsignadasList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        solicitudesAsignadasList.setModel(solicitudesAsignadasList.getModel());
         solicitudesAsignadasList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         jScrollPane1.setViewportView(solicitudesAsignadasList);
 
@@ -88,8 +104,8 @@ public class SolicitudesAsignadasFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        
-      new RegistrarTrasladoFrm(this.usuarioActual).setVisible(true);
+      SolicitudTrasladoModel solicitud = solicitudesAsignadasList.getSelectedValue();  
+      new RegistrarTrasladoFrm(this.usuarioActual, solicitud).setVisible(true);
       this.dispose();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -106,6 +122,6 @@ public class SolicitudesAsignadasFrm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> solicitudesAsignadasList;
+    private javax.swing.JList<SolicitudTrasladoModel> solicitudesAsignadasList;
     // End of variables declaration//GEN-END:variables
 }

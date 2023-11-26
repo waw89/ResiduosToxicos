@@ -6,6 +6,7 @@
 package GUI;
 
 import com.validaciones.VehiculoNegocio;
+import entitys.SolicitudTrasladoModel;
 import entitys.UsuarioModel;
 import entitys.VehiculoModel;
 import java.awt.Dimension;
@@ -28,12 +29,14 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
      * Creates new form RegistrarTraslado
      */
     UsuarioModel usuarioActual;
+    SolicitudTrasladoModel solicitudActual;
     VehiculoNegocio vn = new VehiculoNegocio();
     DefaultTableModel tableModel = new DefaultTableModel();
     private javax.swing.JCheckBox JCheckBox;
 
-    public RegistrarTrasladoFrm(UsuarioModel usuario) {
+    public RegistrarTrasladoFrm(UsuarioModel usuario, SolicitudTrasladoModel solicitud) {
         this.usuarioActual = usuario;
+        this.solicitudActual = solicitud;
         initComponents();
 
         tableModel.addColumn("");
