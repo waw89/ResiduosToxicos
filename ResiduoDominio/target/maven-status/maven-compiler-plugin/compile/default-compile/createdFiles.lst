@@ -6,6 +6,7 @@ entitys\ResiduoModel.class
 entitys\TrasladoModel_.class
 entitys\UsuarioModel_.class
 entitys\AdministradorModel_.class
+entitys\Especificacion_Residuos_.class
 entitys\ProductorModel.class
 entitys\VehiculoModel.class
 entitys\SolicitudTrasladoModel.class
