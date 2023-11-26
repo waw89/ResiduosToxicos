@@ -5,16 +5,15 @@
  */
 package GUI;
 
+import com.dto.DTORegistraTraslado;
 import com.validaciones.VehiculoNegocio;
 import entitys.SolicitudTrasladoModel;
 import entitys.UsuarioModel;
 import entitys.VehiculoModel;
-import java.awt.Dimension;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JCheckBox;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -31,21 +30,22 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
     UsuarioModel usuarioActual;
     SolicitudTrasladoModel solicitudActual;
     VehiculoNegocio vn = new VehiculoNegocio();
-    DefaultTableModel tableModel = new DefaultTableModel();
+    DefaultTableModel tableModelVehiculos = new DefaultTableModel();
     private javax.swing.JCheckBox JCheckBox;
 
     public RegistrarTrasladoFrm(UsuarioModel usuario, SolicitudTrasladoModel solicitud) {
         this.usuarioActual = usuario;
         this.solicitudActual = solicitud;
         initComponents();
-
-        tableModel.addColumn("");
-        tableModel.addColumn("Linea");
-        tableModel.addColumn("Marca");
-        tableModel.addColumn("Modelo");
-        tableModel.addColumn("Tipo");
+        
+        tableModelVehiculos.addColumn("ID");
+        tableModelVehiculos.addColumn("");
+        tableModelVehiculos.addColumn("Linea");
+        tableModelVehiculos.addColumn("Marca");
+        tableModelVehiculos.addColumn("Modelo");
+        tableModelVehiculos.addColumn("Tipo");
         JCheckBox = new javax.swing.JCheckBox();
-        jTable2.setModel(tableModel);
+        tablaVehiculos.setModel(tableModelVehiculos);
         cargarVehiculos();
 
     }
@@ -61,7 +61,7 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tablaVehiculos = new javax.swing.JTable();
         btnRegistrarTraslado = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         fechaLlegadaPicker = new com.github.lgooddatepicker.components.DatePicker();
@@ -76,7 +76,7 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablaVehiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 { new Boolean(false), null, null, null, null}
             },
@@ -92,7 +92,7 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(tablaVehiculos);
 
         jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 127, 280, 190));
 
@@ -141,41 +141,55 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
 
     private void cargarVehiculos() {
         List<VehiculoModel> vehiculos = vn.obtenerVehiculos(this.usuarioActual.getId());
-        tableModel.setRowCount(0);
+        tableModelVehiculos.setRowCount(0);
 
         for (VehiculoModel vehiculo : vehiculos) {
             Object[] fila = {
-                
+                vehiculo.getId(),
                 false,
                 vehiculo.getLinea(),
                 vehiculo.getMarca(),
                 vehiculo.getMarca(),
                 vehiculo.getModelo()
             };
-            tableModel.addRow(fila);
-            
-            addCheckbox(0,jTable2);
+            tableModelVehiculos.addRow(fila);
+
+            addCheckbox(1, tablaVehiculos);
         }
 
-    
     }
-    
-    public void addCheckbox(int column, JTable table){
+
+    public void addCheckbox(int column, JTable table) {
         TableColumn tc = table.getColumnModel().getColumn(column);
         tc.setCellEditor(table.getDefaultEditor(Boolean.class));
         tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
     }
-    
-    public boolean isSelected(int row, int column, JTable table){
-        return table.getValueAt(row, column) != null;
-    }
+
 
     private void btnRegistrarTrasladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTrasladoActionPerformed
         JOptionPane.showMessageDialog(null, "Registro Exitoso");
         new PantallaInicial(this.usuarioActual).setVisible(true);
         this.dispose();
+        DTORegistraTraslado DTORegistraTraslado = new DTORegistraTraslado();
+        DTORegistraTraslado.setCosto(Float.parseFloat(this.txtCosto.getText()));
+        DTORegistraTraslado.setKms(Float.parseFloat(this.txtKm.getText()));
+        DTORegistraTraslado.setTratamiento(this.txtTratamiento.getText());
+        DTORegistraTraslado.setidsVehiculos(obtieneIdsVehiculos());
+        DTORegistraTraslado.setFecha(this.fechaLlegadaPicker.getDate());
     }//GEN-LAST:event_btnRegistrarTrasladoActionPerformed
 
+    public List<Long> obtieneIdsVehiculos() {
+
+        int i = tableModelVehiculos.getRowCount();
+        List<Long> idsVehiculos = new ArrayList<Long>();
+        for (int j = 0; j < i; j++) {
+            if ((boolean)tableModelVehiculos.getValueAt(j, 1) == true) {
+                idsVehiculos.add((Long) tableModelVehiculos.getValueAt(j, 0));
+            }
+
+        }
+        return idsVehiculos;
+    }
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         new SolicitudesAsignadasFrm(this.usuarioActual).setVisible(true);
         this.dispose();
@@ -191,7 +205,7 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable tablaVehiculos;
     private javax.swing.JTextField txtCosto;
     private javax.swing.JTextField txtKm;
     private javax.swing.JTextArea txtTratamiento;
