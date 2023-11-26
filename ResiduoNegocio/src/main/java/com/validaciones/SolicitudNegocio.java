@@ -35,8 +35,22 @@ public class SolicitudNegocio {
 
     public SolicitudTrasladoModel actualizar(DTOSolicitaTraslado dtoSolicitaTraslado) {
         SolicitudTrasladoModel st = util.convertirSolicitudTrasladoDTOaSolicitudTraslado(dtoSolicitaTraslado);
+        repartirCantidad(st);
         sdao.update(st);
         return st;
+    }
+    
+    /**
+     * Método repartirCantidad que reparte la cantidad del residuo entre las empresas transportistas
+     */
+    public void repartirCantidad(SolicitudTrasladoModel solicitud){
+        int i = especificacionDAO.getEspecificacion_ResiduosCount();
+        int numeroTransportistas = solicitud.getTransportistas().size();
+        Especificacion_Residuos registroEspecificacion;
+        
+        registroEspecificacion = especificacionDAO.findEspecificacion_Residuos((long) i);
+        registroEspecificacion.setCantidad(registroEspecificacion.getCantidad()/numeroTransportistas);
+        System.out.println("la cantidad para cada empresa es de: " + registroEspecificacion.getCantidad());
     }
 
     /**
@@ -73,8 +87,10 @@ public class SolicitudNegocio {
  
 
     public void actualizaCantidadDelResiduo(List<Float> cantidadesResiduos) {
-        int i = especificacionDAO.getEspecificacion_ResiduosCount();
-        Especificacion_Residuos registroEspecificacion; 
+        if(especificacionDAO.getEspecificacion_ResiduosCount() == 0){
+            int i = especificacionDAO.getEspecificacion_ResiduosCount();
+            
+            Especificacion_Residuos registroEspecificacion; 
         for (Float cantidad : cantidadesResiduos) {
             
             registroEspecificacion = especificacionDAO.findEspecificacion_Residuos((long) i);
@@ -88,6 +104,24 @@ public class SolicitudNegocio {
             }
             i++;
         }
+        }else{
+            int i = especificacionDAO.getEspecificacion_ResiduosCount() - 1;
+            Especificacion_Residuos registroEspecificacion; 
+        for (Float cantidad : cantidadesResiduos) {
+            
+            registroEspecificacion = especificacionDAO.findEspecificacion_Residuos((long) i);
+            
+            registroEspecificacion.setCantidad(cantidad);
+            
+            try {
+                especificacionDAO.edit(registroEspecificacion);
+            } catch (Exception e) {
+
+            }
+            i++;
+        }
+        }
+       
 
     }
     

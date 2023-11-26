@@ -259,7 +259,7 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
-//        List<TransportistaModel> empresasAsignadas = empresasSeleccionadasLis
+
         DTOSolicitaTraslado dtoSolicitaTraslado = new DTOSolicitaTraslado();
         Util util = new Util();
         

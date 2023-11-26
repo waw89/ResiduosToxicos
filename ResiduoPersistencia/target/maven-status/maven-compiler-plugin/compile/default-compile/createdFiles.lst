@@ -17,6 +17,8 @@ com\daos\TransportistaDAOImp.class
 com\daos\exceptions\NonexistentEntityException.class
 com\daos\IAdministradorDAO.class
 com\daos\UsuarioDAOImp.class
+com\daos\Especificacion_ResiduosJpaController.class
+com\daos\SolicitudTrasladoModelJpaController.class
 com\daos\IVehiculoDAO.class
 com\daos\ITrasladoDAO.class
 com\daos\VehiculoDAOImp.class
