@@ -4,10 +4,12 @@
  */
 package com.validaciones;
 
+import com.daos.Especificacion_ResiduosJpaController;
 import com.daos.ISolicitudTrasladoDAO;
 import com.daos.SolicitudTrasladoDAOImp;
 import com.dto.DTOSolicitaTraslado;
 import com.utilerias.Util;
+import entitys.Especificacion_Residuos;
 import entitys.SolicitudTrasladoModel;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.List;
  */
 public class SolicitudNegocio {
 
+    Especificacion_ResiduosJpaController especificacionDAO = new Especificacion_ResiduosJpaController();
     Util util = new Util();
     ISolicitudTrasladoDAO sdao = new SolicitudTrasladoDAOImp();
 
@@ -64,5 +67,27 @@ public class SolicitudNegocio {
         }
         return true;
     }
+
+ 
+
+    public void actualizaCantidadDelResiduo(List<Float> cantidadesResiduos) {
+        int i = especificacionDAO.getEspecificacion_ResiduosCount()-1;
+        Especificacion_Residuos registroEspecificacion ; 
+        for (Float cantidad : cantidadesResiduos) {
+            
+            registroEspecificacion = especificacionDAO.findEspecificacion_Residuos((long) i);
+            
+            registroEspecificacion.setCantidad(cantidad);
+            registroEspecificacion.setAsignado(true);
+            try {
+                especificacionDAO.edit(registroEspecificacion);
+            } catch (Exception e) {
+
+            }
+            i++;
+        }
+
+    }
+    
 
 }

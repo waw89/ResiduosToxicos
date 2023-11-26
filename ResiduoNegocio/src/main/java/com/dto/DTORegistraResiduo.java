@@ -18,7 +18,7 @@ public class DTORegistraResiduo {
     private Long codigo_residuo;
     private List<QuimicoModel> quimicos;
     private ProductorModel id_productor;
-
+    
     public DTORegistraResiduo() {
     }
 

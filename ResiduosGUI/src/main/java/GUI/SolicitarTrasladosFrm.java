@@ -33,6 +33,7 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     ResiduoNegocio rn = new ResiduoNegocio();
     UsuarioModel usuarioActual;
     SolicitudNegocio solicitudNeg = new SolicitudNegocio();
+    List<Float> cantidadesResiduos = new ArrayList<>(); 
 
     public SolicitarTrasladosFrm(UsuarioModel usuario) {
         initComponents();
@@ -291,14 +292,16 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
                 dtoSolicitaTraslado.setCantidadRes(Float.parseFloat(this.txtCantidad.getText()));
                 dtoSolicitaTraslado.setResiduos(obtenerListaDeResiduos());
                 dtoSolicitaTraslado.setProductor((ProductorModel) this.usuarioActual);
+               
                 solicitudNeg.guardar(dtoSolicitaTraslado);
-
+                
+                solicitudNeg.actualizaCantidadDelResiduo(this.cantidadesResiduos);
                 JOptionPane.showMessageDialog(null, "Solicitud Exitosa");
 
                 this.usuarioActual.setTipo("Productor");
                 new PantallaInicial(this.usuarioActual).setVisible(true);
                 this.dispose();
-            }else{
+            } else {
                 mostrarError("Se tienen 5 solicitudes en ese mismo día, seleccione otro", "Error", "Error al solicitar");
             }
         }
@@ -319,11 +322,14 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     }
 
     public void eliminaDeListaSeleccionados() {
+           this.cantidadesResiduos.remove(this.residuosSeleccionadosList.getSelectedIndex()); 
         modelSeleccionados.removeElementAt(residuosSeleccionadosList.getSelectedIndex());
+     
     }
 
     public void agregaAListaSeleccionados() {
         modelSeleccionados.addElement(residuosDisponiblesList.getSelectedValue());
+       cantidadesResiduos.add(Float.parseFloat(this.txtCantidad.getText())); 
     }
 
     public void mostrarError(String mensaje, String tipo, String titulo) {

@@ -60,6 +60,7 @@ public class ResiduoModel implements Serializable {
 
     @ManyToMany 
     @JoinTable(
+            
             name = "Residuo_Quimico",
             joinColumns = @JoinColumn(name = "id_Residuo"),
             inverseJoinColumns = @JoinColumn(name = "id_Quimico")

@@ -15,16 +15,17 @@ import java.util.List;
  * @author xfs85
  */
 public class DTOSolicitaTraslado {
+
     private LocalDate fecha;
     private float cantidadRes;
     private List<ResiduoModel> residuos;
     private ProductorModel productor;
     private boolean asignado;
-    //versión preeliminar
+   
+
     private Long id;
     private List<TransportistaModel> transportistas;
-    ///////
-    
+
     public DTOSolicitaTraslado() {
     }
 
@@ -76,7 +77,7 @@ public class DTOSolicitaTraslado {
     public void setTransportistas(List<TransportistaModel> transportistas) {
         this.transportistas = transportistas;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -84,6 +85,6 @@ public class DTOSolicitaTraslado {
     public void setId(Long id) {
         this.id = id;
     }
-    ////////////  
-    
+
+
 }

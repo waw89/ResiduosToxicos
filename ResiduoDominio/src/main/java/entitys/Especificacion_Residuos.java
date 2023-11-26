@@ -37,7 +37,7 @@ public class Especificacion_Residuos implements Serializable {
     private ResiduoModel residuo;
 
     @Column(name = "cantidad")
-    private int cantidad;
+    private float cantidad;
 
     @Column(name = "asignado")
     private boolean asignado;
@@ -68,11 +68,11 @@ public class Especificacion_Residuos implements Serializable {
         this.residuo = residuo;
     }
 
-    public int getCantidad() {
+    public float getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(float cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -82,6 +82,11 @@ public class Especificacion_Residuos implements Serializable {
 
     public void setAsignado(boolean asignado) {
         this.asignado = asignado;
+    }
+
+    @Override
+    public String toString() {
+        return "Especificacion_Residuos{" + "id=" + id + ", solicitud=" + solicitud + ", residuo=" + residuo + ", cantidad=" + cantidad + ", asignado=" + asignado + '}';
     }
     
 }
