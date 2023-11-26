@@ -64,9 +64,8 @@ public class Solicitud_Transportista implements Serializable {
     public void setTransportista(TransportistaModel transportista) {
         this.transportista = transportista;
     }
-
     
-
+ 
     public float getCantidad() {
         return cantidad;
     }
