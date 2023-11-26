@@ -14,6 +14,7 @@ import com.validaciones.ResiduoNegocio;
 import com.validaciones.SolicitudNegocio;
 import com.validaciones.TransportistaNegocio;
 import com.validaciones.SolicitudNegocio;
+import entitys.Especificacion_Residuos;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -27,7 +28,7 @@ import javax.swing.JOptionPane;
 public class AsignarEmpresaFrm extends javax.swing.JFrame {
 
     //Atributos
-    DefaultListModel<String> modelResiduosATransportar = new DefaultListModel<>();
+    DefaultListModel<Especificacion_Residuos> modelResiduosATransportar = new DefaultListModel<>();
     DefaultListModel<TransportistaModel> modelEmpresasDisponibles = new DefaultListModel<>();
     DefaultListModel<TransportistaModel> modelEmpresasSeleccionadas = new DefaultListModel<>();
     UsuarioModel usuarioActual;
@@ -62,10 +63,17 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
      */
     public void inicializaListaResiduos() {
         
-        List<ResiduoModel> listaResiduos = this.solicitud.getListaResiduos();
-        
-        for(ResiduoModel residuo: listaResiduos){
-                modelResiduosATransportar.addElement(residuo.getNombre() + this.solicitud.getCantidadRes());
+//        List<Especificacion_Residuos> listaResiduos = this.solicitud.getListaResiduos();
+        List<Especificacion_Residuos> listaResiduos = solicitudNegocio.obtenerListaEspecificacionesResiduos();
+     
+        for(Especificacion_Residuos especificacion: listaResiduos){
+            if(this.solicitud.getId() == especificacion.getSolicitud().getId()){
+                if(especificacion.isAsignado() == false){
+                    modelResiduosATransportar.addElement(especificacion);
+                }
+                
+            }
+                
         }
     }
     
@@ -202,11 +210,7 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
         });
         jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 153, 80, 30));
 
-        residuosATransportarList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        residuosATransportarList.setModel(residuosATransportarList.getModel());
         residuosATransportarList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         jScrollPane1.setViewportView(residuosATransportarList);
 
@@ -262,10 +266,12 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
 
         DTOSolicitaTraslado dtoSolicitaTraslado = new DTOSolicitaTraslado();
         Util util = new Util();
-        
-        dtoSolicitaTraslado = util.convertirSolicitudTrasladoASolicitudTrasladoDTO(this.solicitud);
+        Especificacion_Residuos especificacion = residuosATransportarList.getSelectedValue();
+        especificacion.setAsignado(true);
+        dtoSolicitaTraslado = util.convertirSolicitudTrasladoASolicitudTrasladoDTO(especificacion.getSolicitud());
         dtoSolicitaTraslado.setTransportistas(obtenerListaDeTransportistas());
-        solicitudNegocio.actualizar(dtoSolicitaTraslado);
+        dtoSolicitaTraslado.setAsignado(true);
+        solicitudNegocio.actualizar(dtoSolicitaTraslado, especificacion);
         
         JOptionPane.showMessageDialog(null, "Asignación Exitosa");
         new PantallaInicial(this.usuarioActual).setVisible(true);
@@ -311,6 +317,6 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel labelFecha;
     private javax.swing.JLabel labelProductor;
-    private javax.swing.JList<String> residuosATransportarList;
+    private javax.swing.JList<Especificacion_Residuos> residuosATransportarList;
     // End of variables declaration//GEN-END:variables
 }

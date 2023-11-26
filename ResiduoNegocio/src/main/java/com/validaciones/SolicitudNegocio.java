@@ -33,9 +33,14 @@ public class SolicitudNegocio {
         return st;
     }
 
-    public SolicitudTrasladoModel actualizar(DTOSolicitaTraslado dtoSolicitaTraslado) {
+    public SolicitudTrasladoModel actualizar(DTOSolicitaTraslado dtoSolicitaTraslado, Especificacion_Residuos especificacion) {
         SolicitudTrasladoModel st = util.convertirSolicitudTrasladoDTOaSolicitudTraslado(dtoSolicitaTraslado);
-        repartirCantidad(st);
+        try {
+                especificacionDAO.edit(especificacion);
+            } catch (Exception e) {
+
+            }
+//        repartirCantidad(st);
         sdao.update(st);
         return st;
     }
@@ -85,7 +90,35 @@ public class SolicitudNegocio {
     }
 
  
+    public List<Especificacion_Residuos> obtenerListaEspecificacionesResiduos(){
+        List<Especificacion_Residuos> listaEspecificacionResiduos = new ArrayList<>();
+//        if(especificacionDAO.getEspecificacion_ResiduosCount() == 0){
+            int i = especificacionDAO.getEspecificacion_ResiduosCount();
+            
+            for (int n = 0; n <= i; n++) {
+                if (especificacionDAO.findEspecificacion_Residuos((long) n) != null) {
+                    Especificacion_Residuos especificacionResiduo = especificacionDAO.findEspecificacion_Residuos((long) n);
+                    listaEspecificacionResiduos.add(especificacionResiduo);
+                }
 
+            }
+//        }else{
+//            int i = especificacionDAO.getEspecificacion_ResiduosCount()-1;
+//            
+//            for (int n = 0; n <= i; n++) {
+//                if (especificacionDAO.findEspecificacion_Residuos((long) n) != null) {
+//                    Especificacion_Residuos especificacionResiduo = especificacionDAO.findEspecificacion_Residuos((long) n);
+//                    listaEspecificacionResiduos.add(especificacionResiduo);
+//                }
+//
+//            }
+//        }
+         
+        
+        
+        return listaEspecificacionResiduos;
+        
+    }
     public void actualizaCantidadDelResiduo(List<Float> cantidadesResiduos) {
         if(especificacionDAO.getEspecificacion_ResiduosCount() == 0){
             int i = especificacionDAO.getEspecificacion_ResiduosCount();

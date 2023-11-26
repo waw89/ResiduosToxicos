@@ -86,7 +86,7 @@ public class Especificacion_Residuos implements Serializable {
 
     @Override
     public String toString() {
-        return "Especificacion_Residuos{" + "id=" + id + ", solicitud=" + solicitud + ", residuo=" + residuo + ", cantidad=" + cantidad + ", asignado=" + asignado + '}';
+        return "residuo=" + residuo.getNombre()  + ", cantidad=" + cantidad;
     }
     
 }
