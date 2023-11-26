@@ -294,7 +294,7 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
                     dtoSolicitaTraslado.setResiduos(obtenerListaDeResiduos());
                     dtoSolicitaTraslado.setProductor((ProductorModel) this.usuarioActual);
                     
-                    if(solicitudNeg.validaSolicitudNoExistente(dtoSolicitaTraslado) == true){
+
                     solicitudNeg.guardar(dtoSolicitaTraslado);
 
                     solicitudNeg.actualizaCantidadDelResiduo(this.cantidadesResiduos);
@@ -303,7 +303,7 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
                     this.usuarioActual.setTipo("Productor");
                     new PantallaInicial(this.usuarioActual).setVisible(true);
                     this.dispose();
-                    }
+                   
                     } else {
                     mostrarError("Se tienen 5 solicitudes en ese mismo día, seleccione otro", "Error", "Error al solicitar");
                 }
