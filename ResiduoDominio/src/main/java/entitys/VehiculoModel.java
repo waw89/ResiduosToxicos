@@ -5,13 +5,16 @@
 package entitys;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 
@@ -26,6 +29,7 @@ public class VehiculoModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_vehiculo")
     private Long id;
 
     public Long getId() {
@@ -60,23 +64,35 @@ public class VehiculoModel implements Serializable {
     @JoinColumn (name = "IdTransportista")
     private TransportistaModel trans;
 
-
-    
+    @ManyToMany(mappedBy = "vehiculos")
+    private List<TrasladoModel> traslado;
     /**
      * Default constructor
      */
     public VehiculoModel() {
     }
 
-    public VehiculoModel(long id, String tipo, String marca, int modelo, String linea, TransportistaModel trans) {
+    public VehiculoModel(long id, String tipo, String marca, int modelo, String linea, TransportistaModel trans, List<TrasladoModel> traslado) {
         this.id = id;
         this.tipo = tipo;
         this.marca = marca;
         this.modelo = modelo;
         this.linea = linea;
         this.trans = trans;
+        this.traslado = traslado;
     
     }
+
+    public VehiculoModel(Long id, String tipo, String marca, int modelo, String linea, TransportistaModel trans) {
+        this.id = id;
+        this.tipo = tipo;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.linea = linea;
+        this.trans = trans;
+    }
+    
+    
 
 
 
@@ -120,6 +136,15 @@ public class VehiculoModel implements Serializable {
         this.trans = trans;
     }
 
+    public List<TrasladoModel> getTraslado() {
+        return traslado;
+    }
+
+    public void setTraslado(List<TrasladoModel> traslado) {
+        this.traslado = traslado;
+    }
+
+    
 
     
 }

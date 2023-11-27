@@ -6,6 +6,7 @@
 package GUI;
 
 import com.dto.DTORegistraTraslado;
+import com.validaciones.TrasladoNegocio;
 import com.validaciones.VehiculoNegocio;
 import entitys.SolicitudTrasladoModel;
 import entitys.UsuarioModel;
@@ -31,6 +32,7 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
     SolicitudTrasladoModel solicitudActual;
     VehiculoNegocio vn = new VehiculoNegocio();
     DefaultTableModel tableModelVehiculos = new DefaultTableModel();
+    TrasladoNegocio tn = new TrasladoNegocio();
     private javax.swing.JCheckBox JCheckBox;
 
     public RegistrarTrasladoFrm(UsuarioModel usuario, SolicitudTrasladoModel solicitud) {
@@ -176,6 +178,18 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
         DTORegistraTraslado.setTratamiento(this.txtTratamiento.getText());
         DTORegistraTraslado.setidsVehiculos(obtieneIdsVehiculos());
         DTORegistraTraslado.setFecha(this.fechaLlegadaPicker.getDate());
+        DTORegistraTraslado.setSolicitud(this.solicitudActual);
+        
+        if(obtieneIdsVehiculos().size() > 1){
+            DTORegistraTraslado.setTipo("Por Partes");
+        }else{
+            DTORegistraTraslado.setTipo("Simple");
+        }
+        
+        vn.convertirVehiculos(obtieneIdsVehiculos());
+        tn.guardar(DTORegistraTraslado);
+        
+        
     }//GEN-LAST:event_btnRegistrarTrasladoActionPerformed
 
     public List<Long> obtieneIdsVehiculos() {
@@ -195,6 +209,7 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
         this.dispose();
 
     }//GEN-LAST:event_btnVolverActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

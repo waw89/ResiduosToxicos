@@ -4,6 +4,7 @@
  */
 package com.dto;
 
+import entitys.SolicitudTrasladoModel;
 import entitys.VehiculoModel;
 import java.time.LocalDate;
 import java.util.List;
@@ -18,6 +19,8 @@ public class DTORegistraTraslado {
     List<Long> idsVehiculos;
     Float costo;
     Float kms;
+    SolicitudTrasladoModel solicitud;
+    String tipo;
     
     public String getTratamiento() {
         return tratamiento;
@@ -58,6 +61,32 @@ public class DTORegistraTraslado {
     public void setKms(Float kms) {
         this.kms = kms;
     }
+
+    public List<Long> getIdsVehiculos() {
+        return idsVehiculos;
+    }
+
+    public void setIdsVehiculos(List<Long> idsVehiculos) {
+        this.idsVehiculos = idsVehiculos;
+    }
+
+    public SolicitudTrasladoModel getSolicitud() {
+        return solicitud;
+    }
+
+    public void setSolicitud(SolicitudTrasladoModel solicitud) {
+        this.solicitud = solicitud;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
+    
     
     
 }

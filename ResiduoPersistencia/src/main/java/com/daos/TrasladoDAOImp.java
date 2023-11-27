@@ -21,10 +21,10 @@ import javax.persistence.criteria.Root;
  */
 public class TrasladoDAOImp implements ITrasladoDAO{
 
-    public TrasladoDAOImp(EntityManagerFactory emf) {
-        this.emf = emf;
+    public TrasladoDAOImp() {
     }
-    private EntityManagerFactory emf = null;
+
+   EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();

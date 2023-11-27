@@ -20,9 +20,9 @@ import java.util.List;
  */
 public class VehiculoNegocio {
 
-    Util util = new Util();
+    
     ITransportistaDAO iTransportista = new TransportistaDAOImp();
-
+    List<VehiculoModel> listaVehiculos;
     IVehiculoDAO iVehiculo = new VehiculoDAOImp();
 
     public void creaAutos() {
@@ -69,8 +69,24 @@ public class VehiculoNegocio {
 
         }
     }
-    
-    public List<VehiculoModel>obtenerVehiculos(Long id){
+
+    public List<VehiculoModel> obtenerVehiculos(Long id) {
         return iVehiculo.obtenerVehiculosPorTransportista(id);
     }
+
+    public void convertirVehiculos(List<Long> idVehiculos) {
+        List<VehiculoModel> listaVehiculos = new ArrayList<>();
+        for (Long idVehiculo : idVehiculos) {
+            listaVehiculos.add(iVehiculo.findVehiculoModel(idVehiculo));
+        }
+        
+        this.listaVehiculos = listaVehiculos;       
+    }
+
+    public List<VehiculoModel> getListaVehiculos() {
+        return listaVehiculos;
+    }
+    
+    
+
 }

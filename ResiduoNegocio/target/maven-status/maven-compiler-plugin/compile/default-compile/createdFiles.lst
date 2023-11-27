@@ -1,9 +1,9 @@
 com\validaciones\VehiculoNegocio.class
+com\utilerias\Util.class
+com\dto\DTOIniciarSesion.class
+com\dto\DTOSolicitaTraslado.class
 com\validaciones\QuimicoNegocio.class
 com\validaciones\ResiduoNegocio.class
-com\utilerias\Util.class
 com\validaciones\UsuarioNegocio.class
-com\dto\DTOIniciarSesion.class
 com\dto\DTORegistraResiduo.class
 com\validaciones\TransportistaNegocio.class
-com\dto\DTOSolicitaTraslado.class

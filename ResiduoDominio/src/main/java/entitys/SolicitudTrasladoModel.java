@@ -78,6 +78,9 @@ public class SolicitudTrasladoModel implements Serializable {
     )
     
     private List<ResiduoModel> listaResiduos;
+    
+    @OneToMany (mappedBy = "solicitudTraslado", cascade = CascadeType.ALL)
+    private List<TrasladoModel> listaTraslado;
 
 //    /**
 //     *

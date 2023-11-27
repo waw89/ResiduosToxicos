@@ -6,15 +6,20 @@ package com.utilerias;
 
 import com.dto.DTOIniciarSesion;
 import com.dto.DTORegistraResiduo;
+import com.dto.DTORegistraTraslado;
 import com.dto.DTOSolicitaTraslado;
+import com.validaciones.VehiculoNegocio;
 import entitys.AdministradorModel;
 import entitys.ProductorModel;
 import entitys.QuimicoModel;
 import entitys.ResiduoModel;
 import entitys.SolicitudTrasladoModel;
 import entitys.TransportistaModel;
+import entitys.TrasladoModel;
 import entitys.UsuarioModel;
+import entitys.VehiculoModel;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -22,6 +27,7 @@ import java.util.ArrayList;
  */
 public class Util {
 
+ 
     /**
      *
      * @param usuario
@@ -29,6 +35,8 @@ public class Util {
      *
      * Convierte un objeto de tipo Usuario a un UsuarioDTO
      */
+    
+    
     public DTOIniciarSesion convertirUsuarioAUsuarioDTO(UsuarioModel usuario) {
         return new DTOIniciarSesion(usuario.getTipo(), usuario.getNombre(), usuario.getUsuario(), usuario.getPassword());
 
@@ -161,8 +169,22 @@ public class Util {
         return nuevosUsuarios;
     }
     
+ public TrasladoModel ConvertirDTOTrasladoATraslado(DTORegistraTraslado dtoRegistraTraslado) {
+        VehiculoNegocio vehiculoNegocio = new VehiculoNegocio();
+     TrasladoModel traslado = new TrasladoModel();
+     traslado.setCostoTotal(dtoRegistraTraslado.getCosto());
+     traslado.setFechaLlegada(dtoRegistraTraslado.getFecha());
+     traslado.setKmTotales(dtoRegistraTraslado.getKms());
+     traslado.setVehiculos(vehiculoNegocio.getListaVehiculos());
+     traslado.setSolicitudTraslado(dtoRegistraTraslado.getSolicitud());
+     traslado.setTipoTraslado(dtoRegistraTraslado.getTipo());
+     traslado.setTratamiento(dtoRegistraTraslado.getTratamiento());
+   
+     return traslado;
+     
+    }
 
-
+ 
        
     }
 

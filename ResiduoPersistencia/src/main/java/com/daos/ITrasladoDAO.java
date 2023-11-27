@@ -11,11 +11,16 @@ import java.util.List;
  *
  * @author xfs85
  */
-interface ITrasladoDAO {
+public interface ITrasladoDAO {
+
     public TrasladoModel create(TrasladoModel trasladoModel);
+
     public List<TrasladoModel> findTrasladoModelEntities();
+
     public List<TrasladoModel> findTrasladoModelEntities(int maxResults, int firstResult);
+
     public TrasladoModel findTrasladoModel(Long id);
+
     public int getTrasladoModelCount();
-     
+
 }
