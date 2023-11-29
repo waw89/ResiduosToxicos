@@ -6,21 +6,19 @@ package GUI;
 
 import com.dto.DTOSolicitaTraslado;
 import com.utilerias.Util;
-import entitys.ResiduoModel;
 import entitys.UsuarioModel;
 import entitys.TransportistaModel;
 import entitys.SolicitudTrasladoModel;
-import com.validaciones.ResiduoNegocio;
-import com.validaciones.SolicitudNegocio;
 import com.validaciones.TransportistaNegocio;
 import com.validaciones.SolicitudNegocio;
 import entitys.Especificacion_Residuos;
-import entitys.Solicitud_Transportista;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -45,8 +43,13 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
      */
     public AsignarEmpresaFrm(UsuarioModel usuario, SolicitudTrasladoModel solicitud) {
         initComponents();
+        bloquearDesbloquearListas();
+        empresasDisponiblesList.setEnabled(false);
+        empresasSeleccionadasList.setEnabled(false);
+        
         this.usuarioActual = usuario;
         this.solicitud = solicitud;
+        
         residuosATransportarList.setModel(modelResiduosATransportar);
         empresasDisponiblesList.setModel(modelEmpresasDisponibles);
         empresasSeleccionadasList.setModel(modelEmpresasSeleccionadas);
@@ -55,6 +58,25 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
         
         labelProductor.setText(solicitud.getProd().getUsuario());
         labelFecha.setText(String.valueOf(solicitud.getFecha()));
+      
+    }
+    
+    
+    /**
+     * Método bloquearDesbloquearListas que tiene un Listener para detectar cuando se selecciona un residuo de la 
+     * lista de residuos y desbloquea la lista de empresas disponibles 
+     */
+    public void bloquearDesbloquearListas(){
+        residuosATransportarList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    // Cuando se selecciona un elemento en list1, habilitar list2
+                    empresasDisponiblesList.setEnabled(true);
+                    empresasSeleccionadasList.setEnabled(true);
+                }
+            }
+        });
     }
     
     
@@ -63,8 +85,6 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
      *residuos que no cuentan con asignación de empresa y los agrega al modelo de residuos a transportar
      */
     public void inicializaListaResiduos() {
-        
-//        List<Especificacion_Residuos> listaResiduos = this.solicitud.getListaResiduos();
         List<Especificacion_Residuos> listaResiduos = solicitudNegocio.obtenerListaEspecificacionesResiduos();
      
         for(Especificacion_Residuos especificacion: listaResiduos){
@@ -106,6 +126,27 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
         return transportistasSeleccionados;
     }
     
+    
+    /**
+     * Método esEspecificacionesResiduosAsignados que obtiene los resiudos con su cantidad de la lista de 
+     * residuosATransportarList y regresa true sí todos los residuos se encuentran
+     * asignados a una empresa transportista, false caso contrario
+     * @return true sí todos los residuos están asignados a una empresa transportista, false caso contrario
+     */
+    public boolean isEspecificacionesResiduosAsignados(){
+        int contadorAsignados = 0;
+      
+        for (int i = 0; i < modelResiduosATransportar.size(); i++) {
+            Especificacion_Residuos especificacionResiduoActual = modelResiduosATransportar.getElementAt(i);
+            if(especificacionResiduoActual.isAsignado() == true){
+                contadorAsignados++;
+            }
+        }
+        
+        return contadorAsignados == modelResiduosATransportar.size();
+    }
+    
+    
     /**
      * Método eliminaDeListaDisponibles que elimina de la lista de empresas transportistas disponibes 
      * la empresa seleccionada
@@ -114,6 +155,7 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
         modelEmpresasDisponibles.removeElementAt(empresasDisponiblesList.getSelectedIndex());
     }
 
+    
     /**
      * Método agregaAListaDisponibles que agrega a la lista de empresas transportistas disponibles la 
      * empresa seleccionada desde la lista de empresas seleccionadas
@@ -122,6 +164,7 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
         modelEmpresasDisponibles.addElement(empresasSeleccionadasList.getSelectedValue());
     }
 
+    
     /**
      * Método eliminaDeListaSeleccionados que elimina de la lista de empresas seleccionadas la empresa 
      * seleccionada
@@ -130,13 +173,23 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
         modelEmpresasSeleccionadas.removeElementAt(empresasSeleccionadasList.getSelectedIndex());
     }
 
+    
     /**
-     * 
+     * Método agregaAListaSeleccionados que agrega a la lista de empresas seleccionadas la empresa 
+     * seleccionada de la lista de empresas disponibles
      */
     public void agregaAListaSeleccionados() {
         modelEmpresasSeleccionadas.addElement(empresasDisponiblesList.getSelectedValue());
     }
     
+    
+    /**
+     * Método mostrarError que recibe un mensaje, un tipo de error y el titulo del optionPane para mostrar
+     * en pantalla
+     * @param mensaje el mensaje a mostrar en el JOptionPane
+     * @param tipo el tipo de error que se mostrará en el JOptionPane
+     * @param titulo el titulo del JOptionPane
+     */
     public void mostrarError (String mensaje, String tipo, String titulo){
         JOptionPane optionPane = new JOptionPane(mensaje);
         if(tipo.equals("Info")){
@@ -149,6 +202,7 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);      
     }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -266,24 +320,41 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
         
         List<TransportistaModel> listaTransportistas = new ArrayList<>();
-        
         DTOSolicitaTraslado dtoSolicitaTraslado = new DTOSolicitaTraslado();
         Util util = new Util();
         Especificacion_Residuos especificacion = residuosATransportarList.getSelectedValue();
-        especificacion.setAsignado(true);
-        dtoSolicitaTraslado = util.convertirSolicitudTrasladoASolicitudTrasladoDTO(especificacion.getSolicitud());
-        dtoSolicitaTraslado.setTransportistas(obtenerListaDeTransportistas());
-        dtoSolicitaTraslado.setAsignado(true);
-        solicitudNegocio.actualizar(dtoSolicitaTraslado, especificacion);
         
-        for (TransportistaModel transportista : obtenerListaDeTransportistas()) {
-            listaTransportistas.add(transportista);
+        if(especificacion != null){
+            
+            especificacion.setAsignado(true);
+            dtoSolicitaTraslado = util.convertirSolicitudTrasladoASolicitudTrasladoDTO(especificacion.getSolicitud());
+            dtoSolicitaTraslado.setTransportistas(obtenerListaDeTransportistas());
+            
+            if (isEspecificacionesResiduosAsignados() == true) {
+                dtoSolicitaTraslado.setAsignado(true);
+            }
+
+            for (TransportistaModel transportista : obtenerListaDeTransportistas()) {
+                listaTransportistas.add(transportista);
+            }
+
+            if (listaTransportistas.isEmpty()) {
+                mostrarError("Debes de seleccionar almenos una empresa", "Error", "Error al asignar empresa");
+            } else {
+
+                solicitudNegocio.actualizar(dtoSolicitaTraslado, especificacion);
+                solicitudNegocio.repartirCantidad(listaTransportistas, especificacion);
+
+                JOptionPane.showMessageDialog(null, "Asignación Exitosa");
+                new PantallaInicial(this.usuarioActual).setVisible(true);
+                this.dispose();
+            }
+        }else{
+            mostrarError("Debes de seleccionar un residuo de la lista", "Error", "Error al asignar empresa");
         }
-        solicitudNegocio.repartirCantidad(listaTransportistas, especificacion);
         
-        JOptionPane.showMessageDialog(null, "Asignación Exitosa");
-        new PantallaInicial(this.usuarioActual).setVisible(true);
-        this.dispose();
+        
+        
     }//GEN-LAST:event_btnAsignarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed

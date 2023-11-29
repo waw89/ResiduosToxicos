@@ -37,27 +37,32 @@ public class SolicitudNegocio {
         return st;
     }
 
-    public SolicitudTrasladoModel actualizar(DTOSolicitaTraslado dtoSolicitaTraslado, Especificacion_Residuos especificacion) {
-        SolicitudTrasladoModel st = util.convertirSolicitudTrasladoDTOaSolicitudTraslado(dtoSolicitaTraslado);
+    /**
+     * Método que actualiza la solicitud de traslado y las especificaciones de residuos
+     * @param dtoSolicitaTraslado la solicitud de trasladoDTO a convertir en solicitud de traslado model
+     * @param especificacion la especificación de residuo a actualizar
+     * @return 
+     */
+    public SolicitudTrasladoModel actualizar(DTOSolicitaTraslado dtoSolicitaTraslado, Especificacion_Residuos especificacion){
+        SolicitudTrasladoModel solicitudTraslado = util.convertirSolicitudTrasladoDTOaSolicitudTraslado(dtoSolicitaTraslado);
         try {
             especificacionDAO.edit(especificacion);
         } catch (Exception e) {
-
+            
         }
-//        repartirCantidad(st);
-        sdao.update(st);
-        return st;
+        
+        sdao.update(solicitudTraslado);
+        return solicitudTraslado;
     }
 
     /**
      * Método repartirCantidad que reparte la cantidad del residuo entre las
      * empresas transportistas
-     *
-     * @param listaTransportistas
-     * @param especificacion
-     * @param numeroEmpresas
+     * @param listaTransportistas la lista de empresas transportistas
+     * @param especificacion el residuo especificado del que se obtendrá la cantidad del residuo
      */
     public void repartirCantidad(List<TransportistaModel> listaTransportistas, Especificacion_Residuos especificacion) {
+       
         List<Solicitud_Transportista> registrosSolicituTransportista = this.soicitudTransportista_transportistaDAO.findSolicitud_TransportistaEntities();
         for (Solicitud_Transportista registro : registrosSolicituTransportista) {
             registro.setCantidad(especificacion.getCantidad() / listaTransportistas.size());
