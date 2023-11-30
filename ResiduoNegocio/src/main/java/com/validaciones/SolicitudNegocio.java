@@ -51,8 +51,7 @@ public class SolicitudNegocio {
             
         }
         
-        sdao.update(solicitudTraslado);
-        return solicitudTraslado;
+        return sdao.update(solicitudTraslado);
     }
 
     /**
@@ -65,11 +64,24 @@ public class SolicitudNegocio {
        
         List<Solicitud_Transportista> registrosSolicituTransportista = this.soicitudTransportista_transportistaDAO.findSolicitud_TransportistaEntities();
         for (Solicitud_Transportista registro : registrosSolicituTransportista) {
-            registro.setCantidad(especificacion.getCantidad() / listaTransportistas.size());
-            try {
-                this.soicitudTransportista_transportistaDAO.edit(registro);
-            } catch (Exception e) {
+            
+            if(registro.getSolicitud().getId() == especificacion.getSolicitud().getId()){
+                List<ResiduoModel> residuos = registro.getSolicitud().getListaResiduos();
+                
+                for(ResiduoModel residuo: residuos){
+                    if(residuo.getId() == especificacion.getResiduo().getId()){
+                        especificacion.getResiduo().getId();
+                        registro.setCantidad(especificacion.getCantidad() / listaTransportistas.size());
+                        
+                        try {
+                            this.soicitudTransportista_transportistaDAO.edit(registro);
+                        } catch (Exception e) {
+                        }
+                    }
+                }
+     
             }
+            
         }
 
     }
@@ -108,15 +120,17 @@ public class SolicitudNegocio {
     public List<Especificacion_Residuos> obtenerListaEspecificacionesResiduos() {
         List<Especificacion_Residuos> listaEspecificacionResiduos = new ArrayList<>();
 //        if(especificacionDAO.getEspecificacion_ResiduosCount() == 0){
-        int i = especificacionDAO.getEspecificacion_ResiduosCount();
+////        int i = especificacionDAO.getEspecificacion_ResiduosCount();
+////
+////        for (int n = 0; n <= i; n++) {
+////            if (especificacionDAO.findEspecificacion_Residuos((long) n) != null) {
+////                Especificacion_Residuos especificacionResiduo = especificacionDAO.findEspecificacion_Residuos((long) n);
+////                listaEspecificacionResiduos.add(especificacionResiduo);
+////            }
+////
+////        }
 
-        for (int n = 0; n <= i; n++) {
-            if (especificacionDAO.findEspecificacion_Residuos((long) n) != null) {
-                Especificacion_Residuos especificacionResiduo = especificacionDAO.findEspecificacion_Residuos((long) n);
-                listaEspecificacionResiduos.add(especificacionResiduo);
-            }
-
-        }
+        listaEspecificacionResiduos = especificacionDAO.findEspecificacion_ResiduosEntities();
 //        }else{
 //            int i = especificacionDAO.getEspecificacion_ResiduosCount()-1;
 //            

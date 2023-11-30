@@ -9,6 +9,7 @@ import entitys.SolicitudTrasladoModel;
 import com.validaciones.SolicitudNegocio;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,22 +34,52 @@ public class SolicitudesSinAsignarFrm extends javax.swing.JFrame {
         initComponents();
         this.usuarioActual = usuario;
         solicitudesSinAsignarList.setModel(modelSolicitudesSinAsignar);
-        inicializaListaResiduos();
+        inicializaListaSolicitudes();
     }
 
     /**
-     *Método inicializaListaResiduos que obtiene las solicitudes de traslado, selecciona las
+     *Método inicializaListaSolicitudes que obtiene las solicitudes de traslado, selecciona las
      * que se encuentra en estado "sin asignar" y las agrega al modelo de solicitudes sin asignar
      */
-    public void inicializaListaResiduos() {
+    public void inicializaListaSolicitudes() {
         
         List<SolicitudTrasladoModel> listaSolicitudes = solicitudNegocio.obtenerSolicitudes();
         
-        for(SolicitudTrasladoModel solicitud: listaSolicitudes){
+   
+            for(SolicitudTrasladoModel solicitud: listaSolicitudes){
             if(solicitud.esAsignado() == false){
                 modelSolicitudesSinAsignar.addElement(solicitud);
             }
+            }
+        
+        
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public boolean verificarSeleccion() {
+        int solicitud = modelSolicitudesSinAsignar.size();
+
+        if (solicitud < 1) {
+            mostrarError("Debe seleccionar una solicitud", "Error", "Error al seleccionar solicitud");
+            return false;
         }
+
+        return true;
+    }
+    
+    public void mostrarError(String mensaje, String tipo, String titulo) {
+        JOptionPane optionPane = new JOptionPane(mensaje);
+        if (tipo.equals("Info")) {
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        } else if (tipo.equals("Error")) {
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+        JDialog dialog = optionPane.createDialog(titulo);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
     }
     /**
      * This method is called from within the constructor to initialize the form.

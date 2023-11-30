@@ -13,6 +13,7 @@ import com.validaciones.TransportistaNegocio;
 import com.validaciones.SolicitudNegocio;
 import entitys.Especificacion_Residuos;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
@@ -43,7 +44,7 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
      */
     public AsignarEmpresaFrm(UsuarioModel usuario, SolicitudTrasladoModel solicitud) {
         initComponents();
-        bloquearDesbloquearListas();
+        desbloquearListaTransportistas();
         empresasDisponiblesList.setEnabled(false);
         empresasSeleccionadasList.setEnabled(false);
         
@@ -66,7 +67,7 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
      * Método bloquearDesbloquearListas que tiene un Listener para detectar cuando se selecciona un residuo de la 
      * lista de residuos y desbloquea la lista de empresas disponibles 
      */
-    public void bloquearDesbloquearListas(){
+    public void desbloquearListaTransportistas(){
         residuosATransportarList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -85,19 +86,29 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
      *residuos que no cuentan con asignación de empresa y los agrega al modelo de residuos a transportar
      */
     public void inicializaListaResiduos() {
+        
         List<Especificacion_Residuos> listaResiduos = solicitudNegocio.obtenerListaEspecificacionesResiduos();
      
+        mostrarResiduosSinTransportista(listaResiduos);
+    }
+    
+    /**
+     * Método mostrarResiduosSinTransportistas que obtiene la lista de resiudos con su cantidad, para posteriormente 
+     * obtener una lista de los residuos sin empresa transportista asignada
+     * @param listaResiduos la lista de resiudos de donde se obtendrán los residuos sin empresa transportista
+     */
+    public void mostrarResiduosSinTransportista(List<Especificacion_Residuos> listaResiduos){
+        Especificacion_Residuos listaResiduosSinTransportista;
+        
         for(Especificacion_Residuos especificacion: listaResiduos){
+            
             if(this.solicitud.getId() == especificacion.getSolicitud().getId()){
                 if(especificacion.isAsignado() == false){
                     modelResiduosATransportar.addElement(especificacion);
                 }
-                
             }
-                
         }
     }
-    
     
     /**
      *Método inicializaListaEmpresasTransportistas que obtiene las empresas transportistas y las agrega al 
@@ -183,6 +194,13 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
     }
     
     
+    public boolean verificarEspecificacionResiduoSeleccionado(Especificacion_Residuos especificacion){
+        if(especificacion != null){
+            return true;
+        }
+        
+        return false;
+    }
     /**
      * Método mostrarError que recibe un mensaje, un tipo de error y el titulo del optionPane para mostrar
      * en pantalla
@@ -322,32 +340,33 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
         List<TransportistaModel> listaTransportistas = new ArrayList<>();
         DTOSolicitaTraslado dtoSolicitaTraslado = new DTOSolicitaTraslado();
         Util util = new Util();
+        
+        for (TransportistaModel transportista : obtenerListaDeTransportistas()) {
+            listaTransportistas.add(transportista);
+        }
         Especificacion_Residuos especificacion = residuosATransportarList.getSelectedValue();
         
-        if(especificacion != null){
+        if(verificarEspecificacionResiduoSeleccionado(especificacion)){
             
-            especificacion.setAsignado(true);
-            dtoSolicitaTraslado = util.convertirSolicitudTrasladoASolicitudTrasladoDTO(especificacion.getSolicitud());
-            dtoSolicitaTraslado.setTransportistas(obtenerListaDeTransportistas());
-            
-            if (isEspecificacionesResiduosAsignados() == true) {
-                dtoSolicitaTraslado.setAsignado(true);
-            }
+            if(listaTransportistas.isEmpty() == false){
+                
+                especificacion.setAsignado(true);
+                dtoSolicitaTraslado = util.convertirSolicitudTrasladoASolicitudTrasladoDTO(especificacion.getSolicitud());
+                dtoSolicitaTraslado.setTransportistas(obtenerListaDeTransportistas());
 
-            for (TransportistaModel transportista : obtenerListaDeTransportistas()) {
-                listaTransportistas.add(transportista);
-            }
-
-            if (listaTransportistas.isEmpty()) {
-                mostrarError("Debes de seleccionar almenos una empresa", "Error", "Error al asignar empresa");
-            } else {
-
+                if (isEspecificacionesResiduosAsignados() == true) {
+                    dtoSolicitaTraslado.setAsignado(true);
+                }
+                
                 solicitudNegocio.actualizar(dtoSolicitaTraslado, especificacion);
                 solicitudNegocio.repartirCantidad(listaTransportistas, especificacion);
 
                 JOptionPane.showMessageDialog(null, "Asignación Exitosa");
                 new PantallaInicial(this.usuarioActual).setVisible(true);
                 this.dispose();
+                
+            }else{
+                mostrarError("Debes de seleccionar almenos una empresa", "Error", "Error al asignar empresa");
             }
         }else{
             mostrarError("Debes de seleccionar un residuo de la lista", "Error", "Error al asignar empresa");
