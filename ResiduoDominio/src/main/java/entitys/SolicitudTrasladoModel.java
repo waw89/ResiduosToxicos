@@ -53,13 +53,7 @@ public class SolicitudTrasladoModel implements Serializable {
     @Column(name = "FechaTraslado")
     private Date fecha;
 
-    /**
-     *
-     */
-    @Basic
-    @Column(name = "CantidadRes")
-    private float cantidadRes;
-
+    
     /**
      *
      */
@@ -112,10 +106,9 @@ public class SolicitudTrasladoModel implements Serializable {
     public SolicitudTrasladoModel() {
     }
 
-    public SolicitudTrasladoModel(long id, LocalDate fecha, float cantidadRes, boolean asignado, List<ResiduoModel> listaResiduos, List<TransportistaModel> transportistas, ProductorModel prod) {
+    public SolicitudTrasladoModel(long id, LocalDate fecha, boolean asignado, List<ResiduoModel> listaResiduos, List<TransportistaModel> transportistas, ProductorModel prod) {
         this.id = id;
         this.fecha = Date.from(fecha.atStartOfDay(ZoneId.systemDefault()).toInstant());;
-        this.cantidadRes = cantidadRes;
         this.asignado = asignado;
         this.listaResiduos = listaResiduos;
         this.transportistas = transportistas;
@@ -130,13 +123,6 @@ public class SolicitudTrasladoModel implements Serializable {
         this.fecha = Date.from(fecha.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
-    public float getCantidadRes() {
-        return cantidadRes;
-    }
-
-    public void setCantidadRes(float cantidadRes) {
-        this.cantidadRes = cantidadRes;
-    }
 
     public boolean esAsignado() {
         return asignado;

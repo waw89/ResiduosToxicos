@@ -95,7 +95,6 @@ public class SolicitudTrasladoDAOImp implements ISolicitudTrasladoDAO {
 
             // Actualizar los campos de la entidad cargada con los valores del parámetro
             persistentSolicitud.setFecha(solicitudTrasladoModel.getFecha());
-            persistentSolicitud.setCantidadRes(solicitudTrasladoModel.getCantidadRes());
             persistentSolicitud.setAsignado(solicitudTrasladoModel.esAsignado());
             persistentSolicitud.setProd(solicitudTrasladoModel.getProd());
             // Actualizar la lista de residuos (puedes necesitar una lógica más compleja dependiendo de tus necesidades)

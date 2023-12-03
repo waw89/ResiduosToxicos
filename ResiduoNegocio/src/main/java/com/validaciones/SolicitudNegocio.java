@@ -4,7 +4,8 @@
  */
 package com.validaciones;
 
-import com.daos.Especificacion_ResiduosJpaController;
+import com.daos.EspecificacionResiduosDAOImp;
+import com.daos.IEspecificacionDAO;
 import com.daos.ISolicitudTrasladoDAO;
 import com.daos.SolicitudTrasladoDAOImp;
 import com.dto.DTOSolicitaTraslado;
@@ -26,7 +27,7 @@ import javax.swing.JOptionPane;
  */
 public class SolicitudNegocio {
 
-    Especificacion_ResiduosJpaController especificacionDAO = new Especificacion_ResiduosJpaController();
+    IEspecificacionDAO especificacionDAO = new EspecificacionResiduosDAOImp();
     Util util = new Util();
     ISolicitudTrasladoDAO sdao = new SolicitudTrasladoDAOImp();
     Solicitud_TransportistaJpaController soicitudTransportista_transportistaDAO = new Solicitud_TransportistaJpaController();

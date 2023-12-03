@@ -98,7 +98,6 @@ public class Util {
 
         solicitudTraslado.setAsignado(solicitudTrasladoDTO.isAsignado());
         solicitudTraslado.setFecha(solicitudTrasladoDTO.getFecha());
-        solicitudTraslado.setCantidadRes(solicitudTrasladoDTO.getCantidadRes());
         solicitudTraslado.setListaResiduos(solicitudTrasladoDTO.getResiduos());
         solicitudTraslado.setProd(solicitudTrasladoDTO.getProductor());
         solicitudTraslado.setTransportistas(solicitudTrasladoDTO.getTransportistas());
@@ -118,7 +117,6 @@ public class Util {
 
         solicitudTrasladoDTO.setAsignado(solicitud.esAsignado());
         solicitudTrasladoDTO.setFecha(solicitud.getFecha());
-        solicitudTrasladoDTO.setCantidadRes(solicitud.getCantidadRes());
         solicitudTrasladoDTO.setResiduos(solicitud.getListaResiduos());
         solicitudTrasladoDTO.setProductor(solicitud.getProd());
         solicitudTrasladoDTO.setTransportistas(solicitud.getTransportistas());

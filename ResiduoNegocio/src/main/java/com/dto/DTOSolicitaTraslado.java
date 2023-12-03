@@ -17,7 +17,6 @@ import java.util.List;
 public class DTOSolicitaTraslado {
 
     private LocalDate fecha;
-    private float cantidadRes;
     private List<ResiduoModel> residuos;
     private ProductorModel productor;
     private boolean asignado;
@@ -37,13 +36,7 @@ public class DTOSolicitaTraslado {
         this.fecha = fecha;
     }
 
-    public float getCantidadRes() {
-        return cantidadRes;
-    }
-
-    public void setCantidadRes(float cantidadRes) {
-        this.cantidadRes = cantidadRes;
-    }
+ 
 
     public List<ResiduoModel> getResiduos() {
         return residuos;

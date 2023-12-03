@@ -19,9 +19,9 @@ import javax.persistence.criteria.Root;
  *
  * @author PRIDE ANACONDA
  */
-public class Especificacion_ResiduosJpaController implements Serializable {
+public class EspecificacionResiduosDAOImp implements IEspecificacionDAO {
 
-    public Especificacion_ResiduosJpaController() {
+    public EspecificacionResiduosDAOImp() {
         
     }
     private EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
@@ -31,6 +31,7 @@ public class Especificacion_ResiduosJpaController implements Serializable {
     }
 
 
+    @Override
     public void edit(Especificacion_Residuos especificacion_Residuos) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -83,7 +84,7 @@ public class Especificacion_ResiduosJpaController implements Serializable {
         return findEspecificacion_ResiduosEntities(false, maxResults, firstResult);
     }
 
-    private List<Especificacion_Residuos> findEspecificacion_ResiduosEntities(boolean all, int maxResults, int firstResult) {
+    public List<Especificacion_Residuos> findEspecificacion_ResiduosEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();

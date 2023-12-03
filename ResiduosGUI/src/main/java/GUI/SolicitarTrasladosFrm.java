@@ -295,7 +295,6 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
                     DTOSolicitaTraslado dtoSolicitaTraslado = new DTOSolicitaTraslado();
                     dtoSolicitaTraslado.setAsignado(false);
                     dtoSolicitaTraslado.setFecha(this.calendario.getSelectedDate());
-                    dtoSolicitaTraslado.setCantidadRes(Float.parseFloat(this.txtCantidad.getText()));
                     dtoSolicitaTraslado.setResiduos(obtenerListaDeResiduos());
                     dtoSolicitaTraslado.setProductor((ProductorModel) this.usuarioActual);
                     
