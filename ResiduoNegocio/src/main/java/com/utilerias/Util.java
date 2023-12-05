@@ -168,12 +168,13 @@ public class Util {
     }
     
  public TrasladoModel ConvertirDTOTrasladoATraslado(DTORegistraTraslado dtoRegistraTraslado) {
-        VehiculoNegocio vehiculoNegocio = new VehiculoNegocio();
+        VehiculoNegocio vn = new VehiculoNegocio();
+        
      TrasladoModel traslado = new TrasladoModel();
      traslado.setCostoTotal(dtoRegistraTraslado.getCosto());
      traslado.setFechaLlegada(dtoRegistraTraslado.getFecha());
      traslado.setKmTotales(dtoRegistraTraslado.getKms());
-     traslado.setVehiculos(vehiculoNegocio.getListaVehiculos());
+     traslado.setVehiculos(vn.convertirVehiculos(dtoRegistraTraslado.getIdsVehiculos()));
      traslado.setSolicitudTraslado(dtoRegistraTraslado.getSolicitud());
      traslado.setTipoTraslado(dtoRegistraTraslado.getTipo());
      traslado.setTratamiento(dtoRegistraTraslado.getTratamiento());

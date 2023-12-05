@@ -74,13 +74,14 @@ public class VehiculoNegocio {
         return iVehiculo.obtenerVehiculosPorTransportista(id);
     }
 
-    public void convertirVehiculos(List<Long> idVehiculos) {
+    public List<VehiculoModel>convertirVehiculos(List<Long> idVehiculos) {
         List<VehiculoModel> listaVehiculos = new ArrayList<>();
         for (Long idVehiculo : idVehiculos) {
             listaVehiculos.add(iVehiculo.findVehiculoModel(idVehiculo));
         }
         
-        this.listaVehiculos = listaVehiculos;       
+        this.listaVehiculos = listaVehiculos;  
+        return listaVehiculos;
     }
 
     public List<VehiculoModel> getListaVehiculos() {

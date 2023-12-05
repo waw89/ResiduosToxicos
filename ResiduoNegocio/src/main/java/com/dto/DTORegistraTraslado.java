@@ -85,6 +85,14 @@ public class DTORegistraTraslado {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    @Override
+    public String toString() {
+        return "DTORegistraTraslado{" + "idsVehiculos=" + idsVehiculos + '}';
+    }
+    
+    
+    
     
     
     

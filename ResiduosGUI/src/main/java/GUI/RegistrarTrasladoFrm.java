@@ -169,9 +169,11 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
 
 
     private void btnRegistrarTrasladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTrasladoActionPerformed
+        List<VehiculoModel> vehiculos = new ArrayList<>();
         JOptionPane.showMessageDialog(null, "Registro Exitoso");
         new PantallaInicial(this.usuarioActual).setVisible(true);
         this.dispose();
+        vn.convertirVehiculos(obtieneIdsVehiculos());
         DTORegistraTraslado DTORegistraTraslado = new DTORegistraTraslado();
         DTORegistraTraslado.setCosto(Float.parseFloat(this.txtCosto.getText()));
         DTORegistraTraslado.setKms(Float.parseFloat(this.txtKm.getText()));
@@ -186,9 +188,9 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
             DTORegistraTraslado.setTipo("Simple");
         }
         
-        vn.convertirVehiculos(obtieneIdsVehiculos());
-        tn.guardar(DTORegistraTraslado);
         
+        
+        tn.guardar(DTORegistraTraslado);
         
     }//GEN-LAST:event_btnRegistrarTrasladoActionPerformed
 
