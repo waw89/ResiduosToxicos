@@ -7,6 +7,7 @@ package GUI;
 
 import entitys.ProductorModel;
 import entitys.UsuarioModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -52,7 +53,7 @@ public class PantallaInicial extends javax.swing.JFrame {
 
         if (usuario.getTipo().equalsIgnoreCase("Productor")) {
             label.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
-            label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Productor - Residuos Tóxicos.png")));
+            label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Productor.png")));
             panel.add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 720, 480));
             btnRegistraRes.setContentAreaFilled(false);
             btnRegistraRes.addActionListener(new java.awt.event.ActionListener() {
@@ -70,7 +71,7 @@ public class PantallaInicial extends javax.swing.JFrame {
             panel.add(btnSolicitaTras, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 270, 200, 50));
 
         } else if (usuario.getTipo().equalsIgnoreCase("administrador")) {
-            label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Administrador - Residuos Toxicos.png"))); // NOI18N
+            label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Admin.png"))); // NOI18N
             panel.add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 720, 480));
             btnVerSolicitudes.setContentAreaFilled(false);
             btnVerSolicitudes.addActionListener(new java.awt.event.ActionListener() {
@@ -80,7 +81,7 @@ public class PantallaInicial extends javax.swing.JFrame {
             });
             panel.add(btnVerSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 200, 40));
         } else if (usuario.getTipo().equalsIgnoreCase("transportista")) {
-            label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Empresas- Residuos Tóxicos.png")));
+            label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Empresa.png")));
             panel.add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 720, 480));
             btnRegistrarTras.setContentAreaFilled(false);
             btnRegistrarTras.addActionListener(new java.awt.event.ActionListener() {
@@ -101,23 +102,50 @@ public class PantallaInicial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        logOut = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+
+        logOut.setBorder(null);
+        logOut.setContentAreaFilled(false);
+        logOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(logOut, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(666, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(logOut, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(434, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
+       
+       
+       int opcion = JOptionPane.showConfirmDialog(null, "¿Desea cerrar su sesión?", "Log Out", JOptionPane.YES_NO_OPTION);
+       
+       if(opcion == JOptionPane.YES_OPTION){
+       this.dispose();
+       new IniciarSesionFrm().setVisible(true);
+       }
+    }//GEN-LAST:event_logOutActionPerformed
     private void btnRegistraResActionPerformed(java.awt.event.ActionEvent evt) {
         
         new RegistraResiduosFrm(usuario).setVisible(true);
@@ -141,5 +169,6 @@ public class PantallaInicial extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton logOut;
     // End of variables declaration//GEN-END:variables
 }

@@ -47,8 +47,11 @@ public class IniciarSesionFrm extends javax.swing.JFrame {
         setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtContrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.add(txtContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 290, 180, -1));
 
+        btnIniciarSesion.setBorder(null);
         btnIniciarSesion.setContentAreaFilled(false);
         btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,6 +59,8 @@ public class IniciarSesionFrm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 380, 180, 40));
+
+        txtUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 180, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla Iniciar Sesion - Residuos Tóxicos.png"))); // NOI18N
