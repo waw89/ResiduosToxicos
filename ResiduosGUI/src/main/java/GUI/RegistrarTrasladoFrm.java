@@ -6,14 +6,18 @@
 package GUI;
 
 import com.dto.DTORegistraTraslado;
+import com.github.lgooddatepicker.components.DatePicker;
 import com.validaciones.TrasladoNegocio;
 import com.validaciones.VehiculoNegocio;
 import entitys.SolicitudTrasladoModel;
 import entitys.UsuarioModel;
 import entitys.VehiculoModel;
+import java.awt.Color;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -169,28 +173,52 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
 
 
     private void btnRegistrarTrasladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTrasladoActionPerformed
-        List<VehiculoModel> vehiculos = new ArrayList<>();
-        JOptionPane.showMessageDialog(null, "Registro Exitoso");
-        new PantallaInicial(this.usuarioActual).setVisible(true);
-        this.dispose();
-        vn.convertirVehiculos(obtieneIdsVehiculos());
-        DTORegistraTraslado DTORegistraTraslado = new DTORegistraTraslado();
-        DTORegistraTraslado.setCosto(Float.parseFloat(this.txtCosto.getText()));
-        DTORegistraTraslado.setKms(Float.parseFloat(this.txtKm.getText()));
-        DTORegistraTraslado.setTratamiento(this.txtTratamiento.getText());
-        DTORegistraTraslado.setidsVehiculos(obtieneIdsVehiculos());
-        DTORegistraTraslado.setFecha(this.fechaLlegadaPicker.getDate());
-        DTORegistraTraslado.setSolicitud(this.solicitudActual);
+            
+            if(valVehiculo()==true){
+                mostrarError("Seleccione vehiculo para el traslado", "Error", "Error al Seleccionar");
+            }else if(valKm()==true){
+                mostrarError("Ingresar cantidad de Kilometros", "Error", "Error al registrar");
+                txtKm.setBackground(Color.pink);
+            }else if(valFecha()==true){
+                mostrarError("Ingresar Fecha correcta", "Error", "Error al registrar");
+                fechaLlegadaPicker.setBackground(Color.pink);
+            }else if(fechaLlegadaPicker.getDate().isBefore(LocalDate.now())){
+                mostrarError("La fecha no puede ser anterior a la actual", "Error", "Error al registrar");
+                fechaLlegadaPicker.setBackground(Color.pink);
+                fechaLlegadaPicker.setDate(null);
+            }else if(valCosto()==true){
+                mostrarError("Ingresar Costo del Traslado", "Error", "Error al registrar");
+                txtCosto.setBackground(Color.pink);
+            }else if(valTrat()==true){
+                mostrarError("Ingresar Tratamiento del Traslado", "Error", "Error al registrar");
+                txtTratamiento.setBackground(Color.pink);
+            } else {
+                List<VehiculoModel> vehiculos = new ArrayList<>();
+                JOptionPane.showMessageDialog(null, "Registro Exitoso");
+                new PantallaInicial(this.usuarioActual).setVisible(true);
+                this.dispose();
+                vn.convertirVehiculos(obtieneIdsVehiculos());
+                DTORegistraTraslado DTORegistraTraslado = new DTORegistraTraslado();
+                DTORegistraTraslado.setCosto(Float.parseFloat(this.txtCosto.getText()));
+                DTORegistraTraslado.setKms(Float.parseFloat(this.txtKm.getText()));
+                DTORegistraTraslado.setTratamiento(this.txtTratamiento.getText());
+                DTORegistraTraslado.setidsVehiculos(obtieneIdsVehiculos());
+                DTORegistraTraslado.setFecha(this.fechaLlegadaPicker.getDate());
+                DTORegistraTraslado.setSolicitud(this.solicitudActual);
+
+                if(obtieneIdsVehiculos().size() > 1){
+                    DTORegistraTraslado.setTipo("Por Partes");
+                }else{
+                    DTORegistraTraslado.setTipo("Simple");
+                }
+
+                tn.guardar(DTORegistraTraslado);
+            }
         
-        if(obtieneIdsVehiculos().size() > 1){
-            DTORegistraTraslado.setTipo("Por Partes");
-        }else{
-            DTORegistraTraslado.setTipo("Simple");
-        }
         
         
         
-        tn.guardar(DTORegistraTraslado);
+        
         
     }//GEN-LAST:event_btnRegistrarTrasladoActionPerformed
 
@@ -227,4 +255,37 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
     private javax.swing.JTextField txtKm;
     private javax.swing.JTextArea txtTratamiento;
     // End of variables declaration//GEN-END:variables
+ 
+    public boolean valVehiculo(){
+        return tableModelVehiculos.getRowCount()>0;
+    }
+    
+    public boolean valKm(){
+        return txtKm.getText().isEmpty();
+    }
+    
+    public boolean valFecha(){
+        return fechaLlegadaPicker.getDate()==null;
+    }
+    
+    public boolean valCosto(){
+        return txtCosto.getText().isEmpty();
+    }
+    
+    public boolean valTrat(){
+        return txtTratamiento.getText().isEmpty();
+    }
+    
+    public void mostrarError(String mensaje, String tipo, String titulo) {
+        JOptionPane optionPane = new JOptionPane(mensaje);
+        if (tipo.equals("Info")) {
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        } else if (tipo.equals("Error")) {
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+        JDialog dialog = optionPane.createDialog(titulo);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+    }
+    
 }
