@@ -10,12 +10,13 @@ import entitys.UsuarioModel;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Frame para el inicio de sesión del sistema
  * @author xfs85
  */
 public class IniciarSesionFrm extends javax.swing.JFrame {
     UsuarioNegocio usuarioNeg = new UsuarioNegocio();
     VehiculoNegocio vehiculoNeg = new VehiculoNegocio();
+    
     /**
      * Creates new form IniciarSesionFrm
      */
@@ -80,7 +81,11 @@ public class IniciarSesionFrm extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Metodo Action Performed para el botón "Iniciar Sesión"
+     *
+     * @param evt
+     */
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
           

@@ -19,15 +19,12 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
+ * Frame para el caso de uso "Registrar residuo"
  *
  * @author xfs85
  */
 public class RegistraResiduosFrm extends javax.swing.JFrame {
 
-    /**
-     * Creates new form RegistraResiduosFrm
-     *
-     */
     DefaultListModel<String> modelDisponibles = new DefaultListModel<>();
     DefaultListModel<String> modelSeleccionados = new DefaultListModel<>();
     QuimicoNegocio qn = new QuimicoNegocio();
@@ -35,6 +32,10 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     UsuarioModel usuarioActual;
     ResiduoNegocio residuoNeg = new ResiduoNegocio();
 
+    /**
+     * Creates new form RegistraResiduosFrm
+     *
+     */
     public RegistraResiduosFrm(UsuarioModel usuario) {
         initComponents();
         this.labelCaracteres.setVisible(false);
@@ -47,6 +48,9 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         this.setTitle("Registrar Residuos");
     }
 
+    /**
+     * Metodo que inicializa y muestra la lista de quimicos
+     */
     public void inicializaLista() {
 
         List<QuimicoModel> listaQuimicos = qn.llenaListaQuimicos();
@@ -56,6 +60,11 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo que verifica el formato del codigo del residuo
+     *
+     * @return true/false
+     */
     public boolean verificaFormatoCodigo() {
         String codigo = txtCodigo.getText();
 
@@ -67,6 +76,11 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         return false;
     }
 
+    /**
+     * Metodo que valida que no existan formatos vacíos
+     *
+     * @return true/false
+     */
     public boolean verificaFormatosVacios() {
         if (txtNombre.getText().isBlank()) {
             mostrarError("Nombre vacío, ingrese uno", "Error", "Error al registrar");
@@ -75,6 +89,11 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         return true;
     }
 
+    /**
+     * Metodo que verifica que se hayan seleccionado al menos 2 quimicos
+     *
+     * @return
+     */
     public boolean verificaSeleccionados() {
         int cantidadSeleccionada = modelSeleccionados.size();
 
@@ -86,6 +105,11 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         return true;
     }
 
+    /**
+     * Metodo que obtiene los quimicos de la lista de quimicos seleccionados
+     *
+     * @return
+     */
     public List<QuimicoModel> obtenerListaDeQuimicos() {
         List<QuimicoModel> quimicosSeleccionados = new ArrayList<>();
         for (int i = 0; i < modelSeleccionados.size(); i++) {
@@ -215,6 +239,11 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Metodo Action Performed para el botón "Agregar"
+     *
+     * @param evt
+     */
     private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBtnActionPerformed
         // TODO add your handling code here:
         if (quimicosDisponiblesList.getSelectedIndex() != -1) {
@@ -226,7 +255,11 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
             mostrarError("No seleccionó ningun quimico", "Error", "Error al Agregar");
         }
     }//GEN-LAST:event_agregarBtnActionPerformed
-
+    /**
+     * Metodo Action Performed para el botón "Eliminar"
+     *
+     * @param evt
+     */
     private void eliminarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarBtnActionPerformed
         // TODO add your handling code here:
         if (quimicosReservadosList.getSelectedIndex() != -1) {
@@ -238,7 +271,11 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
             mostrarError("No seleccionó ningun quimico", "Error", "Error al Eliminar");
         }
     }//GEN-LAST:event_eliminarBtnActionPerformed
-
+    /**
+     * Metodo Action Performed para el botón "Registrar"
+     *
+     * @param evt
+     */
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         if (verificaFormatoCodigo() == true) {
 
@@ -265,7 +302,12 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
-
+    /**
+     * Metodo que valida que un residuo no sea existente
+     *
+     * @param dtoRegistrarResiduo
+     * @return
+     */
     private boolean validaResiduoNoExistente(DTORegistraResiduo dtoRegistrarResiduo) {
 
         return residuoNeg.validaResiduoNoExistente(dtoRegistrarResiduo);
@@ -277,12 +319,17 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    /**
+     * Metodo que valida que solo se escriban 6 caracteres en el codigo
+     *
+     * @param evt
+     */
     private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
         // TODO add your handling code here:
         if (txtCodigo.getText().length() == 6) {
             evt.consume();
             this.labelCaracteres.setVisible(true);
-        }else{
+        } else {
             this.labelCaracteres.setVisible(false);
         }
     }//GEN-LAST:event_txtCodigoKeyTyped
@@ -290,22 +337,41 @@ public class RegistraResiduosFrm extends javax.swing.JFrame {
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoActionPerformed
+    /**
+     * Metodo que elimina quimico de la lista de disponibles
+     */
     public void eliminaDeListaDisponibles() {
         modelDisponibles.removeElementAt(quimicosDisponiblesList.getSelectedIndex());
     }
 
+    /**
+     * Metodo que agrega quimico a la lista de disponibles
+     */
     public void agregaAListaDisponibles() {
         modelDisponibles.addElement(quimicosReservadosList.getSelectedValue());
     }
 
+    /**
+     * Metodo que elimina quimico de la lista de seleccionados
+     */
     public void eliminaDeListaSeleccionados() {
         modelSeleccionados.removeElementAt(quimicosReservadosList.getSelectedIndex());
     }
 
+    /**
+     * Metodo que agrega quimico a lista de seleccionados
+     */
     public void agregaAListaSeleccionados() {
         modelSeleccionados.addElement(quimicosDisponiblesList.getSelectedValue());
     }
 
+    /**
+     * Metodo que genera un mensaje de error
+     *
+     * @param mensaje
+     * @param tipo
+     * @param titulo
+     */
     public void mostrarError(String mensaje, String tipo, String titulo) {
         JOptionPane optionPane = new JOptionPane(mensaje);
         if (tipo.equals("Info")) {

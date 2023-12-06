@@ -4,20 +4,17 @@
  */
 package GUI;
 
-
 import entitys.ProductorModel;
 import entitys.UsuarioModel;
 import javax.swing.JOptionPane;
 
 /**
+ * Frame de la pantalla inicial del sistema
  *
  * @author xfs85
  */
 public class PantallaInicial extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PantallaInicial
-     */
     private javax.swing.JLabel label;
     private javax.swing.JButton btnRegistraRes;
     private javax.swing.JButton btnSolicitaTras;
@@ -26,7 +23,9 @@ public class PantallaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrarTras;
     UsuarioModel usuario;
 
-   
+    /**
+     * Creates new form PantallaInicial
+     */
     public PantallaInicial(UsuarioModel usuario) {
         this.usuario = usuario;
         initComponents();
@@ -34,18 +33,18 @@ public class PantallaInicial extends javax.swing.JFrame {
         label = new javax.swing.JLabel();
         btnRegistraRes = new javax.swing.JButton();
         btnSolicitaTras = new javax.swing.JButton();
-        btnVerSolicitudes = new javax.swing.JButton(); 
+        btnVerSolicitudes = new javax.swing.JButton();
         btnRegistrarTras = new javax.swing.JButton();
         panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
         );
 
         pack();
@@ -77,7 +76,7 @@ public class PantallaInicial extends javax.swing.JFrame {
             btnVerSolicitudes.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnVerSolicitudesActionPerformed(evt);
-                }  
+                }
             });
             panel.add(btnVerSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 200, 40));
         } else if (usuario.getTipo().equalsIgnoreCase("transportista")) {
@@ -87,7 +86,7 @@ public class PantallaInicial extends javax.swing.JFrame {
             btnRegistrarTras.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnRegistrarTrasActionPerformed(evt);
-                }  
+                }
             });
             panel.add(btnRegistrarTras, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 200, 40));
         }
@@ -135,37 +134,60 @@ public class PantallaInicial extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Metodo Action Performed para el botón "LogOut"
+     *
+     * @param evt
+     */
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
-       
-       
-       int opcion = JOptionPane.showConfirmDialog(null, "¿Desea cerrar su sesión?", "Log Out", JOptionPane.YES_NO_OPTION);
-       
-       if(opcion == JOptionPane.YES_OPTION){
-       this.dispose();
-       new IniciarSesionFrm().setVisible(true);
-       }
+
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea cerrar su sesión?", "Log Out", JOptionPane.YES_NO_OPTION);
+
+        if (opcion == JOptionPane.YES_OPTION) {
+            this.dispose();
+            new IniciarSesionFrm().setVisible(true);
+        }
     }//GEN-LAST:event_logOutActionPerformed
+    /**
+     * Metodo Action Performed para el botón "Registrar Residuo"
+     *
+     * @param evt
+     */
     private void btnRegistraResActionPerformed(java.awt.event.ActionEvent evt) {
-        
+
         new RegistraResiduosFrm(usuario).setVisible(true);
         this.dispose();
     }
 
+    /**
+     * Metodo Action Performed para el botón "Solicitar Traslado"
+     *
+     * @param evt
+     */
     private void btnSolicitaTrasActionPerformed(java.awt.event.ActionEvent evt) {
         new SolicitarTrasladosFrm(usuario).setVisible(true);
         this.dispose();
     }
-    
-     private void btnVerSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {
-         new SolicitudesSinAsignarFrm(usuario).setVisible(true);
-         this.dispose();
-     }
-     
-     private void btnRegistrarTrasActionPerformed(java.awt.event.ActionEvent evt) {
-         new SolicitudesAsignadasFrm(usuario).setVisible(true);
-         this.dispose();
-     }
+
+    /**
+     * Metodo Action Performed para el botón "Ver solicitudes"
+     *
+     * @param evt
+     */
+    private void btnVerSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {
+        new SolicitudesSinAsignarFrm(usuario).setVisible(true);
+        this.dispose();
+    }
+
+    /**
+     * Metodo Action Performed para el botón "Registrar traslado"
+     *
+     * @param evt
+     */
+    private void btnRegistrarTrasActionPerformed(java.awt.event.ActionEvent evt) {
+        new SolicitudesAsignadasFrm(usuario).setVisible(true);
+        this.dispose();
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

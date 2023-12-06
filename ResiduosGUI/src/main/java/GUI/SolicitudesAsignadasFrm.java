@@ -9,9 +9,11 @@ import entitys.SolicitudTrasladoModel;
 import entitys.UsuarioModel;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
+ * Frame que representa la pantalla donde se ven las solicitudes
  *
  * @author xfs85
  */
@@ -23,23 +25,43 @@ public class SolicitudesAsignadasFrm extends javax.swing.JFrame {
     UsuarioModel usuarioActual;
     SolicitudNegocio sn = new SolicitudNegocio();
     DefaultListModel<SolicitudTrasladoModel> modelSolicitudesAsignadas = new DefaultListModel();
+
     public SolicitudesAsignadasFrm(UsuarioModel usuario) {
-         initComponents();
+        initComponents();
         this.usuarioActual = usuario;
         solicitudesAsignadasList.setModel(modelSolicitudesAsignadas);
-        inicializaListaResiduos();
-       
+        inicializaListaSolicitudes();
+
     }
-    
-    public void inicializaListaResiduos() {
-        
+
+    /**
+     * Metodo que inicializa la lista de solicitudes asignadas
+     */
+    public void inicializaListaSolicitudes() {
+
         List<SolicitudTrasladoModel> listaSolicitudes = sn.obtenerSolicitudes();
-        
-        for(SolicitudTrasladoModel solicitud: listaSolicitudes){
-            if(solicitud.esAsignado() == true){
+
+        for (SolicitudTrasladoModel solicitud : listaSolicitudes) {
+            if (solicitud.esAsignado() == true) {
                 modelSolicitudesAsignadas.addElement(solicitud);
             }
         }
+    }
+
+    /**
+     * Metodo que verifica que se haya seleccionado una solicitud
+     *
+     * @return
+     */
+    public boolean verificarSeleccion() {
+        int solicitud = solicitudesAsignadasList.getSelectedIndex();
+
+        if (solicitud < 0) {
+            mostrarError("Debe seleccionar una solicitud", "Error", "Error al seleccionar solicitud");
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -102,20 +124,44 @@ public class SolicitudesAsignadasFrm extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Metodo action performed para el botón "Registrar"
+     *
+     * @param evt
+     */
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-      SolicitudTrasladoModel solicitud = solicitudesAsignadasList.getSelectedValue();  
-      new RegistrarTrasladoFrm(this.usuarioActual, solicitud).setVisible(true);
-      this.dispose();
+        if(verificarSeleccion()){
+        SolicitudTrasladoModel solicitud = solicitudesAsignadasList.getSelectedValue();
+        new RegistrarTrasladoFrm(this.usuarioActual, solicitud).setVisible(true);
+        this.dispose();
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
-
+    /**
+     * Metodo action performed para el botón "Volver"
+     *
+     * @param evt
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-       new PantallaInicial(this.usuarioActual).setVisible(true);
-      this.dispose(); 
+        new PantallaInicial(this.usuarioActual).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
-
-   
-
+/**
+ * Metodo que genera un mensaje de error
+ * @param mensaje
+ * @param tipo
+ * @param titulo 
+ */
+    public void mostrarError(String mensaje, String tipo, String titulo) {
+        JOptionPane optionPane = new JOptionPane(mensaje);
+        if (tipo.equals("Info")) {
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        } else if (tipo.equals("Error")) {
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+        JDialog dialog = optionPane.createDialog(titulo);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnVolver;

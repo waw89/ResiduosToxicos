@@ -19,7 +19,10 @@ import java.util.List;
 import com.validaciones.UsuarioNegocio;
 
 
-
+/**
+ * Clase main del proyecto
+ * @author xfs85
+ */
 
 public class Main {
 
@@ -37,7 +40,6 @@ public class Main {
                
                
                new IniciarSesionFrm().setVisible(true);
-//               new SolicitudesSinAsignarFrm(usuario).setVisible(true);
       
             }
         });

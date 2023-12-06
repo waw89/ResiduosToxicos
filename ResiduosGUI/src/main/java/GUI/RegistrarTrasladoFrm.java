@@ -24,14 +24,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 /**
+ * Frame que representa el caso de uso "Registrar traslado"
  *
  * @author xfs85
  */
 public class RegistrarTrasladoFrm extends javax.swing.JFrame {
 
-    /**
-     * Creates new form RegistrarTraslado
-     */
     UsuarioModel usuarioActual;
     SolicitudTrasladoModel solicitudActual;
     VehiculoNegocio vn = new VehiculoNegocio();
@@ -39,6 +37,9 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
     TrasladoNegocio tn = new TrasladoNegocio();
     private javax.swing.JCheckBox JCheckBox;
 
+    /**
+     * Creates new form RegistrarTraslado
+     */
     public RegistrarTrasladoFrm(UsuarioModel usuario, SolicitudTrasladoModel solicitud) {
         this.usuarioActual = usuario;
         this.solicitudActual = solicitud;
@@ -145,6 +146,9 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Metodo que carga los vehiculos y los muestra en una tabla
+     */
     private void cargarVehiculos() {
         List<VehiculoModel> vehiculos = vn.obtenerVehiculos(this.usuarioActual.getId());
         tableModelVehiculos.setRowCount(0);
@@ -165,16 +169,26 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Metodo que añade checkboxes a la tabla de vehiculos
+     *
+     * @param column
+     * @param table
+     */
     public void addCheckbox(int column, JTable table) {
         TableColumn tc = table.getColumnModel().getColumn(column);
         tc.setCellEditor(table.getDefaultEditor(Boolean.class));
         tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
     }
 
-
+    /**
+     * Metodo action performed para el botón "Registrar"
+     *
+     * @param evt
+     */
     private void btnRegistrarTrasladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTrasladoActionPerformed
 
-        if (verificaSeleccion() == true) {   
+        if (verificaSeleccion() == true) {
         } else if (verificaFormatoKM() == true) {
             txtKm.setBackground(Color.pink);
         } else if (verificaFecha() == true) {
@@ -208,7 +222,11 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnRegistrarTrasladoActionPerformed
-
+    /**
+     * Metodo que obtiene el id de los vehiculos
+     *
+     * @return
+     */
     public List<Long> obtieneIdsVehiculos() {
 
         int i = tableModelVehiculos.getRowCount();
@@ -219,13 +237,17 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
             }
 
         }
-        if(idsVehiculos.isEmpty()){
+        if (idsVehiculos.isEmpty()) {
             return null;
         }
         return idsVehiculos;
     }
 
-
+    /**
+     * Metodo action performed para el botón "Volver"
+     *
+     * @param evt
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         new SolicitudesAsignadasFrm(this.usuarioActual).setVisible(true);
         this.dispose();
@@ -247,14 +269,24 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
     private javax.swing.JTextArea txtTratamiento;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Metodo que verifica que se haya seleccionado al menos un vehiculo
+     *
+     * @return
+     */
     public boolean verificaSeleccion() {
-        if(obtieneIdsVehiculos() == null){
+        if (obtieneIdsVehiculos() == null) {
             mostrarError("Seleccione vehiculo para el traslado", "Error", "Error al Seleccionar");
             return true;
         }
-        return false;    
+        return false;
     }
 
+    /**
+     * Metodo que verifica el formato de los kilometros
+     *
+     * @return
+     */
     public boolean verificaFormatoKM() {
         String km = txtKm.getText();
         if (km.isEmpty()) {
@@ -276,12 +308,17 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
         return false;
     }
 
+    /**
+     * Metodo que verifica la fecha del traslado
+     *
+     * @return
+     */
     public boolean verificaFecha() {
 
         if (fechaLlegadaPicker.getDate() == null) {
             mostrarError("Ingresar Fecha del Traslado", "Error", "Error al registrar");
             return true;
-        }else if (fechaLlegadaPicker.getDate().isBefore(LocalDate.now())) {
+        } else if (fechaLlegadaPicker.getDate().isBefore(LocalDate.now())) {
             mostrarError("Ingrese un fecha valida", "Error", "Error al registrar");
             fechaLlegadaPicker.setBackground(Color.pink);
             fechaLlegadaPicker.setDate(null);
@@ -290,6 +327,11 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
         return false;
     }
 
+    /**
+     * Metodo que verifica el formato del costo
+     *
+     * @return
+     */
     public boolean verificaFormatoCosto() {
         String costo = txtCosto.getText();
         if (costo.isEmpty()) {
@@ -311,14 +353,26 @@ public class RegistrarTrasladoFrm extends javax.swing.JFrame {
         return false;
     }
 
+    /**
+     * Metodo que verifica el formato del tratamiento
+     *
+     * @return
+     */
     public boolean verificaTratamiento() {
-        if(txtTratamiento.getText().isEmpty()){
+        if (txtTratamiento.getText().isEmpty()) {
             mostrarError("Ingresar Tratamiento del Traslado", "Error", "Error al registrar");
             return true;
         }
         return false;
     }
 
+    /**
+     * Metodo que genera un mensaje de error
+     *
+     * @param mensaje
+     * @param tipo
+     * @param titulo
+     */
     public void mostrarError(String mensaje, String tipo, String titulo) {
         JOptionPane optionPane = new JOptionPane(mensaje);
         if (tipo.equals("Info")) {

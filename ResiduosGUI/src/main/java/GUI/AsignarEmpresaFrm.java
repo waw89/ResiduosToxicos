@@ -22,6 +22,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 /**
+ * Clase Frame para el caso de uso "Asignar empresa"
  *
  * @author xfs85
  */
@@ -34,11 +35,11 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
     UsuarioModel usuarioActual;
     SolicitudTrasladoModel solicitud;
     TransportistaNegocio transportistaNegocio = new TransportistaNegocio();
-    SolicitudNegocio  solicitudNegocio = new SolicitudNegocio();
-    
-    
+    SolicitudNegocio solicitudNegocio = new SolicitudNegocio();
+
     /**
      * Creates new form AsignarEmpresaFrm
+     *
      * @param usuario
      * @param solicitud
      */
@@ -47,27 +48,27 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
         desbloquearListaTransportistas();
         empresasDisponiblesList.setEnabled(false);
         empresasSeleccionadasList.setEnabled(false);
-        
+
         this.usuarioActual = usuario;
         this.solicitud = solicitud;
-        
+
         residuosATransportarList.setModel(modelResiduosATransportar);
         empresasDisponiblesList.setModel(modelEmpresasDisponibles);
         empresasSeleccionadasList.setModel(modelEmpresasSeleccionadas);
         inicializaListaResiduos();
         inicializaListaEmpresasTransportistas();
-        
+
         labelProductor.setText(solicitud.getProd().getUsuario());
         labelFecha.setText(String.valueOf(solicitud.getFecha()));
-      
+
     }
-    
-    
+
     /**
-     * Método bloquearDesbloquearListas que tiene un Listener para detectar cuando se selecciona un residuo de la 
-     * lista de residuos y desbloquea la lista de empresas disponibles 
+     * Método bloquearDesbloquearListas que tiene un Listener para detectar
+     * cuando se selecciona un residuo de la lista de residuos y desbloquea la
+     * lista de empresas disponibles
      */
-    public void desbloquearListaTransportistas(){
+    public void desbloquearListaTransportistas() {
         residuosATransportarList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -79,53 +80,56 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
             }
         });
     }
-    
-    
+
     /**
-     *Método inicializaListaResiduos que obtiene los residuos de la solicitud de traslado, selecciona los
-     *residuos que no cuentan con asignación de empresa y los agrega al modelo de residuos a transportar
+     * Método inicializaListaResiduos que obtiene los residuos de la solicitud
+     * de traslado, selecciona los residuos que no cuentan con asignación de
+     * empresa y los agrega al modelo de residuos a transportar
      */
     public void inicializaListaResiduos() {
-        
+
         List<Especificacion_Residuos> listaResiduos = solicitudNegocio.obtenerListaEspecificacionesResiduos();
-     
+
         mostrarResiduosSinTransportista(listaResiduos);
     }
-    
+
     /**
-     * Método mostrarResiduosSinTransportistas que obtiene la lista de resiudos con su cantidad, para posteriormente 
-     * obtener una lista de los residuos sin empresa transportista asignada
-     * @param listaResiduos la lista de resiudos de donde se obtendrán los residuos sin empresa transportista
+     * Método mostrarResiduosSinTransportistas que obtiene la lista de resiudos
+     * con su cantidad, para posteriormente obtener una lista de los residuos
+     * sin empresa transportista asignada
+     *
+     * @param listaResiduos la lista de resiudos de donde se obtendrán los
+     * residuos sin empresa transportista
      */
-    public void mostrarResiduosSinTransportista(List<Especificacion_Residuos> listaResiduos){
+    public void mostrarResiduosSinTransportista(List<Especificacion_Residuos> listaResiduos) {
         Especificacion_Residuos listaResiduosSinTransportista;
-        
-        for(Especificacion_Residuos especificacion: listaResiduos){
-            
-            if(this.solicitud.getId() == especificacion.getSolicitud().getId()){
-                if(especificacion.isAsignado() == false){
+
+        for (Especificacion_Residuos especificacion : listaResiduos) {
+
+            if (this.solicitud.getId() == especificacion.getSolicitud().getId()) {
+                if (especificacion.isAsignado() == false) {
                     modelResiduosATransportar.addElement(especificacion);
                 }
             }
         }
     }
-    
+
     /**
-     *Método inicializaListaEmpresasTransportistas que obtiene las empresas transportistas y las agrega al 
-     *modelo de empresas disponibles
+     * Método inicializaListaEmpresasTransportistas que obtiene las empresas
+     * transportistas y las agrega al modelo de empresas disponibles
      */
-    public void inicializaListaEmpresasTransportistas(){
+    public void inicializaListaEmpresasTransportistas() {
         List<TransportistaModel> listaTransportistas = transportistaNegocio.obtenerTransportistas();
-        
-        for(TransportistaModel transportista: listaTransportistas){
+
+        for (TransportistaModel transportista : listaTransportistas) {
             modelEmpresasDisponibles.addElement(transportista);
         }
     }
 
-    
     /**
-     * Método obtenerListaDeTransportistas que obtiene las empresas seleccionadas de la JList
-     * para asignarlas 
+     * Método obtenerListaDeTransportistas que obtiene las empresas
+     * seleccionadas de la JList para asignarlas
+     *
      * @return la lista de empresas transportistas seleccionadas
      */
     public List<TransportistaModel> obtenerListaDeTransportistas() {
@@ -136,92 +140,107 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
         }
         return transportistasSeleccionados;
     }
-    
-    
+
     /**
-     * Método esEspecificacionesResiduosAsignados que obtiene los resiudos con su cantidad de la lista de 
-     * residuosATransportarList y regresa true sí todos los residuos se encuentran
-     * asignados a una empresa transportista, false caso contrario
-     * @return true sí todos los residuos están asignados a una empresa transportista, false caso contrario
+     * Método esEspecificacionesResiduosAsignados que obtiene los resiudos con
+     * su cantidad de la lista de residuosATransportarList y regresa true sí
+     * todos los residuos se encuentran asignados a una empresa transportista,
+     * false caso contrario
+     *
+     * @return true sí todos los residuos están asignados a una empresa
+     * transportista, false caso contrario
      */
-    public boolean isEspecificacionesResiduosAsignados(){
+    public boolean isEspecificacionesResiduosAsignados() {
         int contadorAsignados = 0;
-      
+
         for (int i = 0; i < modelResiduosATransportar.size(); i++) {
             Especificacion_Residuos especificacionResiduoActual = modelResiduosATransportar.getElementAt(i);
-            if(especificacionResiduoActual.isAsignado() == true){
+            if (especificacionResiduoActual.isAsignado() == true) {
                 contadorAsignados++;
             }
         }
-        
+
         return contadorAsignados == modelResiduosATransportar.size();
     }
-    
-    
+
     /**
-     * Método eliminaDeListaDisponibles que elimina de la lista de empresas transportistas disponibes 
-     * la empresa seleccionada
+     * Método eliminaDeListaDisponibles que elimina de la lista de empresas
+     * transportistas disponibes la empresa seleccionada
      */
     public void eliminaDeListaDisponibles() {
         modelEmpresasDisponibles.removeElementAt(empresasDisponiblesList.getSelectedIndex());
     }
 
-    
     /**
-     * Método agregaAListaDisponibles que agrega a la lista de empresas transportistas disponibles la 
-     * empresa seleccionada desde la lista de empresas seleccionadas
+     * Método agregaAListaDisponibles que agrega a la lista de empresas
+     * transportistas disponibles la empresa seleccionada desde la lista de
+     * empresas seleccionadas
      */
     public void agregaAListaDisponibles() {
         modelEmpresasDisponibles.addElement(empresasSeleccionadasList.getSelectedValue());
     }
 
-    
     /**
-     * Método eliminaDeListaSeleccionados que elimina de la lista de empresas seleccionadas la empresa 
-     * seleccionada
+     * Método eliminaDeListaSeleccionados que elimina de la lista de empresas
+     * seleccionadas la empresa seleccionada
      */
     public void eliminaDeListaSeleccionados() {
         modelEmpresasSeleccionadas.removeElementAt(empresasSeleccionadasList.getSelectedIndex());
     }
 
-    
     /**
-     * Método agregaAListaSeleccionados que agrega a la lista de empresas seleccionadas la empresa 
-     * seleccionada de la lista de empresas disponibles
+     * Método agregaAListaSeleccionados que agrega a la lista de empresas
+     * seleccionadas la empresa seleccionada de la lista de empresas disponibles
      */
     public void agregaAListaSeleccionados() {
         modelEmpresasSeleccionadas.addElement(empresasDisponiblesList.getSelectedValue());
     }
-    
-    
-    public boolean verificarEspecificacionResiduoSeleccionado(Especificacion_Residuos especificacion){
-        if(especificacion != null){
+
+    public boolean verificarEspecificacionResiduoSeleccionado(Especificacion_Residuos especificacion) {
+        if (especificacion != null) {
             return true;
         }
-        
+
         return false;
     }
+
     /**
-     * Método mostrarError que recibe un mensaje, un tipo de error y el titulo del optionPane para mostrar
-     * en pantalla
+     * Método mostrarError que recibe un mensaje, un tipo de error y el titulo
+     * del optionPane para mostrar en pantalla
+     *
      * @param mensaje el mensaje a mostrar en el JOptionPane
      * @param tipo el tipo de error que se mostrará en el JOptionPane
      * @param titulo el titulo del JOptionPane
      */
-    public void mostrarError (String mensaje, String tipo, String titulo){
+    public void mostrarError(String mensaje, String tipo, String titulo) {
         JOptionPane optionPane = new JOptionPane(mensaje);
-        if(tipo.equals("Info")){
+        if (tipo.equals("Info")) {
             optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        }
-        else if(tipo.equals("Error")){
+        } else if (tipo.equals("Error")) {
             optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
         JDialog dialog = optionPane.createDialog(titulo);
         dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);      
+        dialog.setVisible(true);
     }
-    
-    
+
+    /**
+     * Metodo que valida que se haya seleccionado un transportista
+     *
+     * @return
+     */
+    public boolean verificarTransportistaSeleccionado() {
+        List<TransportistaModel> listaTransportistas = new ArrayList<>();
+        for (TransportistaModel transportista : obtenerListaDeTransportistas()) {
+            listaTransportistas.add(transportista);
+        }
+        if (listaTransportistas.isEmpty()) {
+           
+            return false;
+        }
+        return true;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -328,28 +347,36 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Metodo Action Performed para el botón "Volver"
+     *
+     * @param evt
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-      new SolicitudesSinAsignarFrm(this.usuarioActual).setVisible(true);
-      this.dispose();
-      
-    }//GEN-LAST:event_btnVolverActionPerformed
+        new SolicitudesSinAsignarFrm(this.usuarioActual).setVisible(true);
+        this.dispose();
 
+    }//GEN-LAST:event_btnVolverActionPerformed
+    /**
+     * Metodo Action Performed para el botón "Asignar"
+     *
+     * @param evt
+     */
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
-        
         List<TransportistaModel> listaTransportistas = new ArrayList<>();
-        DTOSolicitaTraslado dtoSolicitaTraslado = new DTOSolicitaTraslado();
-        Util util = new Util();
-        
         for (TransportistaModel transportista : obtenerListaDeTransportistas()) {
             listaTransportistas.add(transportista);
         }
+
+        DTOSolicitaTraslado dtoSolicitaTraslado = new DTOSolicitaTraslado();
+        Util util = new Util();
+
         Especificacion_Residuos especificacion = residuosATransportarList.getSelectedValue();
-        
-        if(verificarEspecificacionResiduoSeleccionado(especificacion)){
-            
-            if(listaTransportistas.isEmpty() == false){
-                
+
+        if (verificarEspecificacionResiduoSeleccionado(especificacion)) {
+
+            if (verificarTransportistaSeleccionado()) {
+
                 especificacion.setAsignado(true);
                 dtoSolicitaTraslado = util.convertirSolicitudTrasladoASolicitudTrasladoDTO(especificacion.getSolicitud());
                 dtoSolicitaTraslado.setTransportistas(obtenerListaDeTransportistas());
@@ -357,25 +384,28 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
                 if (isEspecificacionesResiduosAsignados() == true) {
                     dtoSolicitaTraslado.setAsignado(true);
                 }
-                
+
                 solicitudNegocio.actualizar(dtoSolicitaTraslado, especificacion);
                 solicitudNegocio.repartirCantidad(listaTransportistas, especificacion);
 
                 JOptionPane.showMessageDialog(null, "Asignación Exitosa");
                 new PantallaInicial(this.usuarioActual).setVisible(true);
                 this.dispose();
-                
-            }else{
-                mostrarError("Debes de seleccionar almenos una empresa", "Error", "Error al asignar empresa");
+
+            } else {
+                mostrarError("Debes de seleccionar al menos una empresa", "Error", "Error al asignar empresa");
             }
-        }else{
+        } else {
             mostrarError("Debes de seleccionar un residuo de la lista", "Error", "Error al asignar empresa");
         }
-        
-        
-        
-    }//GEN-LAST:event_btnAsignarActionPerformed
 
+
+    }//GEN-LAST:event_btnAsignarActionPerformed
+    /**
+     * Metodo Action Performed para el botón "Agregar"
+     *
+     * @param evt
+     */
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         if (empresasDisponiblesList.getSelectedIndex() != -1) {
@@ -383,11 +413,15 @@ public class AsignarEmpresaFrm extends javax.swing.JFrame {
             eliminaDeListaDisponibles();
         } else if (empresasSeleccionadasList.getSelectedIndex() != -1) {
             mostrarError("No puedes agregar ninguna empresa aquí", "Error", "Error al Agregar");
-        }else{
-           mostrarError("No seleccionó ninguna empresa", "Error", "Error al Agregar"); 
+        } else {
+            mostrarError("No seleccionó ninguna empresa", "Error", "Error al Agregar");
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
-
+    /**
+     * Metodo Action Performed para el botón "Eliminar"
+     *
+     * @param evt
+     */
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         if (empresasSeleccionadasList.getSelectedIndex() != -1) {

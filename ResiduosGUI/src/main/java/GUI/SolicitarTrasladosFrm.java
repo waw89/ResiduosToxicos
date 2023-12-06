@@ -20,14 +20,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 /**
+ * Frame que representa el caso de uso "Solicitar traslado"
  *
  * @author PC
  */
 public class SolicitarTrasladosFrm extends javax.swing.JFrame {
 
-    /**
-     * Creates new form SolicitarTraslados
-     */
     DefaultListModel<String> modelDisponibles = new DefaultListModel<>();
     DefaultListModel<String> modelSeleccionados = new DefaultListModel<>();
     ResiduoNegocio rn = new ResiduoNegocio();
@@ -35,6 +33,9 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     SolicitudNegocio solicitudNeg = new SolicitudNegocio();
     List<Float> cantidadesResiduos = new ArrayList<>();
 
+    /**
+     * Creates new form SolicitarTraslados
+     */
     public SolicitarTrasladosFrm(UsuarioModel usuario) {
         initComponents();
         this.usuarioActual = usuario;
@@ -45,6 +46,9 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         this.setTitle("Solicitar Traslados");
     }
 
+    /**
+     * Metodo que inicializa y muestra la lista de residuos
+     */
     public void inicializaLista() {
 
         List<ResiduoModel> listaResiduos = rn.obtenerResiduos();
@@ -55,6 +59,9 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Metodo que se encarga de inicializar los listeners para las listas
+     */
     private void inicializaListeners() {
 
         residuosDisponiblesList.addListSelectionListener(new ListSelectionListener() {
@@ -72,6 +79,11 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Metodo que verifica la unidad de medida para la cantidad del residuo
+     *
+     * @return
+     */
     public boolean verificaComboCantidad() {
 
         if (comboCantidad.getSelectedItem() == null) {
@@ -81,6 +93,11 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         return true;
     }
 
+    /**
+     * Metodo que verifica el formato de la cantidad del residuo
+     *
+     * @return
+     */
     public boolean verificaFormatoCantidadDeResiduo() {
         String cantidad = txtCantidad.getText();
 
@@ -105,6 +122,11 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Metodo que verifica el formato de la fecha de la solicitud
+     *
+     * @return
+     */
     public boolean verificarFecha() {
         LocalDate fechaSeleccionada = calendario.getSelectedDate();
         LocalDate fechaActual = LocalDate.now();
@@ -120,6 +142,11 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         return true;
     }
 
+    /**
+     * Metodo que verifica si se han seleccionado al menos un residuo
+     *
+     * @return
+     */
     public boolean verificarSeleccion() {
         int cantidadSeleccionada = modelSeleccionados.size();
 
@@ -131,6 +158,11 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         return true;
     }
 
+    /**
+     * Metodo que obtiene la lista de residuos seleccionados
+     *
+     * @return
+     */
     public List<ResiduoModel> obtenerListaDeResiduos() {
         List<ResiduoModel> residuosSeleccionados = new ArrayList<>();
         for (int i = 0; i < modelSeleccionados.size(); i++) {
@@ -257,6 +289,11 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Metodo action performed para el botón "agregar"
+     *
+     * @param evt
+     */
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         if (verificaFormatoCantidadDeResiduo() == true) {
             if (verificaComboCantidad() == true) {
@@ -274,6 +311,11 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    /**
+     * Metodo action performed para el botón "eliminar"
+     *
+     * @param evt
+     */
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         if (residuosSeleccionadosList.getSelectedIndex() != -1) {
             agregaAListaDisponibles();
@@ -285,6 +327,11 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    /**
+     * Metodo action performed para el botón "solicitar"
+     *
+     * @param evt
+     */
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
         if (verificarSeleccion() == true) {
             if (verificarFecha() == false) {
@@ -297,7 +344,6 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
                     dtoSolicitaTraslado.setFecha(this.calendario.getSelectedDate());
                     dtoSolicitaTraslado.setResiduos(obtenerListaDeResiduos());
                     dtoSolicitaTraslado.setProductor((ProductorModel) this.usuarioActual);
-                    
 
                     solicitudNeg.guardar(dtoSolicitaTraslado);
 
@@ -307,16 +353,21 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
                     this.usuarioActual.setTipo("Productor");
                     new PantallaInicial(this.usuarioActual).setVisible(true);
                     this.dispose();
-                   
-                    } else {
+
+                } else {
                     mostrarError("Se tienen 5 solicitudes en ese mismo día, seleccione otro", "Error", "Error al solicitar");
                 }
             }
         }
-        
+
 
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
+    /**
+     * Metodo action performed para el botón "volver"
+     *
+     * @param evt
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
 
         this.usuarioActual.setTipo("Productor");
@@ -327,25 +378,49 @@ public class SolicitarTrasladosFrm extends javax.swing.JFrame {
     private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCantidadActionPerformed
+
+    /**
+     * Metodo que elimina residuo de la lista de disponibles
+     *
+     */
     public void eliminaDeListaDisponibles() {
         modelDisponibles.removeElementAt(residuosDisponiblesList.getSelectedIndex());
     }
 
+    /**
+     * Metodo que agrega residuo de la lista de disponibles
+     *
+     */
     public void agregaAListaDisponibles() {
         modelDisponibles.addElement(residuosSeleccionadosList.getSelectedValue());
     }
 
+    /**
+     * Metodo que elimina residuo de la lista de seleccionados
+     *
+     */
     public void eliminaDeListaSeleccionados() {
         this.cantidadesResiduos.remove(this.residuosSeleccionadosList.getSelectedIndex());
         modelSeleccionados.removeElementAt(residuosSeleccionadosList.getSelectedIndex());
 
     }
 
+    /**
+     * Metodo que agrega residuo de la lista de seleccionados
+     *
+     */
     public void agregaAListaSeleccionados() {
         modelSeleccionados.addElement(residuosDisponiblesList.getSelectedValue());
         cantidadesResiduos.add(Float.parseFloat(this.txtCantidad.getText()));
     }
 
+    /**
+     * Metodo que genera un mensaje de error
+     *
+     * @param mensaje
+     * @param tipo
+     * @param titulo
+     */
     public void mostrarError(String mensaje, String tipo, String titulo) {
         JOptionPane optionPane = new JOptionPane(mensaje);
         if (tipo.equals("Info")) {

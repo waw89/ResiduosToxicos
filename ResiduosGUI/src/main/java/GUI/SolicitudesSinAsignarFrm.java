@@ -13,21 +13,22 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
+ * Frame que representa la pantalla donde se muestran las solicitudes sin
+ * asignar
  *
  * @author xfs85
  */
-
 public class SolicitudesSinAsignarFrm extends javax.swing.JFrame {
 
     //Atributos
     UsuarioModel usuarioActual;
     DefaultListModel<SolicitudTrasladoModel> modelSolicitudesSinAsignar = new DefaultListModel<>();
     SolicitudNegocio solicitudNegocio = new SolicitudNegocio();
-  
-    
+
     /**
-     * Método constructor que inicializa los componentes del frame, inicializa el usuario y asigna e 
-     * inicializa la lista de solicitudes sin asignar
+     * Método constructor que inicializa los componentes del frame, inicializa
+     * el usuario y asigna e inicializa la lista de solicitudes sin asignar
+     *
      * @param usuario el usuario que seleccionará la solicitud sin asignar
      */
     public SolicitudesSinAsignarFrm(UsuarioModel usuario) {
@@ -38,38 +39,45 @@ public class SolicitudesSinAsignarFrm extends javax.swing.JFrame {
     }
 
     /**
-     *Método inicializaListaSolicitudes que obtiene las solicitudes de traslado, selecciona las
-     * que se encuentra en estado "sin asignar" y las agrega al modelo de solicitudes sin asignar
+     * Método inicializaListaSolicitudes que obtiene las solicitudes de
+     * traslado, selecciona las que se encuentra en estado "sin asignar" y las
+     * agrega al modelo de solicitudes sin asignar
      */
     public void inicializaListaSolicitudes() {
-        
+
         List<SolicitudTrasladoModel> listaSolicitudes = solicitudNegocio.obtenerSolicitudes();
-        
-   
-            for(SolicitudTrasladoModel solicitud: listaSolicitudes){
-            if(solicitud.esAsignado() == false){
+
+        for (SolicitudTrasladoModel solicitud : listaSolicitudes) {
+            if (solicitud.esAsignado() == false) {
                 modelSolicitudesSinAsignar.addElement(solicitud);
             }
-            }
-        
-        
+        }
+
     }
-    
+
     /**
-     * 
-     * @return 
+     * Metodo que verifica que se haya seleccionado una solicitud
+     *
+     * @return
      */
     public boolean verificarSeleccion() {
-        int solicitud = modelSolicitudesSinAsignar.size();
+        int solicitud = solicitudesSinAsignarList.getSelectedIndex();
 
-        if (solicitud < 1) {
+        if (solicitud < 0) {
             mostrarError("Debe seleccionar una solicitud", "Error", "Error al seleccionar solicitud");
             return false;
         }
 
         return true;
     }
-    
+
+    /**
+     * Metodo que genera un mensaje de error
+     *
+     * @param mensaje
+     * @param tipo
+     * @param titulo
+     */
     public void mostrarError(String mensaje, String tipo, String titulo) {
         JOptionPane optionPane = new JOptionPane(mensaje);
         if (tipo.equals("Info")) {
@@ -81,6 +89,7 @@ public class SolicitudesSinAsignarFrm extends javax.swing.JFrame {
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -143,23 +152,29 @@ public class SolicitudesSinAsignarFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Botón de asignarActionPerformed que asigna la solicitud sin asignar selecionada de la lista 
-     * de solicitudes
+     * Botón de asignarActionPerformed que asigna la solicitud sin asignar
+     * selecionada de la lista de solicitudes
+     *
      * @param evt el evento de de asignar empresa
      */
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+        if(verificarSeleccion() == true){
         SolicitudTrasladoModel solicitud = solicitudesSinAsignarList.getSelectedValue();
         new AsignarEmpresaFrm(this.usuarioActual, solicitud).setVisible(true);
         this.dispose();
+        }
     }//GEN-LAST:event_btnAsignarActionPerformed
-
+    /**
+     * Botón de asignarActionPerformed que vuelve a la pantalla principal
+     *
+     * @param evt el evento de de asignar empresa
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-       new PantallaInicial(this.usuarioActual).setVisible(true);
-       this.dispose();
+        new PantallaInicial(this.usuarioActual).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
 
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignar;
     private javax.swing.JButton btnVolver;
