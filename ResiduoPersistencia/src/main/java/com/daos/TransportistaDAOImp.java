@@ -1,4 +1,3 @@
-
 package com.daos;
 
 import com.daos.exceptions.NonexistentEntityException;
@@ -17,108 +16,59 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 /**
+ * Implementación de la interfaz ITransportistaDAO que define las operaciones de
+ * acceso a datos para la entidad TransportistaModel.
  *
  * @author PRIDE ANACONDA
  */
 public class TransportistaDAOImp implements ITransportistaDAO {
 
-    public TransportistaDAOImp() {
-        
-    }
     private EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
 
+    /**
+     * Método para obtener una instancia de EntityManager.
+     *
+     * @return EntityManager.
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     * Crea y persiste una nueva entidad de empresa transportista en la base de
+     * datos.
+     *
+     * @param transportistaModel Objeto TransportistaModel a ser creado y
+     * persistido.
+     * @return Objeto TransportistaModel creado y almacenado en la base de
+     * datos.
+     */
+    @Override
     public TransportistaModel create(TransportistaModel transportistaModel) {
-//        if (transportistaModel.getListaSolicitudes() == null) {
-//            transportistaModel.setListaSolicitudes(new ArrayList<SolicitudTrasladoModel>());
-//        }
-//        if (transportistaModel.getListaVehiculos() == null) {
-//            transportistaModel.setListaVehiculos(new ArrayList<VehiculoModel>());
-//        }
-//        EntityManager em = null;
-//        try {
-//            em = getEntityManager();
-//            em.getTransaction().begin();
-//            List<SolicitudTrasladoModel> attachedListaSolicitudes = new ArrayList<SolicitudTrasladoModel>();
-//            for (SolicitudTrasladoModel listaSolicitudesSolicitudTrasladoModelToAttach : transportistaModel.getListaSolicitudes()) {
-//                listaSolicitudesSolicitudTrasladoModelToAttach = em.getReference(listaSolicitudesSolicitudTrasladoModelToAttach.getClass(), listaSolicitudesSolicitudTrasladoModelToAttach.getId());
-//                attachedListaSolicitudes.add(listaSolicitudesSolicitudTrasladoModelToAttach);
-//            }
-//            transportistaModel.setListaSolicitudes(attachedListaSolicitudes);
-//            List<VehiculoModel> attachedListaVehiculos = new ArrayList<VehiculoModel>();
-//            for (VehiculoModel listaVehiculosVehiculoModelToAttach : transportistaModel.getListaVehiculos()) {
-//                listaVehiculosVehiculoModelToAttach = em.getReference(listaVehiculosVehiculoModelToAttach.getClass(), listaVehiculosVehiculoModelToAttach.getId());
-//                attachedListaVehiculos.add(listaVehiculosVehiculoModelToAttach);
-//            }
-//            transportistaModel.setListaVehiculos(attachedListaVehiculos);
-//            em.persist(transportistaModel);
-//            for (SolicitudTrasladoModel listaSolicitudesSolicitudTrasladoModel : transportistaModel.getListaSolicitudes()) {
-//                java.util.List<entitys.TransportistaModel> oldTransOfListaSolicitudesSolicitudTrasladoModel = listaSolicitudesSolicitudTrasladoModel.getTrans();
-//                listaSolicitudesSolicitudTrasladoModel.setTrans(transportistaModel);
-//                listaSolicitudesSolicitudTrasladoModel = em.merge(listaSolicitudesSolicitudTrasladoModel);
-//                if (oldTransOfListaSolicitudesSolicitudTrasladoModel != null) {
-//                    oldTransOfListaSolicitudesSolicitudTrasladoModel.getListaSolicitudes().remove(listaSolicitudesSolicitudTrasladoModel);
-//                    oldTransOfListaSolicitudesSolicitudTrasladoModel = em.merge(oldTransOfListaSolicitudesSolicitudTrasladoModel);
-//                }
-//            }
-//            for (VehiculoModel listaVehiculosVehiculoModel : transportistaModel.getListaVehiculos()) {
-//                TransportistaModel oldTransOfListaVehiculosVehiculoModel = listaVehiculosVehiculoModel.getTrans();
-//                listaVehiculosVehiculoModel.setTrans(transportistaModel);
-//                listaVehiculosVehiculoModel = em.merge(listaVehiculosVehiculoModel);
-//                if (oldTransOfListaVehiculosVehiculoModel != null) {
-//                    oldTransOfListaVehiculosVehiculoModel.getListaVehiculos().remove(listaVehiculosVehiculoModel);
-//                    oldTransOfListaVehiculosVehiculoModel = em.merge(oldTransOfListaVehiculosVehiculoModel);
-//                }
-//            }
-//            em.getTransaction().commit();
-//        } finally {
-//            if (em != null) {
-//                em.close();
-//            }
-//        }
-//    }
-//
-//
-//    public void destroy(Long id) throws NonexistentEntityException {
-//        EntityManager em = null;
-//        try {
-//            em = getEntityManager();
-//            em.getTransaction().begin();
-//            TransportistaModel transportistaModel;
-//            try {
-//                transportistaModel = em.getReference(TransportistaModel.class, id);
-//                transportistaModel.getId();
-//            } catch (EntityNotFoundException enfe) {
-//                throw new NonexistentEntityException("The transportistaModel with id " + id + " no longer exists.", enfe);
-//            }
-//            List<SolicitudTrasladoModel> listaSolicitudes = transportistaModel.getListaSolicitudes();
-//            for (SolicitudTrasladoModel listaSolicitudesSolicitudTrasladoModel : listaSolicitudes) {
-//                listaSolicitudesSolicitudTrasladoModel.setTrans(null);
-//                listaSolicitudesSolicitudTrasladoModel = em.merge(listaSolicitudesSolicitudTrasladoModel);
-//            }
-//            List<VehiculoModel> listaVehiculos = transportistaModel.getListaVehiculos();
-//            for (VehiculoModel listaVehiculosVehiculoModel : listaVehiculos) {
-//                listaVehiculosVehiculoModel.setTrans(null);
-//                listaVehiculosVehiculoModel = em.merge(listaVehiculosVehiculoModel);
-//            }
-//            em.remove(transportistaModel);
-//            em.getTransaction().commit();
-//        } finally {
-//            if (em != null) {
-//                em.close();
-//            }
-//        }
-
+        // En este método se debería realizar la lógica para crear y persistir la entidad.
+        // Actualmente, el método simplemente devuelve el objeto transportistaModel sin realizar ninguna acción.
         return transportistaModel;
     }
 
+    /**
+     * Obtiene una lista de todas las empresas transportistas almacenadas en la
+     * base de datos.
+     *
+     * @return Lista de objetos TransportistaModel.
+     */
+    @Override
     public List<TransportistaModel> findTransportistaModelEntities() {
         return findTransportistaModelEntities(true, -1, -1);
     }
 
+    /**
+     * Obtiene una lista paginada de empresas transportistas almacenadas en la
+     * base de datos.
+     *
+     * @param maxResults Número máximo de resultados por página.
+     * @param firstResult Índice del primer resultado a recuperar.
+     * @return Lista paginada de objetos TransportistaModel.
+     */
     public List<TransportistaModel> findTransportistaModelEntities(int maxResults, int firstResult) {
         return findTransportistaModelEntities(false, maxResults, firstResult);
     }
@@ -139,6 +89,14 @@ public class TransportistaDAOImp implements ITransportistaDAO {
         }
     }
 
+    /**
+     * Busca y devuelve una empresa transportista basada en su identificador
+     * único.
+     *
+     * @param id Identificador único de la empresa transportista a buscar.
+     * @return Objeto TransportistaModel encontrado o null si no se encuentra.
+     */
+    @Override
     public TransportistaModel findTransportistaModel(Long id) {
         EntityManager em = getEntityManager();
         try {
@@ -148,6 +106,13 @@ public class TransportistaDAOImp implements ITransportistaDAO {
         }
     }
 
+    /**
+     * Obtiene la cantidad total de empresas transportistas almacenadas en la
+     * base de datos.
+     *
+     * @return Cantidad total de empresas transportistas.
+     */
+    @Override
     public int getTransportistaModelCount() {
         EntityManager em = getEntityManager();
         try {
@@ -160,32 +125,29 @@ public class TransportistaDAOImp implements ITransportistaDAO {
             em.close();
         }
     }
-    
-    
+
     /**
-     * Método cargaTransportistas que regresa la lista de empresas transportistas
-     * desde la base de datos
-     * @param transportistas la lista de empresas transportistas que regresará
-     * @return lista de empresas transportistas
+     * Método cargaTransportistas que regresa la lista de empresas
+     * transportistas desde la base de datos.
+     *
+     * @param transportistas Lista de empresas transportistas que se regresará.
+     * @return Lista de empresas transportistas.
      */
     @Override
-    public List<TransportistaModel> cargaTransportistas(List<TransportistaModel> transportistas){
-        
+    public List<TransportistaModel> cargaTransportistas(List<TransportistaModel> transportistas) {
         EntityManager em = getEntityManager();
         EntityTransaction transaction = em.getTransaction();
-        
+
         try {
             transaction.begin();
-            if (verificaTransportistas()== true) {
+            if (verificaTransportistas()) {
                 for (TransportistaModel transportista : transportistas) {
                     em.persist(transportista);
                 }
-
                 transaction.commit();
             } else {
                 return findTransportistaModelEntities();
             }
-
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
@@ -197,23 +159,17 @@ public class TransportistaDAOImp implements ITransportistaDAO {
                 em.close();
             }
         }
-
         return transportistas;
     }
-    
-    
+
     /**
-     * Método verificaTransportistas que regresa true en caso de encontrar empresas transportistas en la base 
-     * de datos, false caso contrario
-     * @return true en caso de encontrar empresas transportistas, false caso contrario
+     * Método verificaTransportistas que regresa true en caso de encontrar
+     * empresas transportistas en la base de datos, false caso contrario.
+     *
+     * @return true en caso de encontrar empresas transportistas, false caso
+     * contrario.
      */
     public boolean verificaTransportistas() {
-  
-        if (findTransportistaModelEntities().isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return findTransportistaModelEntities().isEmpty();
     }
-    
 }

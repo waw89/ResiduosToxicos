@@ -11,51 +11,59 @@ import entitys.UsuarioModel;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
+ * Clase que representa la capa de negocio del usuario
  *
  * @author PRIDE ANACONDA
  */
 public class UsuarioNegocio {
-    
-    IUsuarioDAO udao = new UsuarioDAOImp(); 
+
+    IUsuarioDAO udao = new UsuarioDAOImp();
     Util util = new Util();
     ArrayList<UsuarioModel> usuarios;
-//
-//    public void cargaUsuariosProductores(){
-//        Usuario user = new Productor("Productor", "luis", "6442327211", "Kikirimiau7**"); 
-//        Productor productor = (Productor) user;
-//        productor.setId(1);
-//       
-//    }
-    
-    public UsuarioModel confirmaCredenciales(String usuario, String contraseña){
 
+    /**
+     * Metodo que confirma las credenciales ingresadas por el usuario,
+     * consultando la capa de persistencia
+     *
+     * @param usuario
+     * @param contraseña
+     * @return las credenciales encontradas en la base de datos
+     */
+    public UsuarioModel confirmaCredenciales(String usuario, String contraseña) {
 
-            if (udao.consultaCredenciales(usuario, contraseña) != null){
-                 return udao.consultaCredenciales(usuario, contraseña);
+        if (udao.consultaCredenciales(usuario, contraseña) != null) {
+            return udao.consultaCredenciales(usuario, contraseña);
 //                return utilUsasrio.ConvertirDTOUsuarioAUsuario(interfaceUsuario.consultaCredenciales(usuario, password)); 
-            }else{
-                return null;
-            }
+        } else {
+            return null;
+        }
 //
 //
 //
     }
-    
-    
-    public List<UsuarioModel> llenaListaUsuarios(){
-        
-         this.usuarios = util.creaUsuarios();
-        
+
+    /**
+     * Metodo que llena la lista de usuarios, consultando la capa de
+     * persistencia
+     *
+     * @return lista de usuarios
+     */
+    public List<UsuarioModel> llenaListaUsuarios() {
+
+        this.usuarios = util.creaUsuarios();
+
         return udao.llenaListaUsuarios(usuarios);
     }
-    
-    public List<UsuarioModel> obtieneListaUsuarios(){
-        
-         return this.usuarios;
+
+    /**
+     * Metodo que obtiene la lista de usuariosModel
+     *
+     * @return lista de usuarios
+     */
+    public List<UsuarioModel> obtieneListaUsuarios() {
+
+        return this.usuarios;
     }
-    
 
 }
-    

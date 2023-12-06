@@ -20,20 +20,31 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 /**
+ * Implementación de la interfaz IVehiculoDAO que define las operaciones de
+ * acceso a datos para la entidad VehiculoModel.
  *
  * @author PRIDE ANACONDA
  */
 public class VehiculoDAOImp implements IVehiculoDAO {
 
-    public VehiculoDAOImp() {
-
-    }
     private EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
 
+    /**
+     * Método para obtener una instancia de EntityManager.
+     *
+     * @return EntityManager.
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     * Crea y persiste un nuevo vehículo en la base de datos.
+     *
+     * @param vehiculoModel Objeto VehiculoModel a ser creado y persistido.
+     * @return Objeto VehiculoModel creado y almacenado en la base de datos.
+     */
+    @Override
     public VehiculoModel create(VehiculoModel vehiculoModel) {
         EntityManager em = null;
         try {
@@ -58,10 +69,24 @@ public class VehiculoDAOImp implements IVehiculoDAO {
         return vehiculoModel;
     }
 
+    /**
+     * Obtiene una lista de todos los vehículos almacenados en la base de datos.
+     *
+     * @return Lista de objetos VehiculoModel.
+     */
+    @Override
     public List<VehiculoModel> findVehiculoModelEntities() {
         return findVehiculoModelEntities(true, -1, -1);
     }
 
+    /**
+     * Obtiene una lista paginada de vehículos almacenados en la base de datos.
+     *
+     * @param maxResults Número máximo de resultados por página.
+     * @param firstResult Índice del primer resultado a recuperar.
+     * @return Lista paginada de objetos VehiculoModel.
+     */
+    @Override
     public List<VehiculoModel> findVehiculoModelEntities(int maxResults, int firstResult) {
         return findVehiculoModelEntities(false, maxResults, firstResult);
     }
@@ -82,6 +107,13 @@ public class VehiculoDAOImp implements IVehiculoDAO {
         }
     }
 
+    /**
+     * Busca y devuelve un vehículo basado en su identificador único.
+     *
+     * @param id Identificador único del vehículo a buscar.
+     * @return Objeto VehiculoModel encontrado o null si no se encuentra.
+     */
+    @Override
     public VehiculoModel findVehiculoModel(Long id) {
         EntityManager em = getEntityManager();
         try {
@@ -91,6 +123,12 @@ public class VehiculoDAOImp implements IVehiculoDAO {
         }
     }
 
+    /**
+     * Obtiene la cantidad total de vehículos almacenados en la base de datos.
+     *
+     * @return Cantidad total de vehículos.
+     */
+    @Override
     public int getVehiculoModelCount() {
         EntityManager em = getEntityManager();
         try {
@@ -104,6 +142,13 @@ public class VehiculoDAOImp implements IVehiculoDAO {
         }
     }
 
+    /**
+     * Obtiene una lista de vehículos asociados a un transportista específico.
+     *
+     * @param idTransportista Identificador único del transportista.
+     * @return Lista de objetos VehiculoModel asociados al transportista.
+     */
+    @Override
     public List<VehiculoModel> obtenerVehiculosPorTransportista(Long idTransportista) {
         EntityManager em = getEntityManager();
         try {
@@ -115,7 +160,4 @@ public class VehiculoDAOImp implements IVehiculoDAO {
             return null;
         }
     }
-    
-    
-
 }

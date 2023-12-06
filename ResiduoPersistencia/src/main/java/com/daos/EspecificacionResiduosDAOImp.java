@@ -16,21 +16,42 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 /**
+ * Clase que representa el DAO de la tabla asociación "Solicitud_Residuo"
  *
  * @author PRIDE ANACONDA
  */
 public class EspecificacionResiduosDAOImp implements IEspecificacionDAO {
 
+    /**
+     * Metodo constructor por omisión
+     */
     public EspecificacionResiduosDAOImp() {
-        
+
     }
+
+    /**
+     * Definición del patrón Singleton
+     */
     private EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
 
+    /**
+     * Metodo que establace la conexión a la base de datos utilizando el patrón
+     * Singleton
+     *
+     * @return EntityManager
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-
+    /**
+     * Metodo que se encarga de editar los registros de la tabla
+     * "Solicitud_Traslado"
+     *
+     * @param especificacion_Residuos
+     * @throws NonexistentEntityException
+     * @throws Exception
+     */
     @Override
     public void edit(Especificacion_Residuos especificacion_Residuos) throws NonexistentEntityException, Exception {
         EntityManager em = null;
@@ -55,6 +76,14 @@ public class EspecificacionResiduosDAOImp implements IEspecificacionDAO {
         }
     }
 
+    /**
+     * Metodo que se encarga de eliminar un registro de la tabla
+     * "Solicitud_Traslado"
+     *
+     * @param id
+     * @throws NonexistentEntityException
+     */
+    @Override
     public void destroy(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -76,14 +105,37 @@ public class EspecificacionResiduosDAOImp implements IEspecificacionDAO {
         }
     }
 
+    /**
+     * Metodo que busca los registros de la base de datos
+     *
+     * @return lista de especificacion de residuos
+     */
+    @Override
     public List<Especificacion_Residuos> findEspecificacion_ResiduosEntities() {
         return findEspecificacion_ResiduosEntities(true, -1, -1);
     }
 
+    /**
+     * Metodo que busca los registros de la base de datos
+     *
+     * @param maxResults
+     * @param firstResult
+     * @return lista de especificacion de residuos
+     */
+    @Override
     public List<Especificacion_Residuos> findEspecificacion_ResiduosEntities(int maxResults, int firstResult) {
         return findEspecificacion_ResiduosEntities(false, maxResults, firstResult);
     }
 
+    /**
+     * Metodo que busca los registros de la base de datos
+     *
+     * @param all
+     * @param maxResults
+     * @param firstResult
+     * @return lista de especificacion de residuos
+     */
+    @Override
     public List<Especificacion_Residuos> findEspecificacion_ResiduosEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
@@ -100,6 +152,14 @@ public class EspecificacionResiduosDAOImp implements IEspecificacionDAO {
         }
     }
 
+    /**
+     * Metodo que busca la especificacion de residuos en la base de datos por su
+     * id
+     *
+     * @param id
+     * @return Especificacion de residuos
+     */
+    @Override
     public Especificacion_Residuos findEspecificacion_Residuos(Long id) {
         EntityManager em = getEntityManager();
         try {
@@ -109,6 +169,12 @@ public class EspecificacionResiduosDAOImp implements IEspecificacionDAO {
         }
     }
 
+    /**
+     * Metodo que obtiene el numero de registros que hay en la base de datos
+     *
+     * @return numero de registros
+     */
+    @Override
     public int getEspecificacion_ResiduosCount() {
         EntityManager em = getEntityManager();
         try {
@@ -121,5 +187,5 @@ public class EspecificacionResiduosDAOImp implements IEspecificacionDAO {
             em.close();
         }
     }
-    
+
 }

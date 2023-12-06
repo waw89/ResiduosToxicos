@@ -16,20 +16,29 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 /**
- *
+ * Implementación de la interfaz ISolicitudTransportistaDAO para la entidad
+ * Solicitud_Transportista. 
  * @author marcos_zr
  */
-public class Solicitud_TransportistaJpaController implements Serializable {
+public class Solicitud_TransportistaDAOImp implements ISolicitudTransportistaDAO {
 
-    public Solicitud_TransportistaJpaController() {
-        
-    }
-    EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
+    private EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
 
+    /**
+     * Método para obtener una instancia de EntityManager.
+     *
+     * @return EntityManager.
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     * Crea y persiste una nueva solicitud de transportista en la base de datos.
+     *
+     * @param solicitud_Transportista Objeto Solicitud_Transportista a ser
+     * creado y persistido.
+     */
     public void create(Solicitud_Transportista solicitud_Transportista) {
         EntityManager em = null;
         try {
@@ -44,6 +53,17 @@ public class Solicitud_TransportistaJpaController implements Serializable {
         }
     }
 
+    /**
+     * Edita y actualiza la información de una solicitud de transportista en la
+     * base de datos.
+     *
+     * @param solicitud_Transportista Objeto Solicitud_Transportista a ser
+     * actualizado.
+     * @throws NonexistentEntityException Si la entidad no existe en la base de
+     * datos.
+     * @throws Exception Si ocurre un error durante la actualización.
+     */
+    @Override
     public void edit(Solicitud_Transportista solicitud_Transportista) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -67,6 +87,15 @@ public class Solicitud_TransportistaJpaController implements Serializable {
         }
     }
 
+    /**
+     * Elimina una solicitud de transportista de la base de datos.
+     *
+     * @param id Identificador único de la solicitud de transportista a ser
+     * eliminada.
+     * @throws NonexistentEntityException Si la entidad no existe en la base de
+     * datos.
+     */
+    @Override
     public void destroy(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -88,10 +117,26 @@ public class Solicitud_TransportistaJpaController implements Serializable {
         }
     }
 
+    /**
+     * Obtiene una lista de todas las solicitudes de transportista almacenadas
+     * en la base de datos.
+     *
+     * @return Lista de objetos Solicitud_Transportista.
+     */
+    @Override
     public List<Solicitud_Transportista> findSolicitud_TransportistaEntities() {
         return findSolicitud_TransportistaEntities(true, -1, -1);
     }
 
+    /**
+     * Obtiene una lista paginada de solicitudes de transportista almacenadas en
+     * la base de datos.
+     *
+     * @param maxResults Número máximo de resultados por página.
+     * @param firstResult Índice del primer resultado a recuperar.
+     * @return Lista paginada de objetos Solicitud_Transportista.
+     */
+    @Override
     public List<Solicitud_Transportista> findSolicitud_TransportistaEntities(int maxResults, int firstResult) {
         return findSolicitud_TransportistaEntities(false, maxResults, firstResult);
     }
@@ -112,6 +157,15 @@ public class Solicitud_TransportistaJpaController implements Serializable {
         }
     }
 
+    /**
+     * Busca y devuelve una solicitud de transportista basada en su
+     * identificador único.
+     *
+     * @param id Identificador único de la solicitud de transportista a buscar.
+     * @return Objeto Solicitud_Transportista encontrado o null si no se
+     * encuentra.
+     */
+    @Override
     public Solicitud_Transportista findSolicitud_Transportista(Long id) {
         EntityManager em = getEntityManager();
         try {
@@ -121,6 +175,13 @@ public class Solicitud_TransportistaJpaController implements Serializable {
         }
     }
 
+    /**
+     * Obtiene la cantidad total de solicitudes de transportista almacenadas en
+     * la base de datos.
+     *
+     * @return Cantidad total de solicitudes de transportista.
+     */
+    @Override
     public int getSolicitud_TransportistaCount() {
         EntityManager em = getEntityManager();
         try {
@@ -133,5 +194,4 @@ public class Solicitud_TransportistaJpaController implements Serializable {
             em.close();
         }
     }
-    
 }

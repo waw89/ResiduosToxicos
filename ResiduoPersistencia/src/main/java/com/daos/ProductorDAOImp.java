@@ -23,15 +23,26 @@ import javax.persistence.EntityManagerFactory;
  */
 public class ProductorDAOImp implements IProductorDAO {
 
-    public ProductorDAOImp(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
-    private EntityManagerFactory emf = null;
+    /**
+     * Definición del patrón Singleton
+     */
+    private EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
 
+    /**
+     * Metodo que establace la conexión a la base de datos utilizando el patrón
+     * Singleton
+     * @return EntityManager
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+/**
+     * Metodo que crea registros en la tabla prodcutor
+     *
+     * @param productorModel
+     * @return productorModel
+     */
     public ProductorModel create(ProductorModel productorModel) {
         if (productorModel.getListaSolicitudes() == null) {
             productorModel.setListaSolicitudes(new ArrayList<SolicitudTrasladoModel>());
@@ -65,14 +76,39 @@ public class ProductorDAOImp implements IProductorDAO {
         return productorModel;
     }
 
+      /**
+     * Metodo que busca todos los registros de la tabla productor en la base de
+     * datos
+     *
+     * @return lista de productores
+     */
+    @Override
     public List<ProductorModel> findProductorModelEntities() {
         return findProductorModelEntities(true, -1, -1);
     }
 
+      /**
+     * Metodo que busca todos los registros de la tabla productor en la base de
+     * datos
+     *
+     * @param maxResults
+     * @param firstResult
+     * @return lista de productores
+     */
+    @Override
     public List<ProductorModel> findProductorModelEntities(int maxResults, int firstResult) {
         return findProductorModelEntities(false, maxResults, firstResult);
     }
 
+     /**
+     * Metodo que busca en los registros de la tabla productor en la base de
+     * datos
+     *
+     * @param all 
+     * @param firstResult 
+     * @param maxResults 
+     * @return Lista de productores
+     */
     private List<ProductorModel> findProductorModelEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
@@ -89,6 +125,14 @@ public class ProductorDAOImp implements IProductorDAO {
         }
     }
 
+    /**
+     * Metodo que busca en los registros de la tabla productor en la base de
+     * datos en base a su id
+     *
+     * @param id
+     * @return productor encontrado
+     */
+    @Override
     public ProductorModel findProductorModel(Long id) {
         EntityManager em = getEntityManager();
         try {
@@ -98,6 +142,13 @@ public class ProductorDAOImp implements IProductorDAO {
         }
     }
 
+     /**
+     * Obtiene el numero de registros de la tabla productor
+     *
+     * @return numero de registros
+     */
+    
+    @Override
     public int getProductorModelCount() {
         EntityManager em = getEntityManager();
         try {

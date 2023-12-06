@@ -15,16 +15,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Clase que representa la capa de negocio para vehiculo
  *
  * @author PRIDE ANACONDA
  */
 public class VehiculoNegocio {
 
-    
     ITransportistaDAO iTransportista = new TransportistaDAOImp();
     List<VehiculoModel> listaVehiculos;
     IVehiculoDAO iVehiculo = new VehiculoDAOImp();
 
+    /**
+     * Metodo que se encarga de crear vehiculos, mandandolos a persistencia
+     */
     public void creaAutos() {
         if (this.iVehiculo.findVehiculoModelEntities().isEmpty()) {
             List<TransportistaModel> transportistas = iTransportista.findTransportistaModelEntities();
@@ -70,24 +73,39 @@ public class VehiculoNegocio {
         }
     }
 
+    /**
+     * Metodo que obtiene vehiculos por su id
+     *
+     * @param id
+     * @return lista de vehiculos encontrados
+     */
     public List<VehiculoModel> obtenerVehiculos(Long id) {
         return iVehiculo.obtenerVehiculosPorTransportista(id);
     }
 
-    public List<VehiculoModel>convertirVehiculos(List<Long> idVehiculos) {
+    /**
+     * Metodo que convierte los vehiculos en base a su id
+     *
+     * @param idVehiculos
+     * @return lista de vehiculos
+     */
+    public List<VehiculoModel> convertirVehiculos(List<Long> idVehiculos) {
         List<VehiculoModel> listaVehiculos = new ArrayList<>();
         for (Long idVehiculo : idVehiculos) {
             listaVehiculos.add(iVehiculo.findVehiculoModel(idVehiculo));
         }
-        
-        this.listaVehiculos = listaVehiculos;  
+
+        this.listaVehiculos = listaVehiculos;
         return listaVehiculos;
     }
 
+    /**
+     * Metodo que obtiene la lista de vehiculos
+     *
+     * @return lista de vehiculos
+     */
     public List<VehiculoModel> getListaVehiculos() {
         return listaVehiculos;
     }
-    
-    
 
 }

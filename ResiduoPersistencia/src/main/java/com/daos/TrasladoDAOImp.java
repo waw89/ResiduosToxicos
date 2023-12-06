@@ -16,20 +16,31 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 /**
+ * Implementación de la interfaz ITrasladoDAO que define las operaciones de acceso a datos
+ * para la entidad TrasladoModel.
  *
  * @author PRIDE ANACONDA
  */
-public class TrasladoDAOImp implements ITrasladoDAO{
+public class TrasladoDAOImp implements ITrasladoDAO {
 
-    public TrasladoDAOImp() {
-    }
+    private EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
 
-   EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
-
+    /**
+     * Método para obtener una instancia de EntityManager.
+     *
+     * @return EntityManager.
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     * Crea y persiste una nueva entidad de traslado en la base de datos.
+     *
+     * @param trasladoModel Objeto TrasladoModel a ser creado y persistido.
+     * @return Objeto TrasladoModel creado y almacenado en la base de datos.
+     */
+    @Override
     public TrasladoModel create(TrasladoModel trasladoModel) {
         EntityManager em = null;
         try {
@@ -45,10 +56,24 @@ public class TrasladoDAOImp implements ITrasladoDAO{
         return trasladoModel;
     }
 
+    /**
+     * Obtiene una lista de todos los traslados almacenados en la base de datos.
+     *
+     * @return Lista de objetos TrasladoModel.
+     */
+    @Override
     public List<TrasladoModel> findTrasladoModelEntities() {
         return findTrasladoModelEntities(true, -1, -1);
     }
 
+    /**
+     * Obtiene una lista paginada de traslados almacenados en la base de datos.
+     *
+     * @param maxResults Número máximo de resultados por página.
+     * @param firstResult Índice del primer resultado a recuperar.
+     * @return Lista paginada de objetos TrasladoModel.
+     */
+    @Override
     public List<TrasladoModel> findTrasladoModelEntities(int maxResults, int firstResult) {
         return findTrasladoModelEntities(false, maxResults, firstResult);
     }
@@ -69,6 +94,13 @@ public class TrasladoDAOImp implements ITrasladoDAO{
         }
     }
 
+    /**
+     * Busca y devuelve un traslado basado en su identificador único.
+     *
+     * @param id Identificador único del traslado a buscar.
+     * @return Objeto TrasladoModel encontrado o null si no se encuentra.
+     */
+    @Override
     public TrasladoModel findTrasladoModel(Long id) {
         EntityManager em = getEntityManager();
         try {
@@ -78,6 +110,12 @@ public class TrasladoDAOImp implements ITrasladoDAO{
         }
     }
 
+    /**
+     * Obtiene la cantidad total de traslados almacenados en la base de datos.
+     *
+     * @return Cantidad total de traslados.
+     */
+    @Override
     public int getTrasladoModelCount() {
         EntityManager em = getEntityManager();
         try {
@@ -90,5 +128,4 @@ public class TrasladoDAOImp implements ITrasladoDAO{
             em.close();
         }
     }
-    
 }

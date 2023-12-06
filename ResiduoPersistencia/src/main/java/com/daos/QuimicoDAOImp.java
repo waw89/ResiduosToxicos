@@ -15,22 +15,32 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 /**
- *
+ * Clase que representa la capa DAO del Quimico
  * @author xxbry
  */
 public class QuimicoDAOImp implements IQuimicoDAO {
 
-    public QuimicoDAOImp() {
+    /**
+     * Definición del patrón Singleton
+     */
+    private EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
 
-    }
-
-    EntityManagerFactory entityManagerFactory = SingletonEntityManager.getEntityManagerFactory();
-
+    /**
+     * Metodo que establace la conexión a la base de datos utilizando el patrón
+     * Singleton
+     *
+     * @return EntityManager
+     */
     public EntityManager getEntityManager() {
-        return entityManagerFactory.createEntityManager();
+        return emf.createEntityManager();
     }
 
-    // para usar el singleton, 
+    /**
+     * Metodo que crea un objeto QuimicoModel en la base de datos
+     *
+     * @param quimico
+     */
+    @Override
     public void create(QuimicoModel quimico) {
         EntityManager em = null;
         try {
@@ -45,8 +55,14 @@ public class QuimicoDAOImp implements IQuimicoDAO {
         }
     }
 
+    /**
+     * Metodo que verifica si la lista de quimicos está vacía
+     *
+     * @return true/false
+     */
+    @Override
     public boolean verificaQuimicos() {
-  
+
         if (findQuimicoEntities().isEmpty()) {
             return true;
         } else {
@@ -54,6 +70,12 @@ public class QuimicoDAOImp implements IQuimicoDAO {
         }
     }
 
+    /**
+     * Llena una lista de objetos QuimicoModel con la información proporcionada.
+     *
+     * @param quimicos Lista de objetos QuimicoModel a ser llenada.
+     * @return Lista de objetos QuimicoModel actualizada.
+     */
     @Override
     public List<QuimicoModel> llenaListaQuimicos(List<QuimicoModel> quimicos) {
         EntityManager em = getEntityManager();
@@ -86,15 +108,36 @@ public class QuimicoDAOImp implements IQuimicoDAO {
         return quimicos;
     }
 
+    /**
+     * Metodo que busca todos los registros de quimicos en la base de datos
+     *
+     * @return lista de quimicos encontrados
+     */
+    @Override
     public List<QuimicoModel> findQuimicoEntities() {
         return findQuimicoEntities(true, -1, -1);
     }
 
+    /**
+     * Metodo que busca todos los registros de quimicos en la base de datos
+     * @param maxResults
+     * @param firstResult
+     * @return lista de quimicos encontrados
+     */
+    @Override
     public List<QuimicoModel> findQuimicoEntities(int maxResults, int firstResult) {
         return findQuimicoEntities(false, maxResults, firstResult);
     }
 
-    private List<QuimicoModel> findQuimicoEntities(boolean all, int maxResults, int firstResult) {
+    /**
+     * Metodo que busca todos los registros de quimicos en la base de datos
+     * @param all
+     * @param maxResults
+     * @param firstResult
+     * @return lista de quimicos encontrados
+     */
+    @Override
+    public List<QuimicoModel> findQuimicoEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
@@ -110,6 +153,12 @@ public class QuimicoDAOImp implements IQuimicoDAO {
         }
     }
 
+     /**
+     * Busca y devuelve un objeto QuimicoModel basado en su identificador único.
+     *
+     * @param id Identificador único del químico a buscar.
+     * @return Objeto QuimicoModel encontrado o null si no se encuentra.
+     */
     @Override
     public QuimicoModel findQuimico(long id) {
         EntityManager em = getEntityManager();
@@ -120,6 +169,10 @@ public class QuimicoDAOImp implements IQuimicoDAO {
         }
     }
 
+    /**
+     * Metodo que obtiene el numero de registros 
+     * @return numero de registros
+     */
     public int getQuimicoCount() {
         EntityManager em = getEntityManager();
         try {
@@ -133,20 +186,24 @@ public class QuimicoDAOImp implements IQuimicoDAO {
         }
     }
 
+    /**
+     * Busca y devuelve un objeto QuimicoModel basado en su nombre.
+     *
+     * @return Objeto QuimicoModel encontrado o null si no se encuentra.
+     */
     @Override
-public QuimicoModel findQuimicoNombre(String nombre) {
-    EntityManager em = getEntityManager();
-    try {
-        TypedQuery<QuimicoModel> query = em.createQuery(
-                "SELECT q FROM QuimicoModel q WHERE q.nombre = :nombre", QuimicoModel.class);
-        query.setParameter("nombre", nombre);
-        List<QuimicoModel> resultados = query.getResultList();
-        return resultados.get(0);
-    } finally {
-        em.close();
-    }
-       
-}
+    public QuimicoModel findQuimicoNombre(String nombre) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<QuimicoModel> query = em.createQuery(
+                    "SELECT q FROM QuimicoModel q WHERE q.nombre = :nombre", QuimicoModel.class);
+            query.setParameter("nombre", nombre);
+            List<QuimicoModel> resultados = query.getResultList();
+            return resultados.get(0);
+        } finally {
+            em.close();
+        }
 
+    }
 
 }

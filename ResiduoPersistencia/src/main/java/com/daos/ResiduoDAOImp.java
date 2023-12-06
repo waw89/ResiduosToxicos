@@ -21,20 +21,34 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 /**
+ * Clase que representa la capa DAO del residuo
  *
  * @author xfs85
  */
 public class ResiduoDAOImp implements IResiduoDAO {
 
-    public ResiduoDAOImp() {
-      
-    }
-    EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
+    /**
+     * Definición del patrón Singleton
+     */
+    private EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
 
+    /**
+     * Metodo que establace la conexión a la base de datos utilizando el patrón
+     * Singleton
+     *
+     * @return EntityManager
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     * Crea un nuevo objeto ResiduoModel en la fuente de datos.
+     *
+     * @param residuoModel Objeto ResiduoModel a ser creado.
+     * @return Objeto ResiduoModel creado y almacenado en la fuente de datos.
+     */
+    @Override
     public ResiduoModel crear(ResiduoModel residuoModel) {
         if (residuoModel.getListaQuimicos() == null) {
             residuoModel.setListaQuimicos(new ArrayList<QuimicoModel>());
@@ -76,16 +90,37 @@ public class ResiduoDAOImp implements IResiduoDAO {
         return residuoModel;
     }
 
- 
-
+    /**
+     * Obtiene una lista de todos los objetos ResiduoModel almacenados en la
+     * fuente de datos.
+     *
+     * @return Lista de objetos ResiduoModel.
+     */
     public List<ResiduoModel> findResiduoModelEntities() {
         return findResiduoModelEntities(true, -1, -1);
     }
 
+    /**
+     * Obtiene una lista de todos los objetos ResiduoModel almacenados en la
+     * fuente de datos.
+     *
+     * @param maxResults
+     * @param firstResult
+     * @return Lista de objetos ResiduoModel.
+     */
     public List<ResiduoModel> findResiduoModelEntities(int maxResults, int firstResult) {
         return findResiduoModelEntities(false, maxResults, firstResult);
     }
 
+    /**
+     * Obtiene una lista de todos los objetos ResiduoModel almacenados en la
+     * fuente de datos.
+     *
+     * @param all
+     * @param maxResults
+     * @param firstResult
+     * @return Lista de objetos ResiduoModel.
+     */
     private List<ResiduoModel> findResiduoModelEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
@@ -102,6 +137,12 @@ public class ResiduoDAOImp implements IResiduoDAO {
         }
     }
 
+    /**
+     * Busca y devuelve un objeto ResiduoModel basado en su identificador único.
+     *
+     * @param id Identificador único del residuo a buscar.
+     * @return Objeto ResiduoModel encontrado o null si no se encuentra.
+     */
     public ResiduoModel findResiduoModel(long id) {
         EntityManager em = getEntityManager();
         try {
@@ -111,6 +152,11 @@ public class ResiduoDAOImp implements IResiduoDAO {
         }
     }
 
+    /**
+     * Metodo que obtiene el numero de registros en la base de datos
+     *
+     * @return numero de registros
+     */
     public int getResiduoModelCount() {
         EntityManager em = getEntityManager();
         try {
@@ -124,16 +170,20 @@ public class ResiduoDAOImp implements IResiduoDAO {
         }
     }
 
-   
-
+    /**
+     * Carga una lista de objetos ResiduoModel con la información proporcionada.
+     *
+     * @param residuos Lista de objetos ResiduoModel a ser cargada.
+     * @return Lista de objetos ResiduoModel actualizada.
+     */
     @Override
     public List<ResiduoModel> cargaResiduos(List<ResiduoModel> residuos) {
         EntityManager em = getEntityManager();
         EntityTransaction transaction = em.getTransaction();
-        
+
         try {
             transaction.begin();
-            if (verificaResiduos()== true) {
+            if (verificaResiduos() == true) {
                 for (ResiduoModel residuo : residuos) {
                     em.persist(residuo);
                 }
@@ -156,32 +206,41 @@ public class ResiduoDAOImp implements IResiduoDAO {
         }
 
         return residuos;
-        
-        
+
     }
 
-
+    /**
+     * Busca y devuelve un objeto ResiduoModel basado en su nombre.
+     *
+     * @param nombre Nombre del residuo a buscar.
+     * @return Objeto ResiduoModel encontrado o null si no se encuentra.
+     */
     @Override
     public ResiduoModel findResiduoNombre(String nombre) {
-          EntityManager em = getEntityManager();
-    try {
-        TypedQuery<ResiduoModel> query = em.createQuery(
-                "SELECT q FROM ResiduoModel q WHERE q.nombre = :nombre", ResiduoModel.class);
-        query.setParameter("nombre", nombre);
-        List<ResiduoModel> resultados = query.getResultList();
-        return resultados.get(0);
-    } finally {
-        em.close();
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<ResiduoModel> query = em.createQuery(
+                    "SELECT q FROM ResiduoModel q WHERE q.nombre = :nombre", ResiduoModel.class);
+            query.setParameter("nombre", nombre);
+            List<ResiduoModel> resultados = query.getResultList();
+            return resultados.get(0);
+        } finally {
+            em.close();
+        }
     }
-    }
-    
+
+    /**
+     * Metodo que verifica si la lista de residuos es vacía
+     *
+     * @return return true/false
+     */
     public boolean verificaResiduos() {
-  
+
         if (findResiduoModelEntities().isEmpty()) {
             return true;
         } else {
             return false;
         }
     }
-    
+
 }

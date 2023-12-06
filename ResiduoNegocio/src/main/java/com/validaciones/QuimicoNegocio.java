@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Clase que corresponde a la capa de negocio de un Quimico
  *
  * @author PRIDE ANACONDA
  */
@@ -21,20 +22,31 @@ public class QuimicoNegocio {
     IQuimicoDAO iQuimicoDAO = new QuimicoDAOImp();
     Util util = new Util();
 
-    public List<QuimicoModel> llenaListaQuimicos(){
+    /**
+     * Metodo que se encarga de llenar una lista de quimicos recuperandolos de
+     * la capa de persistencia
+     *
+     * @return lista de quimicos
+     */
+    public List<QuimicoModel> llenaListaQuimicos() {
 
         ArrayList<QuimicoModel> quimicos = util.creaQuimicos();
 
         return iQuimicoDAO.llenaListaQuimicos(quimicos);
-    
+
     }
-    
-    
-    
-    public QuimicoModel buscarQuimicoPorNombre(String nombre){
+
+    /**
+     * Metodo que se encarga de buscar quimicos por su nombre, recuperandolo de
+     * la capa de persistencia
+     *
+     * @param nombre
+     * @return quimico encontrado
+     */
+    public QuimicoModel buscarQuimicoPorNombre(String nombre) {
         QuimicoModel quimico = iQuimicoDAO.findQuimicoNombre(nombre);
-        
+
         return quimico;
-        
+
     }
 }

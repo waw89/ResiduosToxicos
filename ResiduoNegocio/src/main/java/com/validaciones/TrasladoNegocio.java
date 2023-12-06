@@ -11,20 +11,26 @@ import com.utilerias.Util;
 import entitys.TrasladoModel;
 
 /**
+ * Clase que representa la capa de negocio del traslado
  *
  * @author xfs85
  */
 public class TrasladoNegocio {
+
     Util util = new Util();
     ITrasladoDAO iTrasDAO = new TrasladoDAOImp();
-    
-    public TrasladoModel guardar(DTORegistraTraslado dtoRegistraTraslado){
+
+    /**
+     * Metodo que guarda un traslado, convirtiendo un DTO a TrasladoModel, tras
+     * eso lo manda a persistencia
+     *
+     * @param dtoRegistraTraslado
+     * @return
+     */
+    public TrasladoModel guardar(DTORegistraTraslado dtoRegistraTraslado) {
         TrasladoModel tras = util.ConvertirDTOTrasladoATraslado(dtoRegistraTraslado);
         iTrasDAO.create(tras);
         return tras;
     }
-    
-    
-    
-    
+
 }

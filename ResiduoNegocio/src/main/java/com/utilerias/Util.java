@@ -22,12 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Clase de utilrerías
  *
  * @author PRIDE ANACONDA
  */
 public class Util {
 
- 
     /**
      *
      * @param usuario
@@ -35,19 +35,17 @@ public class Util {
      *
      * Convierte un objeto de tipo Usuario a un UsuarioDTO
      */
-    
-    
     public DTOIniciarSesion convertirUsuarioAUsuarioDTO(UsuarioModel usuario) {
         return new DTOIniciarSesion(usuario.getTipo(), usuario.getNombre(), usuario.getUsuario(), usuario.getPassword());
 
     }
 
-//    public Usuario ConvertirDTOUsuarioAUsuario(DTOUsuario DTOusuario) {
-//        if (DTOusuario != null) {
-//            return new Usuario(DTOusuario.getTipo(), DTOusuario.getNombre(), DTOusuario.getUsuario(), DTOusuario.getPassword());
-//        }
-//        return null;
-//    }
+    /**
+     * Metodo que convierte un objeto de tipo UsuarioDTO a un UsuarioModel
+     *
+     * @param dtoIniciarSesion
+     * @return
+     */
     public UsuarioModel ConvertirDTOUsuarioAUsuario(DTOIniciarSesion dtoIniciarSesion) {
         if (dtoIniciarSesion != null) {
             return new UsuarioModel(dtoIniciarSesion.getTipo(), dtoIniciarSesion.getNombre(), dtoIniciarSesion.getUsuario(), dtoIniciarSesion.getContraseña());
@@ -55,6 +53,11 @@ public class Util {
         return null;
     }
 
+    /**
+     * Metodo que crea los objetos de tipo quimico
+     *
+     * @return
+     */
     public ArrayList<QuimicoModel> creaQuimicos() {
         QuimicoModel quim1 = new QuimicoModel("Plomo", null);
         QuimicoModel quim2 = new QuimicoModel("Cianuro", null);
@@ -71,6 +74,12 @@ public class Util {
         return nuevosQuimicos;
     }
 
+    /**
+     * Metodo que convierte un objeto de tipo RegistraResiduoDTO a un Residuo
+     *
+     * @param residuoDTO
+     * @return
+     */
     public ResiduoModel convertirResiduoDTOAResiduo(DTORegistraResiduo residuoDTO) {
 
         ResiduoModel residuo = new ResiduoModel();
@@ -82,16 +91,30 @@ public class Util {
         residuo.setProductor(residuoDTO.getId_productor());
         return residuo;
     }
-    public DTORegistraResiduo convertirResiduoADTORegistraResiduo(ResiduoModel residuo){
-        DTORegistraResiduo DTORegistrarResiduo = new DTORegistraResiduo(); 
+
+    /**
+     * Metodo que convierte un objeto tipo ResiduoModel a un DTORegistraResiduo
+     *
+     * @param residuo
+     * @return
+     */
+    public DTORegistraResiduo convertirResiduoADTORegistraResiduo(ResiduoModel residuo) {
+        DTORegistraResiduo DTORegistrarResiduo = new DTORegistraResiduo();
         DTORegistrarResiduo.setCodigo_residuo(residuo.getCodigo());
         DTORegistrarResiduo.setNombre_residuo(residuo.getNombre());
-        DTORegistrarResiduo.setId_productor(residuo.getProductor()); 
+        DTORegistrarResiduo.setId_productor(residuo.getProductor());
         DTORegistrarResiduo.setQuimicos(residuo.getListaQuimicos());
-        
-        return DTORegistrarResiduo; 
+
+        return DTORegistrarResiduo;
     }
 
+    /**
+     * Metodo que convierte un objeto tipo DTOSolicitaTraslado a un
+     * SolicitudTrasladoModel
+     *
+     * @param solicitudTrasladoDTO
+     * @return
+     */
     public SolicitudTrasladoModel convertirSolicitudTrasladoDTOaSolicitudTraslado(DTOSolicitaTraslado solicitudTrasladoDTO) {
 
         SolicitudTrasladoModel solicitudTraslado = new SolicitudTrasladoModel();
@@ -105,14 +128,16 @@ public class Util {
         solicitudTraslado.setId(solicitudTrasladoDTO.getId());
         return solicitudTraslado;
     }
-    
+
     /**
-     * 
+     * Metodo que convierte un objeto tipo SolicitudTrasladoModel a un
+     * DTOSolicitaTraslado
+     *
      * @param solicitud
-     * @return 
+     * @return
      */
-    public DTOSolicitaTraslado convertirSolicitudTrasladoASolicitudTrasladoDTO(SolicitudTrasladoModel solicitud){
-        
+    public DTOSolicitaTraslado convertirSolicitudTrasladoASolicitudTrasladoDTO(SolicitudTrasladoModel solicitud) {
+
         DTOSolicitaTraslado solicitudTrasladoDTO = new DTOSolicitaTraslado();
 
         solicitudTrasladoDTO.setAsignado(solicitud.esAsignado());
@@ -125,25 +150,12 @@ public class Util {
         return solicitudTrasladoDTO;
     }
 
-//    public ArrayList<DTOIniciarSesion> creaDTOUsuarios(){
-//        
-//        
-//        DTOIniciarSesion usuario1 = new DTOIniciarSesion();
-//        usuario1.setTipo("Productor");
-//        usuario1.setNombre("Raúl");
-//        usuario1.setContraseña("1234");
-//        usuario1.setUsuario("rully");
-//       
-//        ConvertirDTOUsuarioAUsuario(usuario1);
-//      
-//        ArrayList nuevosUsuarios = new ArrayList();
-//        
-//        if(nuevosUsuarios.isEmpty()){
-//        nuevosUsuarios.add(usuario1); 
-//        }
-//        return nuevosUsuarios;
-//    }
-    public ArrayList<UsuarioModel> creaUsuarios() { 
+    /**
+     * Metodo que crea objetos tipo usuarioModel
+     *
+     * @return
+     */
+    public ArrayList<UsuarioModel> creaUsuarios() {
 
         // Los parametros son tipo,nombre, nombre de usuario y contraseña
         ProductorModel usuario1 = new ProductorModel("Productor", "Raúl", "rully", "1234");
@@ -151,11 +163,9 @@ public class Util {
         AdministradorModel usuario2 = new AdministradorModel("Administrador", "Luis", "waw", "1234");
 
         TransportistaModel usuario3 = new TransportistaModel("Transportista", "Softcode", "softcode", "1234");
-        
+
         TransportistaModel usuario4 = new TransportistaModel("Transportista", "DHL", "dhl", "1234");
-       
-        
-        
+
         ArrayList nuevosUsuarios = new ArrayList();
 
         if (nuevosUsuarios.isEmpty()) {
@@ -166,24 +176,28 @@ public class Util {
         }
         return nuevosUsuarios;
     }
-    
- public TrasladoModel ConvertirDTOTrasladoATraslado(DTORegistraTraslado dtoRegistraTraslado) {
+
+    /**
+     * Metodo que convierte un objeto de tipo DTORegistraTraslado a un
+     * TrasladoModel
+     *
+     * @param dtoRegistraTraslado
+     * @return
+     */
+    public TrasladoModel ConvertirDTOTrasladoATraslado(DTORegistraTraslado dtoRegistraTraslado) {
         VehiculoNegocio vn = new VehiculoNegocio();
-        
-     TrasladoModel traslado = new TrasladoModel();
-     traslado.setCostoTotal(dtoRegistraTraslado.getCosto());
-     traslado.setFechaLlegada(dtoRegistraTraslado.getFecha());
-     traslado.setKmTotales(dtoRegistraTraslado.getKms());
-     traslado.setVehiculos(vn.convertirVehiculos(dtoRegistraTraslado.getIdsVehiculos()));
-     traslado.setSolicitudTraslado(dtoRegistraTraslado.getSolicitud());
-     traslado.setTipoTraslado(dtoRegistraTraslado.getTipo());
-     traslado.setTratamiento(dtoRegistraTraslado.getTratamiento());
-   
-     return traslado;
-     
+
+        TrasladoModel traslado = new TrasladoModel();
+        traslado.setCostoTotal(dtoRegistraTraslado.getCosto());
+        traslado.setFechaLlegada(dtoRegistraTraslado.getFecha());
+        traslado.setKmTotales(dtoRegistraTraslado.getKms());
+        traslado.setVehiculos(vn.convertirVehiculos(dtoRegistraTraslado.getIdsVehiculos()));
+        traslado.setSolicitudTraslado(dtoRegistraTraslado.getSolicitud());
+        traslado.setTipoTraslado(dtoRegistraTraslado.getTipo());
+        traslado.setTratamiento(dtoRegistraTraslado.getTratamiento());
+
+        return traslado;
+
     }
 
- 
-       
-    }
-
+}

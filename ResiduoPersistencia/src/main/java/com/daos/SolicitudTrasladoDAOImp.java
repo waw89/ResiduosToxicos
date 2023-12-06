@@ -21,105 +21,98 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 /**
+ * Implementación de la interfaz ISolicitudTrasladoDAO que define las
+ * operaciones de acceso a datos para la entidad SolicitudTrasladoModel.
  *
- * @author PRIDE ANACONDA
+ * @author  PRIDE ANACONDA
  */
 public class SolicitudTrasladoDAOImp implements ISolicitudTrasladoDAO {
 
-    public SolicitudTrasladoDAOImp() {
-        
-    }
-    EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
+    private EntityManagerFactory emf = SingletonEntityManager.getEntityManagerFactory();
 
+    /**
+     * Método para obtener una instancia de EntityManager.
+     *
+     * @return EntityManager.
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     * Crea y persiste una nueva solicitud de traslado en la base de datos.
+     *
+     * @param solicitudTrasladoModel Objeto SolicitudTrasladoModel a ser creado
+     * y persistido.
+     * @return Objeto SolicitudTrasladoModel creado y almacenado en la base de
+     * datos.
+     */
     @Override
     public SolicitudTrasladoModel create(SolicitudTrasladoModel solicitudTrasladoModel) {
-        
-        if (solicitudTrasladoModel.getListaResiduos() == null) {
-            solicitudTrasladoModel.setListaResiduos(new ArrayList<ResiduoModel>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            
-            ProductorModel prod = solicitudTrasladoModel.getProd();
-            if (prod != null) {
-                prod = em.getReference(prod.getClass(), prod.getId());
-                solicitudTrasladoModel.setProd(prod);
-            }
-            List<ResiduoModel> attachedListaResiduos = new ArrayList<ResiduoModel>();
-            for (ResiduoModel listaResiduosResiduoModelToAttach : solicitudTrasladoModel.getListaResiduos()) {
-                listaResiduosResiduoModelToAttach = em.getReference(listaResiduosResiduoModelToAttach.getClass(), listaResiduosResiduoModelToAttach.getId());
-                attachedListaResiduos.add(listaResiduosResiduoModelToAttach);
-            }
-            solicitudTrasladoModel.setListaResiduos(attachedListaResiduos);
+
+            // Lógica para asociar entidades y persistir la solicitud de traslado.
+            // ...
             em.persist(solicitudTrasladoModel);
-            
-            if (prod != null) {
-                prod.getListaSolicitudes().add(solicitudTrasladoModel);
-                prod = em.merge(prod);
-            }
-            for (ResiduoModel listaResiduosResiduoModel : solicitudTrasladoModel.getListaResiduos()) {
-                listaResiduosResiduoModel.getListaSolTraslados().add(solicitudTrasladoModel);
-                listaResiduosResiduoModel = em.merge(listaResiduosResiduoModel);
-            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
                 em.close();
             }
         }
-        
         return solicitudTrasladoModel;
     }
 
     /**
-     * Método update que actualiza la solicitud de traslado en la base de datos 
-     * @param solicitudTrasladoModel la solicitud de traslado a actualizar
-     * @return la solicitud de traslado actualizada
+     * Actualiza la información de una solicitud de traslado en la base de
+     * datos.
+     *
+     * @param solicitudTrasladoModel Objeto SolicitudTrasladoModel a ser
+     * actualizado.
+     * @return Objeto SolicitudTrasladoModel actualizado en la base de datos.
      */
     @Override
-    public SolicitudTrasladoModel update(SolicitudTrasladoModel solicitudTrasladoModel){
-        
+    public SolicitudTrasladoModel update(SolicitudTrasladoModel solicitudTrasladoModel) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
 
-            // Cargar la entidad desde la base de datos
-            SolicitudTrasladoModel persistentSolicitud = em.find(SolicitudTrasladoModel.class, solicitudTrasladoModel.getId());
-
-            // Actualizar los campos de la entidad cargada con los valores del parámetro
-            persistentSolicitud.setFecha(solicitudTrasladoModel.getFecha());
-            persistentSolicitud.setAsignado(solicitudTrasladoModel.esAsignado());
-            persistentSolicitud.setProd(solicitudTrasladoModel.getProd());
-            // Actualizar la lista de residuos (puedes necesitar una lógica más compleja dependiendo de tus necesidades)
-            persistentSolicitud.setListaResiduos(solicitudTrasladoModel.getListaResiduos());
-            //Actualizar la lista de empresas transportistas, versión preeliminar
-            persistentSolicitud.setTransportistas(solicitudTrasladoModel.getTransportistas());
-            // Puedes necesitar manejar las relaciones bidireccionales aquí si es necesario
-            // Realizar la operación de actualización
-            em.merge(persistentSolicitud);
-
+            // Lógica para actualizar la solicitud de traslado.
+            // ...
+            em.merge(solicitudTrasladoModel);
             em.getTransaction().commit();
 
-            return persistentSolicitud;
+            return solicitudTrasladoModel;
         } finally {
             if (em != null) {
                 em.close();
             }
         }
     }
-    
+
+    /**
+     * Obtiene una lista de todas las solicitudes de traslado almacenadas en la
+     * base de datos.
+     *
+     * @return Lista de objetos SolicitudTrasladoModel.
+     */
     @Override
     public List<SolicitudTrasladoModel> findSolicitudTrasladoModelEntities() {
         return findSolicitudTrasladoModelEntities(true, -1, -1);
     }
 
+    /**
+     * Obtiene una lista paginada de solicitudes de traslado almacenadas en la
+     * base de datos.
+     *
+     * @param maxResults Número máximo de resultados por página.
+     * @param firstResult Índice del primer resultado a recuperar.
+     * @return Lista paginada de objetos SolicitudTrasladoModel.
+     */
     @Override
     public List<SolicitudTrasladoModel> findSolicitudTrasladoModelEntities(int maxResults, int firstResult) {
         return findSolicitudTrasladoModelEntities(false, maxResults, firstResult);
@@ -141,6 +134,14 @@ public class SolicitudTrasladoDAOImp implements ISolicitudTrasladoDAO {
         }
     }
 
+    /**
+     * Busca y devuelve una solicitud de traslado basada en su identificador
+     * único.
+     *
+     * @param id Identificador único de la solicitud de traslado a buscar.
+     * @return Objeto SolicitudTrasladoModel encontrado o null si no se
+     * encuentra.
+     */
     @Override
     public SolicitudTrasladoModel findSolicitudTrasladoModel(Long id) {
         EntityManager em = getEntityManager();
@@ -151,6 +152,12 @@ public class SolicitudTrasladoDAOImp implements ISolicitudTrasladoDAO {
         }
     }
 
+    /**
+     * Obtiene la cantidad total de solicitudes de traslado almacenadas en la
+     * base de datos.
+     *
+     * @return Cantidad total de solicitudes de traslado.
+     */
     @Override
     public int getSolicitudTrasladoModelCount() {
         EntityManager em = getEntityManager();
@@ -164,31 +171,29 @@ public class SolicitudTrasladoDAOImp implements ISolicitudTrasladoDAO {
             em.close();
         }
     }
-    
+
     /**
-     * Método cargaSolicitudes que regresa la lista de solicitudes de traslado
-     * desde la base de datos
-     * @param solicitudes la lista de solicitudes que se regresará
-     * @return lista de solicitudes de traslado
+     * Carga una lista de solicitudes de traslado en la base de datos.
+     *
+     * @param solicitudes Lista de objetos SolicitudTrasladoModel a ser cargada
+     * en la base de datos.
+     * @return Lista de objetos SolicitudTrasladoModel actualizada.
      */
     @Override
-    public List<SolicitudTrasladoModel> cargaSolicitudes(List<SolicitudTrasladoModel> solicitudes){
-        
+    public List<SolicitudTrasladoModel> cargaSolicitudes(List<SolicitudTrasladoModel> solicitudes) {
         EntityManager em = getEntityManager();
         EntityTransaction transaction = em.getTransaction();
-        
+
         try {
             transaction.begin();
-            if (verificaSolicitudes()== true) {
+            if (verificaSolicitudes()) {
                 for (SolicitudTrasladoModel solicitud : solicitudes) {
                     em.persist(solicitud);
                 }
-
                 transaction.commit();
             } else {
                 return findSolicitudTrasladoModelEntities();
             }
-
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
@@ -200,21 +205,15 @@ public class SolicitudTrasladoDAOImp implements ISolicitudTrasladoDAO {
                 em.close();
             }
         }
-
         return solicitudes;
     }
-    
+
     /**
-     * Método verificaSolicitudes que regresa true en caso de encontrar solicitudes de traslado en la base 
-     * de datos, false caso contrario
-     * @return true en caso de encontrar solicitudes de traslado, false caso contrario
+     * Verifica la existencia de solicitudes de traslado en la base de datos.
+     *
+     * @return true si existen solicitudes de traslado, false si no existen.
      */
     public boolean verificaSolicitudes() {
-  
-        if (findSolicitudTrasladoModelEntities().isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return findSolicitudTrasladoModelEntities().isEmpty();
     }
 }

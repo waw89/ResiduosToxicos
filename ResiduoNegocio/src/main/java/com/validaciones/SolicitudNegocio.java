@@ -9,7 +9,7 @@ import com.daos.IEspecificacionDAO;
 import com.daos.ISolicitudTrasladoDAO;
 import com.daos.SolicitudTrasladoDAOImp;
 import com.dto.DTOSolicitaTraslado;
-import com.daos.Solicitud_TransportistaJpaController;
+import com.daos.Solicitud_TransportistaDAOImp;
 import com.utilerias.Util;
 import entitys.Especificacion_Residuos;
 import entitys.ResiduoModel;
@@ -22,6 +22,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
+ * Clase que representa la capa de negocio en la solicitud del sistema
  *
  * @author xfs85
  */
@@ -30,7 +31,7 @@ public class SolicitudNegocio {
     IEspecificacionDAO especificacionDAO = new EspecificacionResiduosDAOImp();
     Util util = new Util();
     ISolicitudTrasladoDAO sdao = new SolicitudTrasladoDAOImp();
-    Solicitud_TransportistaJpaController soicitudTransportista_transportistaDAO = new Solicitud_TransportistaJpaController();
+    Solicitud_TransportistaDAOImp soicitudTransportista_transportistaDAO = new Solicitud_TransportistaDAOImp();
 
     public SolicitudTrasladoModel guardar(DTOSolicitaTraslado dtoSolicitaTraslado) {
         SolicitudTrasladoModel st = util.convertirSolicitudTrasladoDTOaSolicitudTraslado(dtoSolicitaTraslado);
@@ -39,50 +40,55 @@ public class SolicitudNegocio {
     }
 
     /**
-     * Método que actualiza la solicitud de traslado y las especificaciones de residuos
-     * @param dtoSolicitaTraslado la solicitud de trasladoDTO a convertir en solicitud de traslado model
+     * Método que actualiza la solicitud de traslado y las especificaciones de
+     * residuos
+     *
+     * @param dtoSolicitaTraslado la solicitud de trasladoDTO a convertir en
+     * solicitud de traslado model
      * @param especificacion la especificación de residuo a actualizar
-     * @return 
+     * @return
      */
-    public SolicitudTrasladoModel actualizar(DTOSolicitaTraslado dtoSolicitaTraslado, Especificacion_Residuos especificacion){
+    public SolicitudTrasladoModel actualizar(DTOSolicitaTraslado dtoSolicitaTraslado, Especificacion_Residuos especificacion) {
         SolicitudTrasladoModel solicitudTraslado = util.convertirSolicitudTrasladoDTOaSolicitudTraslado(dtoSolicitaTraslado);
         try {
             especificacionDAO.edit(especificacion);
         } catch (Exception e) {
-            
+
         }
-        
+
         return sdao.update(solicitudTraslado);
     }
 
     /**
      * Método repartirCantidad que reparte la cantidad del residuo entre las
      * empresas transportistas
+     *
      * @param listaTransportistas la lista de empresas transportistas
-     * @param especificacion el residuo especificado del que se obtendrá la cantidad del residuo
+     * @param especificacion el residuo especificado del que se obtendrá la
+     * cantidad del residuo
      */
     public void repartirCantidad(List<TransportistaModel> listaTransportistas, Especificacion_Residuos especificacion) {
-       
+
         List<Solicitud_Transportista> registrosSolicituTransportista = this.soicitudTransportista_transportistaDAO.findSolicitud_TransportistaEntities();
         for (Solicitud_Transportista registro : registrosSolicituTransportista) {
-            
-            if(registro.getSolicitud().getId() == especificacion.getSolicitud().getId()){
+
+            if (registro.getSolicitud().getId() == especificacion.getSolicitud().getId()) {
                 List<ResiduoModel> residuos = registro.getSolicitud().getListaResiduos();
-                
-                for(ResiduoModel residuo: residuos){
-                    if(residuo.getId() == especificacion.getResiduo().getId()){
+
+                for (ResiduoModel residuo : residuos) {
+                    if (residuo.getId() == especificacion.getResiduo().getId()) {
                         especificacion.getResiduo().getId();
                         registro.setCantidad(especificacion.getCantidad() / listaTransportistas.size());
-                        
+
                         try {
                             this.soicitudTransportista_transportistaDAO.edit(registro);
                         } catch (Exception e) {
                         }
                     }
                 }
-     
+
             }
-            
+
         }
 
     }
@@ -101,6 +107,12 @@ public class SolicitudNegocio {
         return solicitudes;
     }
 
+    /**
+     * Metodo que verifica que no existan 5 traslados en un mismo día
+     *
+     * @param fecha
+     * @return true/flase dependiendo si existen o no
+     */
     public boolean verificarMaximoTrasladosPorDia(LocalDate fecha) {
         int contador = 0;
 
@@ -118,36 +130,24 @@ public class SolicitudNegocio {
         return true;
     }
 
+    /**
+     * Metodo que obtiene la lista de la tabla de especificación de residuos,
+     * consultando la capa de persistencia
+     *
+     * @return lista de especificaciones de residuo
+     */
     public List<Especificacion_Residuos> obtenerListaEspecificacionesResiduos() {
         List<Especificacion_Residuos> listaEspecificacionResiduos = new ArrayList<>();
-//        if(especificacionDAO.getEspecificacion_ResiduosCount() == 0){
-////        int i = especificacionDAO.getEspecificacion_ResiduosCount();
-////
-////        for (int n = 0; n <= i; n++) {
-////            if (especificacionDAO.findEspecificacion_Residuos((long) n) != null) {
-////                Especificacion_Residuos especificacionResiduo = especificacionDAO.findEspecificacion_Residuos((long) n);
-////                listaEspecificacionResiduos.add(especificacionResiduo);
-////            }
-////
-////        }
-
         listaEspecificacionResiduos = especificacionDAO.findEspecificacion_ResiduosEntities();
-//        }else{
-//            int i = especificacionDAO.getEspecificacion_ResiduosCount()-1;
-//            
-//            for (int n = 0; n <= i; n++) {
-//                if (especificacionDAO.findEspecificacion_Residuos((long) n) != null) {
-//                    Especificacion_Residuos especificacionResiduo = especificacionDAO.findEspecificacion_Residuos((long) n);
-//                    listaEspecificacionResiduos.add(especificacionResiduo);
-//                }
-//
-//            }
-//        }
 
         return listaEspecificacionResiduos;
 
     }
 
+    /**
+     * Metodo que se encarga de actualizar la cantidad del residuo
+     * @param cantidadesResiduos 
+     */
     public void actualizaCantidadDelResiduo(List<Float> cantidadesResiduos) {
         if (especificacionDAO.getEspecificacion_ResiduosCount() == 0) {
             int i = especificacionDAO.getEspecificacion_ResiduosCount();
@@ -186,6 +186,11 @@ public class SolicitudNegocio {
 
     }
 
+    /**
+     * Metodo que valida si una solicitud es existente
+     * @param dtoSolicitudARegistrar
+     * @return 
+     */
     public boolean validaSolicitudNoExistente(DTOSolicitaTraslado dtoSolicitudARegistrar) {
         SolicitudTrasladoModel solicitudARegistrar = util.convertirSolicitudTrasladoDTOaSolicitudTraslado(dtoSolicitudARegistrar);
         List<SolicitudTrasladoModel> solicitudes = sdao.findSolicitudTrasladoModelEntities();
